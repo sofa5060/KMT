@@ -1,0 +1,99 @@
+$main-color: #ca9841;
+$secondary-color: #68492a;
+$text-color: #2d2d2f;
+
+.search-box {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  max-width: 850px;
+  width: 100%;
+  margin: -100px auto 0 auto;
+  border: 2px solid $main-color;
+  border-radius: 10px;
+  background: #fff;
+
+  .search-terms {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    padding: 25px 40px;
+    gap: 35px;
+
+    .search-term {
+      display: flex;
+      .icon {
+        margin: 0 10px 0 0;
+      }
+
+      hr{
+        border: 1px $main-color;
+      }
+
+      .term {
+        margin: 6px 0 0 0;
+
+        .guests-picker{
+          display: flex;
+
+          input[type="number"]::-webkit-inner-spin-button,
+          input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+          }
+
+          input{
+            max-width: 50px;
+            text-align: center;
+            border: 0;
+            outline: 0;
+          }
+
+          img{
+            cursor: pointer;
+          }
+        }
+
+        .css-r5jwtn-MuiAutocomplete-root input {
+          border: 0 !important;
+          outline: 0 !important;
+        }
+
+        // Decreased the padding of the date picker
+        .css-nxo287-MuiInputBase-input-MuiOutlinedInput-input {
+          padding: 5px;
+        }
+
+        // Changed the font of the date picker input field
+        .css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root {
+          font-family: "Inter", sans-serif;
+          font-weight: 400;
+        }
+
+        // Changer date icon color
+        .css-i4bv87-MuiSvgIcon-root {
+          fill: $main-color;
+        }
+
+        h4 {
+          font-family: "Inter", sans-serif;
+          font-weight: 700;
+          font-size: 16px;
+          margin: 0 0 20px 0;
+        }
+      }
+    }
+  }
+
+  .search-btn {
+    width: 70px;
+    border-radius: 0 10px 10px 0;
+    margin: 0 -3px 0 0;
+    border: 0;
+    cursor: pointer;
+    background: $main-color url('../../images/search.svg') no-repeat center;
+  }
+}

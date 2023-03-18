@@ -1,19 +1,23 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Fade } from "react-slideshow-image";
 import nextArrowIcon from "../../images/next.svg";
 import prevArrowIcon from "../../images/prev.svg";
 import "react-slideshow-image/dist/styles.css";
 import "./Homepage.css";
+import Searchbox from "../SearchBox/Searchbox";
 
 export default function Homepage() {
   const images = [
     {
       imageLink: "https://i.ibb.co/F4N38S0/Egypt-Modified-1.png",
       cityName: "Pyramids of Giza",
+      searchTerm: "giza",
     },
     {
       imageLink: "https://i.ibb.co/8jyG9cL/Egypt-Modified-2.png",
       cityName: "Aswan",
+      searchTerm: "aswan",
     },
   ];
 
@@ -53,13 +57,14 @@ export default function Homepage() {
                   ancient temples and monuments.
                 </h3>
                 <div className="slider">
-                  <h3>{img.cityName}</h3>
+                  <Link to={'search/' + img.searchTerm}>{img.cityName}</Link>
                 </div>
               </div>
             </div>
           );
         })}
       </Fade>
+      <Searchbox />
     </div>
   );
 }
