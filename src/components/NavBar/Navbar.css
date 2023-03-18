@@ -1,0 +1,30 @@
+.navbar-background {
+  width: 100%;
+  background: #000;
+  padding: 5px 50px;
+}
+.navbar-background .navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.navbar-background .navbar li {
+  list-style: none;
+}
+.navbar-background .navbar a {
+  text-decoration: none;
+  cursor: pointer;
+}
+.navbar-background .navbar ul {
+  display: flex;
+}
+.navbar-background .navbar .navbar-user li, .navbar-background .navbar .navbar-user a {
+  color: #ca9841;
+}
+.navbar-background .navbar .navbar-list a {
+  color: #fff;
+  margin: 0 30px;
+}
+.navbar-background .navbar .navbar-list .main {
+  color: #ca9841;
+}/*# sourceMappingURL=Navbar.css.map */
