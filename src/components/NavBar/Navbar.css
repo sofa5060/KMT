@@ -14,12 +14,15 @@
 .navbar-background .navbar a {
   text-decoration: none;
   cursor: pointer;
+  font-weight: 500;
+  font-size: 15px;
 }
 .navbar-background .navbar ul {
   display: flex;
 }
 .navbar-background .navbar .navbar-user li, .navbar-background .navbar .navbar-user a {
   color: #ca9841;
+  text-transform: uppercase;
 }
 .navbar-background .navbar .navbar-list a {
   color: #fff;
