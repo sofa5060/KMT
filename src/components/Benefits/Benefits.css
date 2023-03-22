@@ -1,0 +1,18 @@
+.benefits {
+  margin: 100px 0 0 0;
+}
+.benefits h1 {
+  font-size: 36px;
+  font-weight: 700;
+  text-align: center;
+}
+.benefits h1 span {
+  color: #ca9841;
+}
+.benefits section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1300px;
+  padding: 100px 50px;
+}/*# sourceMappingURL=Benefits.css.map */

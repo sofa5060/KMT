@@ -1,4 +1,7 @@
-$main-color: #ca9841;
+@use '../../pages/HomePage/Homepage.scss' as main;
+$main-color: main.$main-color;
+$secondary-color: main.$secondary-color;
+$text-color: main.$text-color;
 
 .navbar-background {
   width: 100%;

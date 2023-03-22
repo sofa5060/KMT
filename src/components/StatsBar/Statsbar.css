@@ -1,0 +1,33 @@
+.stats-bar-background {
+  background-color: rgba(202, 152, 65, 0.19);
+  margin: 150px 0 0 0;
+}
+.stats-bar-background .stats-bar {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.stats-bar-background .stats-bar h2 {
+  font-size: 36px;
+  font-weight: 700;
+  max-width: 400px;
+}
+.stats-bar-background .stats-bar .stats {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 85px;
+  min-width: -moz-max-content;
+  min-width: max-content;
+}
+.stats-bar-background .stats-bar .stats .stat h1 {
+  font-size: 54px;
+  font-weight: 700;
+  color: #ca9841;
+}
+.stats-bar-background .stats-bar .stats .stat p {
+  font-size: 18px;
+}/*# sourceMappingURL=Statsbar.css.map */

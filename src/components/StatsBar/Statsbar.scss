@@ -1,0 +1,49 @@
+@use '../../pages/HomePage/Homepage.scss' as main;
+$main-color: main.$main-color;
+$secondary-color: main.$secondary-color;
+$text-color: main.$text-color;
+
+
+@mixin transparentBackgroundColorMixin($alpha,$color) {
+  background-color: rgba(red($color), green($color), blue($color), $alpha);
+}
+
+.stats-bar-background{
+  @include transparentBackgroundColorMixin(0.19, $main-color);
+  margin: 150px 0 0 0;
+
+  .stats-bar{
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    h2{
+      font-size: 36px;
+      font-weight: 700;
+      max-width: 400px;
+    }
+
+    .stats{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 85px;
+      min-width: max-content;
+
+      .stat{
+        h1{
+          font-size: 54px;
+          font-weight: 700;
+          color: $main-color;
+        }
+
+        p{
+          font-size: 18px;
+        }
+      }
+    }
+  }
+}

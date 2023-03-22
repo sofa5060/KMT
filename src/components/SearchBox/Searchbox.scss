@@ -1,6 +1,7 @@
-$main-color: #ca9841;
-$secondary-color: #68492a;
-$text-color: #2d2d2f;
+@use '../../pages/HomePage/Homepage.scss' as main;
+$main-color: main.$main-color;
+$secondary-color: main.$secondary-color;
+$text-color: main.$text-color;
 
 .search-box {
   position: absolute;

@@ -1,0 +1,77 @@
+@use '../../pages/HomePage/Homepage.scss' as main;
+$main-color: main.$main-color;
+$secondary-color: main.$secondary-color;
+$text-color: main.$text-color;
+$distance-from-center: 100px;
+$ibm: main.$ibm;
+$golos: main.$golos;
+
+
+.arrow{
+  position: absolute;
+  top: 250px;
+}
+
+.left-arrow{
+  left: 50% !important;
+  transform: translateX(calc(-50% - $distance-from-center));
+}
+
+.right-arrow{
+  right: 50% !important;
+  transform: translateX(calc(50% + $distance-from-center));
+}
+
+.each-slide {
+  width: 100%;
+  position: relative;
+
+  div {
+    width: 100%;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .slider-content {
+    position: absolute;
+    top: 60px;
+    text-align: center;
+
+    h4 {
+      font-family: "Inter", sans-serif;
+      font-weight: 700;
+      color: $secondary-color;
+    }
+
+    h1 {
+      margin: 20px 0 15px 0;
+      font-weight: 700;
+      font-size: 52px;
+
+      span {
+        font-weight: 900;
+        color: $main-color;
+      }
+    }
+
+    h3 {
+      font-family: $ibm;
+      font-weight: 400;
+      max-width: 700px;
+      margin: 0 auto;
+      color: $text-color;
+    }
+
+    .slider {
+      margin: 30px 0 0 0;
+      a {
+        color: $secondary-color;
+        text-decoration: none;
+      }
+    }
+  }
+}

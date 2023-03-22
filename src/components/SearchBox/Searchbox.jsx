@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import dayjs from "dayjs";
 import Countrysearch from "./Countrysearch";
 import "./Searchbox.css";
 import location from "../../images/location.svg";
@@ -10,7 +11,7 @@ import plus from '../../images/plus 1.svg'
 
 export default function Searchbox() {
   const [country, setCountry] = useState("");
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState(dayjs());
   const [guests, setGuests] = useState(1);
 
   const handleSubmit = (e) => {

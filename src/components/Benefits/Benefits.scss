@@ -1,0 +1,27 @@
+@use '../../pages/HomePage/Homepage.scss' as main;
+$main-color: main.$main-color;
+$secondary-color: main.$secondary-color;
+$text-color: main.$text-color;
+$ibm: main.$ibm;
+$golos: main.$golos;
+
+.benefits{
+  margin: 100px 0 0 0;
+  h1{
+    font-size: 36px;
+    font-weight: 700;
+    text-align: center;
+
+    span{
+      color: $main-color;
+    }
+  }
+
+  section{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1300px;
+    padding: 100px 50px;
+  }
+}

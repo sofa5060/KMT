@@ -1,0 +1,43 @@
+@use "../../pages/HomePage/Homepage.scss" as main;
+$main-color: main.$main-color;
+$secondary-color: main.$secondary-color;
+$text-color: main.$text-color;
+$ibm: main.$ibm;
+$golos: main.$golos;
+
+.top-destination {
+  padding: 50px;
+  text-align: center;
+
+  h3 {
+    font-size: 24px;
+    font-weight: 700;
+  }
+
+  p {
+    font-size: 15px;
+    margin: 17px 0 50px 0;
+    font-family: $ibm;
+    font-weight: 400;
+  }
+
+  .card-list{
+    margin: 40px 0 100px 0;
+    display: flex;
+    gap: 35px;
+    justify-content: space-around;
+    align-items: stretch;
+  }
+
+  .btn {
+    padding: 14px 55px;
+    background: $main-color;
+    display: inline-block;
+    font-size: 16px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    font-family: $ibm;
+    border-radius: 5px;
+  }
+}

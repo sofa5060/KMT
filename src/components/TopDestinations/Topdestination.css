@@ -1,0 +1,32 @@
+.top-destination {
+  padding: 50px;
+  text-align: center;
+}
+.top-destination h3 {
+  font-size: 24px;
+  font-weight: 700;
+}
+.top-destination p {
+  font-size: 15px;
+  margin: 17px 0 50px 0;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-weight: 400;
+}
+.top-destination .card-list {
+  margin: 40px 0 100px 0;
+  display: flex;
+  gap: 35px;
+  justify-content: space-around;
+  align-items: stretch;
+}
+.top-destination .btn {
+  padding: 14px 55px;
+  background: #ca9841;
+  display: inline-block;
+  font-size: 16px;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  font-family: "IBM Plex Sans", sans-serif;
+  border-radius: 5px;
+}/*# sourceMappingURL=Topdestination.css.map */
