@@ -1,27 +1,78 @@
-@use '../../pages/HomePage/Homepage.scss' as main;
+@use "../../pages/HomePage/Homepage.scss" as main;
 $main-color: main.$main-color;
 $secondary-color: main.$secondary-color;
 $text-color: main.$text-color;
 $ibm: main.$ibm;
 $golos: main.$golos;
 
-.benefits{
+.benefits {
   margin: 100px 0 0 0;
-  h1{
+  h1 {
     font-size: 36px;
     font-weight: 700;
     text-align: center;
 
-    span{
+    span {
       color: $main-color;
     }
   }
 
-  section{
+  section {
     display: flex;
     justify-content: space-between;
     align-items: center;
     max-width: 1300px;
     padding: 100px 50px;
+
+    .images {
+      position: relative;
+
+      .main-image{
+        width: 100%;
+      }
+
+      .benefits-images {
+        position: absolute;
+        display: inline-block;
+        max-width: 300px;
+        width: 100%;
+        top: 20px;
+        right: -20%;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        .benefit {
+          width: 100%;
+          text-align: center;
+          background: #fff;
+          padding: 20px 0 30px 0;
+          border-radius: 20px;
+
+          img {
+            margin: 0 0 20px 0;
+          }
+
+          h4 {
+            font-size: 16px;
+            font-weight: 600;
+          }
+        }
+      }
+    }
+
+    .description {
+      max-width: 440px;
+
+      p{
+        font-size: 16px;
+        font-weight: 400;
+        font-family: $ibm;
+      }
+
+      p:nth-child(2) {
+        margin: 65px 0;
+      }
+    }
   }
 }
