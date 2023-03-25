@@ -1,0 +1,96 @@
+.price-card {
+  background: #fff;
+  max-width: 360px;
+  width: 100%;
+  border-radius: 20px;
+  padding: 0 20px;
+  position: sticky;
+  top: 130px;
+}
+.price-card .sale-banner {
+  background: #ca9841;
+  border-radius: 0 20px;
+  max-width: -moz-max-content;
+  max-width: max-content;
+  margin: 0 -20px 0 auto;
+}
+.price-card .sale-banner h3 {
+  font-weight: 700;
+  font-size: 16px;
+  padding: 15px 30px;
+  color: #fff;
+}
+.price-card h2 {
+  font-size: 24px;
+  font-weight: 600;
+  margin: -20px 0 0 0;
+}
+.price-card p {
+  font-size: 14px;
+  font-weight: 400;
+  font-family: "IBM Plex Sans", sans-serif;
+  margin: 10px 0 20px 0;
+  color: #2d2d2f;
+}
+.price-card .add-ons .add-on {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0;
+}
+.price-card .add-ons .add-on p {
+  font-size: 13px;
+  align-self: center;
+  margin: 0;
+}
+.price-card .price {
+  margin: 20px 0;
+}
+.price-card .price h4 {
+  font-family: "Golos Text", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  text-align: left;
+  color: #2d2d2f;
+  opacity: 0.5;
+  margin: 0 0 0 5px;
+}
+.price-card .price .price-section {
+  display: flex;
+  justify-content: space-between;
+}
+.price-card .price .price-section h2 {
+  margin: 0;
+  color: #ca9841;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 29px;
+  display: flex;
+  align-items: self-start;
+}
+.price-card .price .price-section h2 span {
+  margin: 0 4px;
+  font-size: 14px;
+}
+.price-card .price .price-section h3 {
+  color: #2d2d2f;
+  opacity: 0.5;
+  font-size: 14px;
+  font-weight: 700;
+}
+.price-card .price .price-section h3 span {
+  font-weight: 400;
+  margin: 0 5px 0 0;
+}
+.price-card .btn {
+  width: 100%;
+  color: #fff;
+  background: #ca9841;
+  padding: 15px 25px;
+  border: 0;
+  cursor: pointer;
+  border-radius: 5px;
+  margin: 0 0 20px 0;
+  font-weight: 700;
+  font-size: 14px;
+}/*# sourceMappingURL=Trippricecard.css.map */

@@ -50,9 +50,9 @@ export default function Searchbox() {
           <div className="term">
             <h4>Guests</h4>
             <div className="guests-picker">
-              <img src={minus} alt="" onClick={() => guests > 1 && setGuests(guests - 1)}/>
+              <img src={minus} alt="" onClick={() => parseInt(guests) > 1 && setGuests(parseInt(guests) - 1)}/>
               <input type="number" value={guests} onChange={e => setGuests(e.target.value)} min="1"/>
-              <img src={plus} alt="" onClick={() => setGuests(guests + 1)}/>
+              <img src={plus} alt="" onClick={() => setGuests(parseInt(guests) + 1)}/>
             </div>
           </div>
         </div>

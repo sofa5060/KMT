@@ -25,7 +25,7 @@ export default function Card({data}) {
           </div>
         </div>
       </div>
-      <Link to="/" className="btn" id="explore-btn">
+      <Link to="/trip/1" preventScrollReset={false} className="btn" id="explore-btn">
         Explore More
       </Link>
     </div>

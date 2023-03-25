@@ -1,16 +1,25 @@
-@use '../../pages/HomePage/Homepage.scss' as main;
+@use "../../pages/HomePage/Homepage.scss" as main;
 $main-color: main.$main-color;
 $secondary-color: main.$secondary-color;
 $text-color: main.$text-color;
+$ibm: main.$ibm;
+$golos: main.$golos;
 
 .navbar-background {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
   width: 100%;
   background: #000;
   padding: 5px 50px;
+  z-index: 100;
+
   .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    max-width: 1300px;
+    padding: 0 50px;
 
     li {
       list-style: none;

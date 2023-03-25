@@ -1,0 +1,68 @@
+@charset "UTF-8";
+.trip-page {
+  max-width: 1300px;
+  padding: 50px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: self-start;
+  gap: 20px;
+}
+.trip-page .trip-content {
+  max-width: 850px;
+}
+.trip-page .trip-content h1 {
+  font-size: 36px;
+  font-weight: 600;
+  margin-bottom: 30px;
+}
+.trip-page .trip-content .section-header {
+  font-size: 24px;
+  font-weight: 600;
+  padding: 0 0 0 10px;
+  border-left: 5px solid #ca9841;
+  margin: 45px 0 15px 0;
+}
+.trip-page .trip-content .section-content {
+  margin: 0 0 0 15px;
+}
+.trip-page .trip-content p {
+  margin: 0 0 25px 0;
+  font-family: "IBM Plex Sans", sans-serif;
+}
+.trip-page .trip-content .bullet-list {
+  margin: 0 0 0 15px;
+  list-style: none;
+}
+.trip-page .trip-content .bullet-list li {
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 24px;
+}
+.trip-page .trip-content .bullet-list li::before {
+  content: "•";
+  color: #ca9841;
+  display: inline-block;
+  width: 1em;
+  margin-left: -1em;
+}
+.trip-page .trip-content .split-line {
+  margin: 50px 0 0 0;
+  background: #000;
+  border: 1px solid #000;
+  opacity: 0.2;
+}
+.trip-page .trip-content .contact {
+  margin: 45px 0 0 0;
+  font-weight: 400;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 18px;
+}
+.trip-page .trip-content .contact a {
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 700;
+  font-family: "IBM Plex Sans", sans-serif;
+  color: #ca9841;
+}/*# sourceMappingURL=Trippage.css.map */

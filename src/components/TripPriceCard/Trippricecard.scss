@@ -1,0 +1,119 @@
+@use "../../pages/HomePage/Homepage.scss" as main;
+$main-color: main.$main-color;
+$secondary-color: main.$secondary-color;
+$text-color: main.$text-color;
+$ibm: main.$ibm;
+$golos: main.$golos;
+
+.price-card {
+  background: #fff;
+  max-width: 360px;
+  width: 100%;
+  border-radius: 20px;
+  padding: 0 20px;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 130px;
+
+  .sale-banner {
+    background: $main-color;
+    border-radius: 0 20px;
+    max-width: max-content;
+    margin: 0 -20px 0 auto;
+
+    h3 {
+      font-weight: 700;
+      font-size: 16px;
+      padding: 15px 30px;
+      color: #fff;
+    }
+  }
+
+  h2 {
+    font-size: 24px;
+    font-weight: 600;
+    margin: -20px 0 0 0;
+  }
+
+  p {
+    font-size: 14px;
+    font-weight: 400;
+    font-family: $ibm;
+    margin: 10px 0 20px 0;
+    color: $text-color;
+  }
+
+  .add-ons {
+    .add-on {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 10px 0;
+
+      p {
+        font-size: 13px;
+        align-self: center;
+        margin: 0;
+      }
+    }
+  }
+
+  .price {
+    margin: 20px 0;
+
+    h4 {
+      font-family: $golos;
+      font-size: 14px;
+      font-weight: 400;
+      text-align: left;
+      color: $text-color;
+      opacity: 0.5;
+      margin: 0 0 0 5px;
+    }
+
+    .price-section {
+      display: flex;
+      justify-content: space-between;
+
+      h2 {
+        margin: 0;
+        color: $main-color;
+        font-size: 24px;
+        font-weight: 700;
+        line-height: 29px;
+        display: flex;
+        align-items: self-start;
+
+        span{
+          margin: 0 4px;
+          font-size: 14px;
+        }
+      }
+
+      h3{
+        color: $text-color;
+        opacity: 0.5;
+        font-size: 14px;
+        font-weight: 700;
+
+        span{
+          font-weight: 400;
+          margin: 0 5px 0 0;
+        }
+      }
+    }
+  }
+
+  .btn{
+    width: 100%;
+    color: #fff;
+    background: $main-color;
+    padding: 15px 25px;
+    border: 0;
+    cursor: pointer;
+    border-radius: 5px;
+    margin: 0 0 20px 0;
+    font-weight: 700;
+    font-size: 14px;
+  }
+}

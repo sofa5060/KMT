@@ -1,19 +1,19 @@
-import React from 'react'
+import React from "react";
 import { Link } from "react-router-dom";
 import { Fade } from "react-slideshow-image";
 import nextArrowIcon from "../../images/next.svg";
 import prevArrowIcon from "../../images/prev.svg";
-import './Imageslider.css'
+import "./Imageslider.css";
 
 export default function Imageslider() {
   const images = [
     {
-      imageLink: "https://i.ibb.co/F4N38S0/Egypt-Modified-1.png",
+      imageLink: "https://i.ibb.co/1QNKHFd/Egypt-Modified-1.png",
       cityName: "Pyramids of Giza",
       searchTerm: "giza",
     },
     {
-      imageLink: "https://i.ibb.co/8jyG9cL/Egypt-Modified-2.png",
+      imageLink: "https://i.ibb.co/m0NZH8C/Egypt-Modified-2.png",
       cityName: "Aswan",
       searchTerm: "aswan",
     },
@@ -37,29 +37,27 @@ export default function Imageslider() {
 
   return (
     <Fade {...properties}>
-        {images.map((img) => {
-          return (
-            <div className="each-slide" key={img.cityName}>
-              <div>
-                <img src={img.imageLink} alt={img.cityName} />
-              </div>
-              <div className="slider-content">
-                <h4>KMT TOURS</h4>
-                <h1>
-                  Explore New Places of <span>EGYPT!</span>
-                </h1>
-                <h3>
-                  Get a taste of the past on our trips to Egypt, where you’ll
-                  take a walk through the footsteps of the pharaohs through
-                  ancient temples and monuments.
-                </h3>
-                <div className="slider">
-                  <Link to={'search/' + img.searchTerm}>{img.cityName}</Link>
-                </div>
+      {images.map((img) => {
+        return (
+          <div className="each-slide" key={img.cityName}>
+            <img src={img.imageLink} alt={img.cityName} />
+            <div className="slider-content">
+              <h4>KMT TOURS</h4>
+              <h1>
+                Explore New Places of <span>EGYPT!</span>
+              </h1>
+              <h3>
+                Get a taste of the past on our trips to Egypt, where you’ll take
+                a walk through the footsteps of the pharaohs through ancient
+                temples and monuments.
+              </h3>
+              <div className="slider">
+                <Link to={"search/" + img.searchTerm}>{img.cityName}</Link>
               </div>
             </div>
-          );
-        })}
-      </Fade>
-  )
+          </div>
+        );
+      })}
+    </Fade>
+  );
 }

@@ -47,7 +47,7 @@ export default function Topdestination() {
           <Card key={destination.id} data={destination} />
         ))}
       </div>
-      <Link to="/" className="btn">
+      <Link to="/trip/1" className="btn">
         Show More Destinations
       </Link>
     </div>
