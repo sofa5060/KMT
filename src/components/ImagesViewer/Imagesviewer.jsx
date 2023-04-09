@@ -22,7 +22,7 @@ function Imagesviewer({ imagesList }) {
   useEffect(() => {
     setImages(imagesList);
     setNoOfImages(imagesList.length);
-  }, []);
+  }, [imagesList]);
 
   return (
     <div className="images-viewer">

@@ -8,7 +8,9 @@ export default function Navbar({currPage}) {
     <div className="navbar-background">
       <div className="navbar">
         <div className="logo">
-          <img src={logo} alt="logo" />
+          <Link to='/'>
+            <img src={logo} alt="logo" />
+          </Link>
         </div>
         <ul className="navbar-list">
           <li><Link to='/' className={currPage==="home" ? "main" : ""}>Home</Link></li>

@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Checkbox, { checkboxClasses } from "@mui/material/Checkbox";
 import "./Trippricecard.css";
 
-export default function Trippricecard(props) {
-  const [addOns, setAddOns] = useState(props.addOns);
+export default function Trippricecard({ tripDetails }) {
+  const [addOns, setAddOns] = useState([]);
+  const [trip, setTrip] = useState("");
 
   const handleChange = (event) => {
     addOns.find((addOn) => addOn.name === event.target.ariaLabel).checked =
@@ -11,13 +12,21 @@ export default function Trippricecard(props) {
     setAddOns([...addOns]);
   };
 
+  useEffect(() => {
+    if (!tripDetails) return;
+    setAddOns(tripDetails.addOns);
+    setTrip(tripDetails);
+  }, [tripDetails]);
+
   return (
     <form className="price-card">
-      <div className="sale-banner">
-        <h3>ON SALE</h3>
-      </div>
-      <h2>1 Day Trip</h2>
-      <p>The Pyramids of Giza & Sphinx</p>
+      {trip.discountedPrice > 0 && (
+        <div className="sale-banner">
+          <h3>ON SALE</h3>
+        </div>
+      )}
+      <h2>{trip.duration === 1 ? "1 Day Trip" : `${trip.duration} Days Trip`}</h2>
+      <p>{trip.title}</p>
       <div className="add-ons">
         {addOns.map((addOn, index) => (
           <div className="add-on" key={index}>
@@ -43,9 +52,13 @@ export default function Trippricecard(props) {
         <h4>From</h4>
         <div className="price-section">
           <h2>
-            <span>$</span>49.99<span>USD</span>
+            <span>$</span>{trip.discountedPrice > 0 ? trip.discountedPrice : trip.price}<span>USD</span>
           </h2>
-          <h3><span>Was</span>99.99 USD</h3>
+          {trip.discountedPrice > 0 && (
+            <h3>
+              <span>Was</span>{trip.price} USD
+            </h3>
+          )}
         </div>
       </div>
       <button className="btn">Book Now</button>
