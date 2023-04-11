@@ -17,6 +17,13 @@ export default function Datepicker({ setDate }) {
       <DatePicker
         sx={{
           maxWidth: 170,
+          [`&`]: {
+            color: "#CA9841",
+          },
+          svg: {
+            color: "#CA9841",
+          },
+          
         }}
         value={value}
         minDate={dayjs()}

@@ -1,0 +1,55 @@
+.search-filters {
+  max-width: 310px;
+  padding: 30px 20px;
+  background: #fff;
+}
+.search-filters .filter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+.search-filters .filter-header h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #000;
+}
+.search-filters .filter-body {
+  transition: all 0.3s ease-in-out;
+}
+.search-filters .filter-body .option {
+  display: flex;
+  align-items: center;
+  margin: 15px 0 0 0;
+  cursor: pointer;
+}
+.search-filters .filter-body .option p {
+  font-size: 14px;
+  font-weight: 500;
+  color: #2d2d2f;
+  margin: 0 0 0 15px;
+}
+.search-filters .filter-body h4 {
+  text-align: center;
+  color: #2d2d2f;
+  font-size: 14px;
+  font-weight: 500;
+}
+.search-filters hr {
+  margin: 20px 0;
+}
+.search-filters .btn {
+  margin: 30px 0 0 0;
+  padding: 14px 55px;
+  background: #ca9841;
+  display: inline-block;
+  font-size: 16px;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  font-family: "IBM Plex Sans", sans-serif;
+  border-radius: 5px;
+  border: 0;
+  width: 100%;
+  cursor: pointer;
+}/*# sourceMappingURL=Searchfilters.css.map */

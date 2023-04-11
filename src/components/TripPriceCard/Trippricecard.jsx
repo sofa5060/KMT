@@ -25,7 +25,7 @@ export default function Trippricecard({ tripDetails }) {
           <h3>ON SALE</h3>
         </div>
       )}
-      <h2>{trip.duration === 1 ? "1 Day Trip" : `${trip.duration} Days Trip`}</h2>
+      <h2 className={trip.discountedPrice > 0 && "shifted"}>{trip.duration === 1 ? "1 Day Trip" : `${trip.duration} Days Trip`}</h2>
       <p>{trip.title}</p>
       <div className="add-ons">
         {addOns.map((addOn, index) => (

@@ -5,6 +5,7 @@ import Homepage from './pages/HomePage/Homepage';
 import Trippage from './pages/TripPage/Trippage';
 import Scrolltotop from './scrolltotop';
 import TripContextProvider from './context/TripContextProvider';
+import Searchpage from './pages/SearchPage/Searchpage';
 
 const App = () => {
   return (
@@ -16,8 +17,11 @@ const App = () => {
           <Route path='/' exact>
             <Homepage />
           </Route>
-          <Route path='/trip/:tripid' exact>
+          <Route path='/trip/:tripID' exact>
             <Trippage />
+          </Route>
+          <Route path='/search/:tripName' exact>
+            <Searchpage />
           </Route>
         </Switch>
       </TripContextProvider>
