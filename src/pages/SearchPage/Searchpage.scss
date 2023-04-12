@@ -1,5 +1,18 @@
 .search-page{
   max-width: 1300px;
-  padding: 100px 50px;
+  padding: 0 50px 50px 50px;
   margin: 0 auto;
+
+  .search-header{
+    position: relative;
+    width: 100%;
+    margin: 0 0 150px 0;
+  }
+
+  .search-body{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 25px;
+  }
 }

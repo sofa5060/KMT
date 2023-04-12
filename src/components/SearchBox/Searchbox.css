@@ -1,19 +1,18 @@
 .search-box {
   position: absolute;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, 50%);
   z-index: 1;
   display: flex;
   justify-content: space-between;
   max-width: 850px;
   width: 100%;
-  margin: -100px auto 0 auto;
-  border: 2px solid #ca9841;
+  bottom: 0;
+  border: 3px solid #ca9841;
   border-radius: 10px;
   background: #fff;
 }
 .search-box .search-terms {
-  flex: 1;
   display: flex;
   justify-content: space-between;
   padding: 25px 40px;
@@ -21,15 +20,30 @@
 }
 .search-box .search-terms .search-term {
   display: flex;
+  flex-direction: column;
 }
-.search-box .search-terms .search-term .icon {
+.search-box .search-terms .search-term .icon-header {
+  display: flex;
+  margin: 0 0 15px 0;
+  align-items: center;
+  justify-content: flex-start;
+}
+.search-box .search-terms .search-term .icon-header h4 {
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+}
+.search-box .search-terms .search-term .icon-header img {
   margin: 0 10px 0 0;
+  max-width: 32px;
+  width: 100%;
 }
 .search-box .search-terms .search-term hr {
   border: 1px #ca9841;
 }
 .search-box .search-terms .search-term .term {
-  margin: 6px 0 0 0;
+  margin: 0 0 0 42px;
+  width: 100%;
 }
 .search-box .search-terms .search-term .term .guests-picker {
   display: flex;
@@ -59,17 +73,32 @@
   font-family: "Inter", sans-serif;
   font-weight: 400;
 }
-.search-box .search-terms .search-term .term h4 {
-  font-family: "Inter", sans-serif;
-  font-weight: 700;
-  font-size: 16px;
-  margin: 0 0 20px 0;
+.search-box .minimized {
+  gap: 10px;
+  width: 100%;
+  justify-content: space-between;
+}
+.search-box .minimized .search-term {
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.search-box .minimized .search-term .icon-header {
+  margin: 0;
+  width: 32px;
+}
+.search-box .minimized .search-term .icon-header img {
+  width: 32px;
+}
+.search-box .minimized .search-term .term {
+  margin: 0 0 0 25px;
 }
 .search-box .search-btn {
   width: 70px;
   border-radius: 0 10px 10px 0;
-  margin: 0 -3px 0 0;
+  margin: 0 -2px 0 0;
   border: 0;
   cursor: pointer;
   background: #ca9841 url("../../images/search.svg") no-repeat center;
+  border: 5px solid #ca9841;
 }/*# sourceMappingURL=Searchbox.css.map */

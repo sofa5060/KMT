@@ -11,7 +11,6 @@ export default function Homepage() {
   return (
     <div className="homepage">
       <Imageslider />
-      <Searchbox />
       <Statsbar />
       <Topdestination />
       <Benefits />

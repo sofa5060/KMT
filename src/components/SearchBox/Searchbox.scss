@@ -8,19 +8,19 @@ $golos: main.$golos;
 .search-box {
   position: absolute;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, 50%);
   z-index: 1;
   display: flex;
   justify-content: space-between;
   max-width: 850px;
   width: 100%;
-  margin: -100px auto 0 auto;
-  border: 2px solid $main-color;
+  // margin: -100px auto 0 auto;
+  bottom: 0;
+  border: 3px solid $main-color;
   border-radius: 10px;
   background: #fff;
 
   .search-terms {
-    flex: 1;
     display: flex;
     justify-content: space-between;
     padding: 25px 40px;
@@ -28,18 +28,36 @@ $golos: main.$golos;
 
     .search-term {
       display: flex;
-      .icon {
-        margin: 0 10px 0 0;
+      flex-direction: column;
+
+      .icon-header {
+        display: flex;
+        margin: 0 0 15px 0;
+        align-items: center;
+        justify-content: flex-start;
+
+        h4 {
+          font-family: "Inter", sans-serif;
+          font-weight: 700;
+          font-size: 16px;
+        }
+
+        img {
+          margin: 0 10px 0 0;
+          max-width: 32px;
+          width: 100%;
+        }
       }
 
-      hr{
+      hr {
         border: 1px $main-color;
       }
 
       .term {
-        margin: 6px 0 0 0;
+        margin: 0 0 0 42px;
+        width: 100%;
 
-        .guests-picker{
+        .guests-picker {
           display: flex;
 
           input[type="number"]::-webkit-inner-spin-button,
@@ -48,14 +66,14 @@ $golos: main.$golos;
             margin: 0;
           }
 
-          input{
+          input {
             max-width: 50px;
             text-align: center;
             border: 0;
             outline: 0;
           }
 
-          img{
+          img {
             cursor: pointer;
           }
         }
@@ -75,23 +93,43 @@ $golos: main.$golos;
           font-family: "Inter", sans-serif;
           font-weight: 400;
         }
+      }
+    }
 
-        h4 {
-          font-family: "Inter", sans-serif;
-          font-weight: 700;
-          font-size: 16px;
-          margin: 0 0 20px 0;
+  }
+
+  .minimized {
+    gap: 10px;
+    width: 100%;
+    justify-content: space-between;
+
+    .search-term{
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    
+      .icon-header {
+        margin: 0;
+        width: 32px;
+    
+        img{
+          width: 32px;
         }
+      }
+    
+      .term{
+        margin: 0 0 0 25px;
       }
     }
   }
-
+  
   .search-btn {
     width: 70px;
     border-radius: 0 10px 10px 0;
-    margin: 0 -3px 0 0;
+    margin: 0 -2px 0 0;
     border: 0;
     cursor: pointer;
-    background: $main-color url('../../images/search.svg') no-repeat center;
+    background: $main-color url("../../images/search.svg") no-repeat center;
+    border: 5px solid $main-color;
   }
 }

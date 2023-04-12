@@ -4,6 +4,7 @@ import { Fade } from "react-slideshow-image";
 import nextArrowIcon from "../../images/next.svg";
 import prevArrowIcon from "../../images/prev.svg";
 import "./Imageslider.css";
+import Searchbox from "../SearchBox/Searchbox";
 
 export default function Imageslider() {
   const images = [
@@ -36,28 +37,31 @@ export default function Imageslider() {
   };
 
   return (
-    <Fade {...properties}>
-      {images.map((img) => {
-        return (
-          <div className="each-slide" key={img.cityName}>
-            <img src={img.imageLink} alt={img.cityName} />
-            <div className="slider-content">
-              <h4>KMT TOURS</h4>
-              <h1>
-                Explore New Places of <span>EGYPT!</span>
-              </h1>
-              <h3>
-                Get a taste of the past on our trips to Egypt, where you’ll take
-                a walk through the footsteps of the pharaohs through ancient
-                temples and monuments.
-              </h3>
-              <div className="slider">
-                <Link to={"search/" + img.searchTerm}>{img.cityName}</Link>
+    <div className="image-slider">
+      <Fade {...properties}>
+        {images.map((img) => {
+          return (
+            <div className="each-slide" key={img.cityName}>
+              <img src={img.imageLink} alt={img.cityName} />
+              <div className="slider-content">
+                <h4>KMT TOURS</h4>
+                <h1>
+                  Explore New Places of <span>EGYPT!</span>
+                </h1>
+                <h3>
+                  Get a taste of the past on our trips to Egypt, where you’ll take
+                  a walk through the footsteps of the pharaohs through ancient
+                  temples and monuments.
+                </h3>
+                <div className="slider">
+                  <Link to={"search/" + img.searchTerm}>{img.cityName}</Link>
+                </div>
               </div>
             </div>
-          </div>
-        );
-      })}
-    </Fade>
+          );
+        })}
+      </Fade>
+      <Searchbox />
+    </div>
   );
 }

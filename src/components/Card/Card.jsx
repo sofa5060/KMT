@@ -3,6 +3,7 @@ import location from "../../images/location.svg";
 import price from "../../images/price.svg";
 import "./Card.css";
 import { Link } from "react-router-dom";
+import EastIcon from "@mui/icons-material/East";
 
 export default function Card({data}) {
   return (
@@ -26,7 +27,7 @@ export default function Card({data}) {
         </div>
       </div>
       <Link to="/trip/1" preventScrollReset={false} className="btn" id="explore-btn">
-        Explore More
+        Explore More <EastIcon />
       </Link>
     </div>
   );
