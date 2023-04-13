@@ -1,0 +1,13 @@
+@use "../../pages/HomePage/Homepage.scss" as main;
+$main-color: main.$main-color;
+$secondary-color: main.$secondary-color;
+$text-color: main.$text-color;
+$ibm: main.$ibm;
+$golos: main.$golos;
+
+
+.MuiSelect-select{
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  border: $main-color;
+}

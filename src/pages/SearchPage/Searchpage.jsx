@@ -1,14 +1,23 @@
-import React from 'react'
-import Searchfilters from '../../components/SearchFilters/Searchfilters'
-import "./Searchpage.css"
-import pyramids from "../../images/wallpapersden.png"
-import Searchbox from '../../components/SearchBox/Searchbox'
-import Triplist from '../../components/TripList/Triplist'
+import React, { useState, useEffect } from "react";
+import Searchfilters from "../../components/SearchFilters/Searchfilters";
+import "./Searchpage.css";
+import pyramids from "../../images/wallpapersden.png";
+import Searchbox from "../../components/SearchBox/Searchbox";
+import Triplist from "../../components/TripList/Triplist";
 import nile from "../../images/nile.png";
-
+import Pagination from "@mui/material/Pagination";
+import Sortselect from "../../components/SortSelect/Sortselect";
 
 export default function Searchpage() {
-  const trips = [
+  let resultsPerPage = 3;
+  const [page, setPage] = useState(1);
+  const [sortBy, setSortBy] = useState("A-Z");
+
+  const handleChange = (event, value) => {
+    setPage(value);
+  };
+
+  const [trips, setTrips] = useState([
     {
       id: 1,
       name: "Felucca Ride on The Nile in Aswan",
@@ -17,6 +26,7 @@ export default function Searchpage() {
       location: "Aswan, Egypt",
       price: 99.99,
       image: nile,
+      sells: 5,
     },
     {
       id: 2,
@@ -26,6 +36,7 @@ export default function Searchpage() {
       location: "Aswan, Egypt",
       price: 99.99,
       image: nile,
+      sells: 5,
     },
     {
       id: 3,
@@ -33,20 +44,113 @@ export default function Searchpage() {
       description:
         "Enjoy your Felucca ride in Aswan and Take a relaxing ride on an Egyptian sailboat in Aswan",
       location: "Aswan, Egypt",
-      price: 50.00,
+      price: 50.0,
       image: nile,
-    }
-  ]
+      sells: 5,
+    },
+    {
+      id: 3,
+      name: "Felucca Ride on The Nile in Aswan",
+      description:
+        "Enjoy your Felucca ride in Aswan and Take a relaxing ride on an Egyptian sailboat in Aswan",
+      location: "Aswan, Egypt",
+      price: 50.0,
+      image: nile,
+      sells: 5,
+    },
+    {
+      id: 3,
+      name: "Felucca Ride on The Nile in Aswan",
+      description:
+        "Enjoy your Felucca ride in Aswan and Take a relaxing ride on an Egyptian sailboat in Aswan",
+      location: "Aswan, Egypt",
+      price: 50.0,
+      image: nile,
+      sells: 5,
+    },
+    {
+      id: 3,
+      name: "Lowest Felucca Ride on The Nile in Aswan",
+      description:
+        "Enjoy your Felucca ride in Aswan and Take a relaxing ride on an Egyptian sailboat in Aswan",
+      location: "Aswan, Egypt",
+      price: 50.0,
+      image: nile,
+      sells: 2,
+    },
+    {
+      id: 3,
+      name: "Highest Felucca Ride on The Nile in Aswan",
+      description:
+        "Enjoy your Felucca ride in Aswan and Take a relaxing ride on an Egyptian sailboat in Aswan",
+      location: "Aswan, Egypt",
+      price: 50.0,
+      image: nile,
+      sells: 10,
+    },
+    {
+      id: 3,
+      name: "Zelucca Ride on The Nile in Aswan",
+      description:
+        "Enjoy your Felucca ride in Aswan and Take a relaxing ride on an Egyptian sailboat in Aswan",
+      location: "Aswan, Egypt",
+      price: 50.0,
+      image: nile,
+      sells: 5,
+    },
+  ]);
+
+  const selectSort = (sort) => {
+    if (sort === sortBy) return;
+    setSortBy(sort);
+  };
+
+  useEffect(() => {
+    if (sortBy === "A-Z") {
+      setTrips([...trips].sort((a, b) => a.name.localeCompare(b.name)));
+    } else if (sortBy === "Z-A") {
+      setTrips([...trips].sort((a, b) => b.name.localeCompare(a.name)));
+    } else if (sortBy === "Lowest Price") {
+      setTrips([...trips].sort((a, b) => a.price - b.price));
+    } else if (sortBy === "Highest Price") {
+      setTrips([...trips].sort((a, b) => b.price - a.price));
+    } else if (sortBy === "Most Selling") {
+      setTrips([...trips].sort((a, b) => b.sells - a.sells));
+    } 
+    console.log(sortBy);
+  }, [sortBy]);
+
   return (
-    <div className='search-page'>
+    <div className="search-page">
       <div className="search-header">
         <img src={pyramids} alt="" />
-        <Searchbox minimized/>
+        <Searchbox minimized />
       </div>
       <div className="search-body">
         <Searchfilters />
-        <Triplist trips={trips}/>
+        <div className="search-result">
+          <div className="search-result-first-row">
+            <h3>
+              Found: <span>{trips.length} Premium Tours</span>
+            </h3>
+            <Sortselect selectSort={selectSort} />
+          </div>
+          <Triplist
+            trips={trips.slice(
+              (page - 1) * resultsPerPage,
+              page * resultsPerPage
+            )}
+          />
+          {trips.length > resultsPerPage && (
+            <Pagination
+              count={Math.ceil(trips.length / resultsPerPage)}
+              page={page}
+              onChange={handleChange}
+              size="large"
+            />
+          )}
+        </div>
       </div>
     </div>
-  )
+  );
 }
