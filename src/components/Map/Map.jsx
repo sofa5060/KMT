@@ -5,7 +5,7 @@ import "./Map.css";
 
 export default function Map({ locations }) {
   const mapRef = useRef();
-  const [tripLocations, setTripLocations] = useState("");
+  const [tripLocations, setTripLocations] = useState(null);
 
   useEffect(() => {
     if (!locations) return;
@@ -13,7 +13,7 @@ export default function Map({ locations }) {
   }, [locations]);
 
   useEffect(() => {
-    if (tripLocations === "") return;
+    if (!tripLocations) return;
 
     // used for a dashed line between markers
     const lineSymbol = {
@@ -27,11 +27,14 @@ export default function Map({ locations }) {
       version: "weekly",
       language: "EN",
     });
-    
+
     loader.load().then(() => {
       const addMarker = (location) => {
         let marker = new window.google.maps.Marker({
-          position: { lat: location.lat, lng: location.lng },
+          position: {
+            lat: parseFloat(location.lat),
+            lng: parseFloat(location.lng),
+          },
           map: map,
           title: location.name,
           label: `${location.order}`,
@@ -79,7 +82,7 @@ export default function Map({ locations }) {
         });
       }
 
-      for (var i = 0; i < tripLocations.length; i++) {
+      for (let i = 0; i < tripLocations.length; i++) {
         const location = tripLocations[i];
         addMarker(location);
       }

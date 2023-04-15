@@ -1,13 +1,34 @@
-import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, Redirect , useParams } from "react-router-dom";
 import Imagesviewer from "../../components/ImagesViewer/Imagesviewer";
 import Map from "../../components/Map/Map";
 import Trippricecard from "../../components/TripPriceCard/Trippricecard";
 import "./Trippage.css";
-import { TripContext } from "../../context/TripContextProvider";
+import axios from "axios"
 
 export default function Trippage() {
-  const { trip } = useContext(TripContext);
+  const [trip, setTrip] = useState(null);
+  const [notFound, setNotFound] = useState(false);
+  const { tripID } = useParams();
+
+  const getTripByID = async (id) => {
+    if (trip) return;
+    try{
+      const response = await axios.get(`http://localhost:5000/trip/${id}`);
+      console.log(response);
+      setTrip(response.data);
+    }catch(e){
+      setNotFound(true);
+    }
+  };
+  
+  useEffect(() => {
+    getTripByID(tripID);
+  }, [tripID]);
+
+  if(notFound) return <Redirect to="/" />;
+
+  if(!trip) return <div>Loading...</div>
 
   return (
     <div className="trip-page">
