@@ -8,17 +8,19 @@ import axios from "axios"
 
 export default function Trippage() {
   const [trip, setTrip] = useState(null);
-  const [notFound, setNotFound] = useState(false);
+  const [error, setError] = useState("");
   const { tripID } = useParams();
 
   const getTripByID = async (id) => {
     if (trip) return;
     try{
-      const response = await axios.get(`http://localhost:5000/trip/${id}`);
+      const response = await axios.get(`http://localhost:5000/api/trip/${id}`);
       console.log(response);
       setTrip(response.data);
     }catch(e){
-      setNotFound(true);
+      // setNotFound(true);
+      console.log(e)
+      setError(e.response ? e.response.data.message : e.message);
     }
   };
   
@@ -26,7 +28,12 @@ export default function Trippage() {
     getTripByID(tripID);
   }, [tripID]);
 
-  if(notFound) return <Redirect to="/" />;
+  if(error.length > 0) return (
+    <div className="error">
+      <h1>{error}</h1>
+      <Link to="/">Go to Home</Link>
+    </div>
+  );
 
   if(!trip) return <div>Loading...</div>
 

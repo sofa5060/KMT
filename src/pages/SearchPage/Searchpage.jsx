@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import Searchfilters from "../../components/SearchFilters/Searchfilters";
 import "./Searchpage.css";
 import pyramids from "../../images/wallpapersden.png";
-import Searchbox from "../../components/SearchBox/Searchbox";
 import Triplist from "../../components/TripList/Triplist";
 import nile from "../../images/nile.png";
 import Pagination from "@mui/material/Pagination";
 import Sortselect from "../../components/SortSelect/Sortselect";
+import Searchpage_Searchbox from "../../components/SearchBox/Searchpage_Searchbox";
 
 export default function Searchpage() {
   let resultsPerPage = 3;
@@ -111,12 +111,24 @@ export default function Searchpage() {
     } else if (sortBy === "Z-A") {
       setTrips([...trips].sort((a, b) => b.name.localeCompare(a.name)));
     } else if (sortBy === "Lowest Price") {
-      setTrips([...trips].sort((a, b) => a.price - b.price));
+      setTrips(
+        [...trips].sort((a, b) => {
+          let priceA = a.discountedPrice > 0 ? a.discountedPrice : a.price;
+          let priceB = b.discountedPrice > 0 ? b.discountedPrice : b.price;
+          return priceA - priceB;
+        })
+      );
     } else if (sortBy === "Highest Price") {
-      setTrips([...trips].sort((a, b) => b.price - a.price));
-    } else if (sortBy === "Most Selling") {
+      setTrips(
+        [...trips].sort((a, b) => {
+          let priceA = a.discountedPrice > 0 ? a.discountedPrice : a.price;
+          let priceB = b.discountedPrice > 0 ? b.discountedPrice : b.price;
+          return priceB - priceA;
+        })
+      );
+    } else if (sortBy === "Top Destinations") {
       setTrips([...trips].sort((a, b) => b.sells - a.sells));
-    } 
+    }
     console.log(sortBy);
   }, [sortBy]);
 
@@ -124,7 +136,7 @@ export default function Searchpage() {
     <div className="search-page">
       <div className="search-header">
         <img src={pyramids} alt="" />
-        <Searchbox minimized />
+        <Searchpage_Searchbox />
       </div>
       <div className="search-body">
         <Searchfilters />

@@ -1,14 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
 import Collapse from "@mui/material/Collapse";
 import Slider from '@mui/material/Slider';
+import { SearchContext } from "../../context/SearchContextProvider";
 
 export default function Pricefilter({ priceRange }) {
   const [open, setOpen] = useState(true);
   const [range, setRange] = React.useState(priceRange);
+  const { searchObj, setSearchObj } = useContext(SearchContext);
 
   const handleChange = (event, newValue) => {
     setRange(newValue);
+    searchObj.setPriceRange(newValue);
+    setSearchObj(searchObj);
   };
 
   function valuetext(value) {

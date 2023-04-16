@@ -30,6 +30,13 @@ $golos: main.$golos;
     gap: 35px;
     justify-content: space-around;
     align-items: stretch;
+
+    .row{
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
   }
 
   .btn {

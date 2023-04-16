@@ -40,7 +40,7 @@ function Imagesviewer({ imagesList }) {
           {images &&
             images.map((image, index) => {
               if (index > 0 && index < 5) {
-                if (index === noOfImages - 1 || index === 4) {
+                if (noOfImages > 5 && index === 4) {
                   return (
                     <div
                       className="secondary-image"

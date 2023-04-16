@@ -1,61 +1,63 @@
-import React, { useState, useContext, useEffect } from "react";
-import dayjs from "dayjs";
-import Searchtextbox from "./Searchtextbox";
-import "./Searchbox.css";
+import React, {useEffect, useState, useContext} from 'react'
 import location from "../../images/location.svg";
 import clock from "../../images/clock.svg";
 import people from "../../images/people.svg";
 import Datepicker from "./Datepicker";
 import minus from "../../images/minus 1.svg";
 import plus from "../../images/plus 1.svg";
+import dayjs from "dayjs";
+import Searchtextbox from "./Searchtextbox";
+import "./Searchbox.css";
 import { SearchContext } from "../../context/SearchContextProvider";
-import { useHistory } from "react-router-dom";
-import SearchQuery from "../../models/SearchQuery";
 
-export default function Searchbox({ minimized }) {
-  const history = useHistory();
+export default function Searchpage_Searchbox() {
   const [searchQuery, setSearchQuery] = useState("");
   const [date, setDate] = useState(dayjs());
   const [guests, setGuests] = useState(1);
   const [isSelectedCity, setIsSelectedCity] = useState(false);
-
+  
   const {
-    setIsRedirectedFromHome,
     isRedirectedFromHome,
-    setSearchObj,
+    setIsRedirectedFromHome,
     searchObj,
   } = useContext(SearchContext);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const localSearchObj = new SearchQuery(
-      searchQuery,
-      date,
-      guests,
-      isSelectedCity
-    );
-    setSearchObj(localSearchObj);
-    setIsRedirectedFromHome(true);
+    //TODO search for trips
   };
-  
+
   useEffect(() => {
-    if(isRedirectedFromHome && searchObj){
-      history.push(`/search/${searchQuery}`);
+    console.log(searchObj)
+    if (isRedirectedFromHome) {
+      // Redirected from home page
+      setSearchQuery(searchObj.searchQuery);
+      setDate(searchObj.date);
+      setGuests(searchObj.guests);
+      if (searchObj.isSelectedCity) {
+        setIsSelectedCity(true);
+      }
+      console.log("setted the data")
+      //TODO Just search with the search object
+    } else {
+      //User entered from trips in navbar or show more destinations button
+      //TODO search for all trips
     }
-  }, [isRedirectedFromHome, searchObj]);
+    setIsRedirectedFromHome(false);
+  }, []);
 
   return (
     <form className="search-box" onSubmit={handleSubmit}>
-      <div className={minimized ? "search-terms minimized" : "search-terms"}>
+      <div className="search-terms minimized">
         <div className="search-term">
           <div className="icon-header">
             <img src={location} alt="" />
-            {!minimized && <h4>Location</h4>}
           </div>
           <div className="term">
             <Searchtextbox
               setSearchQuery={setSearchQuery}
               setIsSelectedCity={setIsSelectedCity}
+              value={searchQuery}
             />
           </div>
         </div>
@@ -63,17 +65,15 @@ export default function Searchbox({ minimized }) {
         <div className="search-term">
           <div className="icon-header">
             <img src={clock} alt="" />
-            {!minimized && <h4>Date</h4>}
           </div>
           <div className="term">
-            <Datepicker setDate={setDate} />
+            <Datepicker setDate={setDate} inputDate={date}/>
           </div>
         </div>
         <hr />
         <div className="search-term">
           <div className="icon-header">
             <img src={people} alt="" />
-            {!minimized && <h4>Guests</h4>}
           </div>
           <div className="term">
             <div className="guests-picker">
@@ -101,5 +101,5 @@ export default function Searchbox({ minimized }) {
       </div>
       <input type="submit" value="" className="search-btn" />
     </form>
-  );
+  )
 }

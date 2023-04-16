@@ -21,6 +21,12 @@
   justify-content: space-around;
   align-items: stretch;
 }
+.top-destination .card-list .row {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .top-destination .btn {
   padding: 14px 55px;
   background: #ca9841;

@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./Searchfilters.css";
 import Searchfilter from "./Searchfilter";
 import Pricefilter from "./Pricefilter";
+import { SearchContext } from "../../context/SearchContextProvider";
 
 export default function Searchfilters() {
-  const fiters = [
+  const { searchObj } = useContext(SearchContext);
+  const [filters, setFilters] = useState([
     {
       name: "Destinations",
       options: [
-        { name: "Luxor", checked: true },
+        { name: "Luxor", checked: false },
         { name: "Aswan", checked: false },
         { name: "Cairo", checked: false },
         { name: "Giza", checked: false },
@@ -23,7 +25,7 @@ export default function Searchfilters() {
         { name: "5-10 Days", checked: false },
         { name: "10-15 Days", checked: false },
         { name: "15-20 Days", checked: false },
-      ]
+      ],
     },
     {
       name: "Rating",
@@ -31,26 +33,33 @@ export default function Searchfilters() {
         { name: "3 Star", checked: false },
         { name: "4 Stars", checked: false },
         { name: "5 Stars", checked: false },
-      ]
-    }
-  ];
+      ],
+    },
+  ]);
 
   const priceRange = [0, 1000];
 
   const handleSubmit = (event) => {
     event.preventDefault();
-  }
-  
+  };
+
+  useEffect(() => {
+    if (searchObj && searchObj.isSelectedCity) {
+      filters[0].options.find(option => option.name === searchObj.searchQuery).checked = true;
+    }
+  }, []);
+
+  if(!filters) return <div></div>;
   return (
     <form className="search-filters" onSubmit={handleSubmit}>
-      {fiters.map((filter, index) => (
+      {filters.map((filter) => (
         <div>
-          <Searchfilter filter={filter} key={index}/>
+          <Searchfilter filter={filter} key={filter.name} />
           <hr />
         </div>
       ))}
-      <Pricefilter priceRange={priceRange}/>
-      <input type="submit" value="Submit" className="btn"/>
+      <Pricefilter priceRange={priceRange} />
+      <input type="submit" value="Submit" className="btn" />
     </form>
   );
 }

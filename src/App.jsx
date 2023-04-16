@@ -4,7 +4,7 @@ import Navbar from './components/NavBar/Navbar';
 import Homepage from './pages/HomePage/Homepage';
 import Trippage from './pages/TripPage/Trippage';
 import Scrolltotop from './scrolltotop';
-import TripContextProvider from './context/TripContextProvider';
+import SearchContextProvider from './context/SearchContextProvider';
 import Searchpage from './pages/SearchPage/Searchpage';
 
 const App = () => {
@@ -12,7 +12,7 @@ const App = () => {
     <Router>
       <Navbar currPage={'home'}/>
       <Scrolltotop />
-      <TripContextProvider>
+      <SearchContextProvider>
         <Switch>
           <Route path='/' exact>
             <Homepage />
@@ -24,7 +24,7 @@ const App = () => {
             <Searchpage />
           </Route>
         </Switch>
-      </TripContextProvider>
+      </SearchContextProvider>
     </Router>
   );
 }

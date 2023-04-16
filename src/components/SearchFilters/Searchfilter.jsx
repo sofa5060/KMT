@@ -1,18 +1,43 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
 import Collapse from "@mui/material/Collapse";
 import Checkbox, { checkboxClasses } from "@mui/material/Checkbox";
+import { SearchContext } from "../../context/SearchContextProvider";
 
 export default function Searchfilter({ filter }) {
   const [open, setOpen] = useState(true);
   const [filterProps, setFilterProps] = useState(filter.options);
+  const { searchObj, setSearchObj } = useContext(SearchContext);
 
   const handleChange = (event) => {
     filter.options.find(
       (option) => option.name === event.target.ariaLabel
     ).checked = event.target.checked;
     setFilterProps([...filter.options]);
+
+    if (event.target.checked) {
+      if (filter.name === "Destinations") {
+        searchObj.addDestination(event.target.ariaLabel);
+      } else if (filter.name === "Duration") {
+        searchObj.addToDurations(event.target.ariaLabel);
+      } else if (filter.name === "Rating") {
+        searchObj.addToRatings(event.target.ariaLabel);
+      }
+    } else {
+      if (filter.name === "Destinations") {
+        searchObj.removeDestination(event.target.ariaLabel);
+      } else if (filter.name === "Duration") {
+        searchObj.removeFromDurations(event.target.ariaLabel);
+      } else if (filter.name === "Rating") {
+        searchObj.removeFromRatings(event.target.ariaLabel);
+      }
+    }
+    setSearchObj(searchObj);
   };
+
+  useEffect(() => {
+    console.log(searchObj)
+  }, [searchObj])
 
   return (
     <div className="filter">
