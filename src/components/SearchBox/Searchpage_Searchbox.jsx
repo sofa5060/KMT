@@ -42,6 +42,8 @@ export default function Searchpage_Searchbox() {
     } else {
       //User entered from trips in navbar or show more destinations button
       //TODO search for all trips
+      //! initialize the search object or do it in submit handler
+      //* I guess in submit handler
     }
     setIsRedirectedFromHome(false);
   }, []);

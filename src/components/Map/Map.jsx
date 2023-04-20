@@ -27,6 +27,8 @@ export default function Map({ locations }) {
       version: "weekly",
       language: "EN",
     });
+    
+    console.log(loader);
 
     loader.load().then(() => {
       const addMarker = (location) => {

@@ -6,6 +6,7 @@ import Trippage from './pages/TripPage/Trippage';
 import Scrolltotop from './scrolltotop';
 import SearchContextProvider from './context/SearchContextProvider';
 import Searchpage from './pages/SearchPage/Searchpage';
+import Footer from './components/Footer/Footer';
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
           </Route>
         </Switch>
       </SearchContextProvider>
+      <Footer />
     </Router>
   );
 }
