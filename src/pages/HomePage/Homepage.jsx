@@ -7,6 +7,7 @@ import Topdestination from "../../components/TopDestinations/Topdestination";
 import Imageslider from "../../components/ImageSlider/Imageslider";
 import Benefits from "../../components/Benefits/Benefits";
 import Newsletter from "../../components/Newsletter/Newsletter";
+import Personalized from "../../components/Personalized/Personalized";
 
 export default function Homepage() {
   return (
@@ -15,6 +16,7 @@ export default function Homepage() {
       <Statsbar />
       <Topdestination />
       <Benefits />
+      <Personalized />
       <Newsletter />
     </div>
   );

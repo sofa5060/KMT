@@ -4,27 +4,28 @@ $secondary-color: main.$secondary-color;
 $text-color: main.$text-color;
 $ibm: main.$ibm;
 $golos: main.$golos;
+$circle-size: 200px;
 
 
 .newsletter{
   max-width: 1200px;
-  margin: 250px auto 0 auto;
+  margin: 300px auto 0 auto;
   background: #EDE4D3;
   text-align: center;
   border-radius: 70px;
-  padding: 100px 50px 90px 50px;
+  padding: $circle-size / 2 50px 90px 50px;
   position: relative;
 
   .icon-background{
-    width: 200px;
-    height: 200px;
+    width: $circle-size;
+    height: $circle-size;
     border-radius: 50%;
     background: #EDE4D3;
     z-index: 1;
     padding: 35px;
     position: absolute;
     left: 50%;
-    top: -100px;
+    top: -$circle-size / 2;
     transform: translateX(-50%);
 
     .icon{

@@ -1,0 +1,44 @@
+.personalized {
+  max-width: 1300px;
+  margin: 0 auto 150px auto;
+  padding: 0 50px;
+}
+.personalized h2 {
+  font-size: 36px;
+  font-weight: 700;
+  margin: 0 0 100px 0;
+  text-align: center;
+}
+.personalized h2 span {
+  color: #ca9841;
+}
+.personalized .row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 50px;
+  width: 100%;
+}
+.personalized .row .left {
+  flex: 1;
+}
+.personalized .row .left img {
+  width: 100%;
+}
+.personalized .row .right {
+  flex: 1;
+  text-align: start;
+}
+.personalized .row .right p {
+  font-size: 16px;
+  font-weight: 400;
+  font: "IBM Plex Sans", sans-serif;
+  line-height: 25px;
+}
+.personalized .row .right p span {
+  color: #ca9841;
+  font-weight: 600;
+}
+.personalized .row .right p:nth-child(2) {
+  margin: 18px 0 40px 0;
+}/*# sourceMappingURL=Personalized.css.map */
