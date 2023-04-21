@@ -32,6 +32,9 @@
 .newsletter h3 span {
   color: #68492a;
 }
+.newsletter h3 .show {
+  opacity: 1 !important;
+}
 .newsletter p {
   max-width: 800px;
   margin: 0 auto;

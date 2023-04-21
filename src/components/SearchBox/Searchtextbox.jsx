@@ -30,6 +30,7 @@ export default function Searchtextbox({ setSearchQuery, setIsSelectedCity, value
         "& input": {
           width: 175,
           border: 0,
+          outline: 0,
         },
       }}
       id="custom-input-demo"

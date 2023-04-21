@@ -27,7 +27,7 @@ export default function Personalized() {
             unforgettable trip. Contact us today to start planning your dream
             trip to Egypt!
           </p>
-          <Link to="/request-quote" className="btn">Contact us</Link>
+          <Link to="/request-quote" className="btn animate__animated animate__pulse animate__infinite">Contact us</Link>
         </div>
       </div>
     </div>

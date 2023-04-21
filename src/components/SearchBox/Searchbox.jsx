@@ -46,11 +46,11 @@ export default function Searchbox({ minimized }) {
 
   return (
     <form className="search-box" onSubmit={handleSubmit}>
-      <div className={minimized ? "search-terms minimized" : "search-terms"}>
+      <div className="search-terms">
         <div className="search-term">
           <div className="icon-header">
             <img src={location} alt="" />
-            {!minimized && <h4>Location</h4>}
+            <h4>Location</h4>
           </div>
           <div className="term">
             <Searchtextbox
@@ -63,7 +63,7 @@ export default function Searchbox({ minimized }) {
         <div className="search-term">
           <div className="icon-header">
             <img src={clock} alt="" />
-            {!minimized && <h4>Date</h4>}
+            <h4>Date</h4>
           </div>
           <div className="term">
             <Datepicker setDate={setDate} />
@@ -73,7 +73,7 @@ export default function Searchbox({ minimized }) {
         <div className="search-term">
           <div className="icon-header">
             <img src={people} alt="" />
-            {!minimized && <h4>Guests</h4>}
+            <h4>Guests</h4>
           </div>
           <div className="term">
             <div className="guests-picker">

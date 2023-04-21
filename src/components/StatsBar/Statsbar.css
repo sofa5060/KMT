@@ -27,6 +27,8 @@
   font-size: 54px;
   font-weight: 700;
   color: #ca9841;
+  display: flex;
+  align-items: flex-end;
 }
 .stats-bar-background .stats-bar .stats .stat p {
   font-size: 18px;

@@ -40,6 +40,8 @@ $golos: main.$golos;
           font-size: 54px;
           font-weight: 700;
           color: $main-color;
+          display: flex;
+          align-items: flex-end;
         }
 
         p{
