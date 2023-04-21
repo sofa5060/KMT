@@ -1,0 +1,88 @@
+@use '../../pages/HomePage/Homepage.scss' as main;
+$main-color: main.$main-color;
+$secondary-color: main.$secondary-color;
+$text-color: main.$text-color;
+$ibm: main.$ibm;
+$golos: main.$golos;
+
+
+.newsletter{
+  max-width: 1200px;
+  margin: 250px auto 0 auto;
+  background: #EDE4D3;
+  text-align: center;
+  border-radius: 70px;
+  padding: 100px 50px 90px 50px;
+  position: relative;
+
+  .icon-background{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: #EDE4D3;
+    z-index: 1;
+    padding: 35px;
+    position: absolute;
+    left: 50%;
+    top: -100px;
+    transform: translateX(-50%);
+
+    .icon{
+      img{
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+
+
+  h3{
+    margin: 25px 0 35px 0;
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 57px;
+
+    span{
+      color: $secondary-color;
+    }
+  }
+
+  p{
+    max-width: 800px;
+    margin: 0 auto;
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  &-form{
+    margin: 85px 0 0 0;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+
+    input{
+      padding: 18px;
+      width: 100%;
+      border: 1px solid $main-color;
+      border-radius: 4px;
+      outline: none;
+      height: 62px;
+    }
+
+    input[type="text"]{
+      max-width: 200px;
+    }
+
+    input[type="email"]{
+      max-width: 440px;
+    }
+
+    button{
+      border: 0;
+      padding: 20px 44px;
+      cursor: pointer;
+      border-radius: 0;
+    }
+  }
+}

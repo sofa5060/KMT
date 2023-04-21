@@ -12,6 +12,7 @@
   align-items: center;
   max-width: 1300px;
   padding: 0 50px;
+  margin: 0 auto;
 }
 .navbar-background .navbar li {
   list-style: none;

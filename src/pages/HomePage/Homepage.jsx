@@ -6,6 +6,7 @@ import Statsbar from "../../components/StatsBar/Statsbar";
 import Topdestination from "../../components/TopDestinations/Topdestination";
 import Imageslider from "../../components/ImageSlider/Imageslider";
 import Benefits from "../../components/Benefits/Benefits";
+import Newsletter from "../../components/Newsletter/Newsletter";
 
 export default function Homepage() {
   return (
@@ -14,6 +15,7 @@ export default function Homepage() {
       <Statsbar />
       <Topdestination />
       <Benefits />
+      <Newsletter />
     </div>
   );
 }
