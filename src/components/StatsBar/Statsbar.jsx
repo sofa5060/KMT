@@ -4,72 +4,76 @@ import CountUp from "react-countup";
 import ScrollTrigger from "react-scroll-trigger";
 
 export default function Statsbar() {
-  const [travellersCount, setTravellersCount] = useState(0);
-  const [tripsCount, setTripsCount] = useState(0);
+  const [isTravellersCountEnded, setTravellersCountEnded] = useState(false);
+  const [isTripsCountEnded, setTripsCountEnded] = useState(false);
   const [counterStart, setCounterStart] = useState(false);
   return (
-    <ScrollTrigger onEnter={() => setCounterStart(true)} onExit={() => {setCounterStart(false); setTravellersCount(0); setTripsCount(0)}}>
+    <ScrollTrigger
+      onEnter={() => setCounterStart(true)}
+      onExit={() => {
+        setCounterStart(false);
+        setTravellersCountEnded(false);
+        setTripsCountEnded(false);
+      }}
+    >
       <div className="stats-bar-background">
         <div className="stats-bar">
           <h2>Join Our Thousands of Satisfied Travelers!</h2>
           <div className="stats">
             <div className="stat">
               {counterStart && (
-                <CountUp
-                  start={0}
-                  end={9000}
-                  duration={1.5}
-                  separator=""
-                  onEnd={() => {
-                    setTravellersCount("9k+");
-                  }}
-                  onStart={() => setTravellersCount(0)}
-                >
-                  {({ countUpRef, start }) => (
-                    <h1 ref={travellersCount === 0 ? countUpRef : null}>
-                      {travellersCount}
-                    </h1>
+                <h1>
+                  {isTravellersCountEnded ? (
+                    "9k+"
+                  ) : (
+                    <CountUp
+                      start={0}
+                      end={9000}
+                      duration={1.5}
+                      separator=""
+                      onEnd={() => {
+                        setTravellersCountEnded(true);
+                      }}
+                    />
                   )}
-                </CountUp>
+                </h1>
               )}
               <p>Total Travelers</p>
             </div>
             <div className="stat">
               {counterStart && (
-                <CountUp
-                  start={0}
-                  end={1100}
-                  duration={1.5}
-                  separator=""
-                  onEnd={() => {
-                    setTripsCount("1.1k");
-                  }}
-                  onStart={() => setTripsCount(0)}
-                >
-                  {({ countUpRef, start }) => (
-                    <h1 ref={tripsCount === 0 ? countUpRef : null}>
-                      {tripsCount}
-                    </h1>
+                <h1>
+                  {isTripsCountEnded ? (
+                    "1.1k"
+                  ) : (
+                    <CountUp
+                      start={0}
+                      end={1100}
+                      duration={1.5}
+                      separator=""
+                      onEnd={() => {
+                        setTripsCountEnded(true);
+                      }}
+                    />
                   )}
-                </CountUp>
+                </h1>
               )}
               <p>Total Trips</p>
             </div>
             <div className="stat">
               {counterStart && (
-                <CountUp
-                  start={0}
-                  end={4.9}
-                  decimals={1}
-                  decimal="."
-                  duration={2}
-                >
-                  {({ countUpRef, start }) => (
-                    <h1>
-                      <span ref={countUpRef}></span>/5
-                    </h1>
-                  )}
-                </CountUp>
+                <h1>
+                  <CountUp
+                    start={0}
+                    end={4.9}
+                    decimals={1}
+                    decimal="."
+                    duration={2}
+                  >
+                    {({ countUpRef, start }) => <span ref={countUpRef}></span>}
+                  </CountUp>
+                  /5
+                </h1>
               )}
               <p>Travelers Satisfaction rate</p>
             </div>
