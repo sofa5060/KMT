@@ -21,7 +21,7 @@ export default function Footer() {
           <div className="footer-left">
             <h2>Ready to get started?</h2>
             <div className="m-left">
-              <Link to="/alltrips" className="btn footer-btn">
+              <Link to="/trips" className="btn footer-btn">
                 Get Started with KMT Tours
               </Link>
               <div className="row location">
@@ -34,7 +34,7 @@ export default function Footer() {
                 <div className="row">
                   <PhoneIcon />
                   <a href="tel:+0223918470" className="text">
-                    (+02) 239 184 70
+                    (+20) 2 2391 8470
                   </a>
                 </div>
                 <div className="row">

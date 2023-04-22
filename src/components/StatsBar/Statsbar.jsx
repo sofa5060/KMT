@@ -4,7 +4,7 @@ import CountUp from "react-countup";
 import ScrollTrigger from "react-scroll-trigger";
 
 export default function Statsbar() {
-  const [isTravellersCountEnded, setTravellersCountEnded] = useState(false);
+  const [isTravelersCountEnded, setTravelersCountEnded] = useState(false);
   const [isTripsCountEnded, setTripsCountEnded] = useState(false);
   const [counterStart, setCounterStart] = useState(false);
   return (
@@ -12,7 +12,7 @@ export default function Statsbar() {
       onEnter={() => setCounterStart(true)}
       onExit={() => {
         setCounterStart(false);
-        setTravellersCountEnded(false);
+        setTravelersCountEnded(false);
         setTripsCountEnded(false);
       }}
     >
@@ -23,7 +23,7 @@ export default function Statsbar() {
             <div className="stat">
               {counterStart && (
                 <h1>
-                  {isTravellersCountEnded ? (
+                  {isTravelersCountEnded ? (
                     "9k+"
                   ) : (
                     <CountUp
@@ -32,7 +32,7 @@ export default function Statsbar() {
                       duration={1.5}
                       separator=""
                       onEnd={() => {
-                        setTravellersCountEnded(true);
+                        setTravelersCountEnded(true);
                       }}
                     />
                   )}
@@ -69,9 +69,7 @@ export default function Statsbar() {
                     decimals={1}
                     decimal="."
                     duration={2}
-                  >
-                    {({ countUpRef, start }) => <span ref={countUpRef}></span>}
-                  </CountUp>
+                    />
                   /5
                 </h1>
               )}

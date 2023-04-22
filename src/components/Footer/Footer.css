@@ -121,20 +121,20 @@
   transform: translate(-50%, -50%);
 }
 .footer-outer .footer-right .footer-image .mask-1 {
-  max-width: 667px;
-  max-height: 667px;
+  max-width: 533px;
+  max-height: 533px;
   background: #000;
   opacity: 0.05;
 }
 .footer-outer .footer-right .footer-image .mask-2 {
-  max-width: 596px;
-  max-height: 596px;
+  max-width: 462px;
+  max-height: 462px;
   background: #000;
   opacity: 0.1;
 }
 .footer-outer .footer-right .footer-image .mask-3 {
-  max-width: 534px;
-  max-height: 534px;
+  max-width: 400px;
+  max-height: 400px;
 }
 .footer-outer .footer-right .footer-image .mask-3 img {
   width: 100%;

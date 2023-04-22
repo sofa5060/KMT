@@ -8,7 +8,7 @@ import Pagination from "@mui/material/Pagination";
 import Sortselect from "../../components/SortSelect/Sortselect";
 import Searchpage_Searchbox from "../../components/SearchBox/Searchpage_Searchbox";
 
-export default function Searchpage() {
+export default function Searchpage({ setCurrPage, allTrips }) {
   let resultsPerPage = 3;
   const [page, setPage] = useState(1);
   const [sortBy, setSortBy] = useState("A-Z");
@@ -131,6 +131,10 @@ export default function Searchpage() {
     }
     console.log(sortBy);
   }, [sortBy]);
+
+  useEffect(() => {
+    setCurrPage('trips');
+  }, []);
 
   return (
     <div className="search-page">

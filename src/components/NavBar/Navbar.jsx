@@ -14,9 +14,9 @@ export default function Navbar({currPage}) {
         </div>
         <ul className="navbar-list">
           <li><Link to='/' className={currPage==="home" ? "main" : ""}>Home</Link></li>
-          <li><Link to='/' className={currPage==="trips" ? "main" : ""}>Trips</Link></li>
+          <li><Link to='/trips' className={currPage==="trips" ? "main" : ""}>Trips</Link></li>
           <li><Link to='/' className={currPage==="about" ? "main" : ""}>About Us</Link></li>
-          <li><Link to='/' className={currPage==="contact" ? "main" : ""}>Contact Us</Link></li>
+          <li><Link to='/contact' className={currPage==="contact" ? "main" : ""}>Contact Us</Link></li>
         </ul>
         <ul className="navbar-user">
           <li>

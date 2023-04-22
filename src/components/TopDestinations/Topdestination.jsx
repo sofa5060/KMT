@@ -35,8 +35,8 @@ export default function Topdestination() {
       <div className="card-list" style={{ marginBottom: !destinations && 0 }}>
         {destinations ? (
           destinations.map((destination, index) => (
-            <AnimationOnScroll animateIn="animate__fadeInLeft" delay={index*200} animateOnce>
-              <Card key={destination.id} data={destination} />
+            <AnimationOnScroll animateIn="animate__fadeInLeft" delay={index*200} animateOnce key={destination.id}>
+              <Card data={destination} />
             </AnimationOnScroll>
           ))
         ) : (

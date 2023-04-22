@@ -1,0 +1,56 @@
+@use "../../pages/HomePage/Homepage.scss" as main;
+$main-color: main.$main-color;
+$secondary-color: main.$secondary-color;
+$text-color: main.$text-color;
+$distance-from-center: 100px;
+$ibm: main.$ibm;
+$golos: main.$golos;
+
+.contact-form{
+  max-width: 680px;
+  margin: 0 auto;
+  width: 100%;
+
+  h2{
+    font-size: 36px;
+    font-weight: 600;
+    line-height: 58px;
+  }
+
+  p{
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 26px;
+    color: $text-color;
+    margin: 20px 0 40px 0;
+  }
+
+  .form{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: start;
+
+    .row{
+      display: flex;
+      justify-content: space-between;
+      gap: 30px;
+      align-items: center;
+      width: 100%;
+    }
+
+    input{
+      width: 100%;
+      display: inline-block;
+      max-width: 680px;
+    }
+
+    .btn{
+      display: inline-block;
+      padding: 20px 44px;
+      border: 0;
+      cursor: pointer;
+      border-radius: 0;
+    }
+  }
+}
