@@ -6,11 +6,10 @@ import location from "../../images/location.svg";
 import clock from "../../images/clock.svg";
 import people from "../../images/people.svg";
 import Datepicker from "./Datepicker";
-import minus from "../../images/minus 1.svg";
-import plus from "../../images/plus 1.svg";
 import { SearchContext } from "../../context/SearchContextProvider";
 import { useHistory } from "react-router-dom";
 import SearchQuery from "../../models/SearchQuery";
+import Guestspicker from "../GuestsPicker/Guestspicker";
 
 export default function Searchbox({ minimized }) {
   const history = useHistory();
@@ -37,9 +36,9 @@ export default function Searchbox({ minimized }) {
     setSearchObj(localSearchObj);
     setIsRedirectedFromHome(true);
   };
-  
+
   useEffect(() => {
-    if(isRedirectedFromHome && searchObj){
+    if (isRedirectedFromHome && searchObj) {
       history.push(`/search/${searchQuery}`);
     }
   }, [isRedirectedFromHome, searchObj]);
@@ -66,7 +65,9 @@ export default function Searchbox({ minimized }) {
             <h4>Date</h4>
           </div>
           <div className="term">
-            <Datepicker setDate={setDate} />
+            <div className="date-picker">
+              <Datepicker setDate={setDate} />
+            </div>
           </div>
         </div>
         <hr />
@@ -76,26 +77,7 @@ export default function Searchbox({ minimized }) {
             <h4>Guests</h4>
           </div>
           <div className="term">
-            <div className="guests-picker">
-              <img
-                src={minus}
-                alt=""
-                onClick={() =>
-                  parseInt(guests) > 1 && setGuests(parseInt(guests) - 1)
-                }
-              />
-              <input
-                type="number"
-                value={guests}
-                onChange={(e) => setGuests(e.target.value)}
-                min="1"
-              />
-              <img
-                src={plus}
-                alt=""
-                onClick={() => setGuests(parseInt(guests) + 1)}
-              />
-            </div>
+            <Guestspicker setGuestsCount={setGuests} />
           </div>
         </div>
       </div>

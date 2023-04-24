@@ -1,41 +1,47 @@
 import React, { useEffect, useState } from "react";
-import { Link, Redirect , useParams } from "react-router-dom";
+import { Link, Redirect, useParams } from "react-router-dom";
 import Imagesviewer from "../../components/ImagesViewer/Imagesviewer";
 import Map from "../../components/Map/Map";
 import Trippricecard from "../../components/TripPriceCard/Trippricecard";
+import Quoteform from "../../components/QuoteForm/Quoteform";
 import "./Trippage.css";
-import axios from "axios"
+import axios from "axios";
 
-export default function Trippage() {
+export default function Trippage({setCurrPage}) {
   const [trip, setTrip] = useState(null);
   const [error, setError] = useState("");
   const { tripID } = useParams();
 
   const getTripByID = async (id) => {
     if (trip) return;
-    try{
+    try {
       const response = await axios.get(`http://localhost:5000/api/trip/${id}`);
       console.log(response);
       setTrip(response.data);
-    }catch(e){
+    } catch (e) {
       // setNotFound(true);
-      console.log(e)
+      console.log(e);
       setError(e.response ? e.response.data.message : e.message);
     }
   };
-  
+
   useEffect(() => {
     getTripByID(tripID);
   }, [tripID]);
 
-  if(error.length > 0) return (
-    <div className="error">
-      <h1>{error}</h1>
-      <Link to="/">Go to Home</Link>
-    </div>
-  );
+  useEffect(() => {
+    setCurrPage("trips");
+  }, []);
 
-  if(!trip) return <div>Loading...</div>
+  if (error.length > 0)
+    return (
+      <div className="error">
+        <h1>{error}</h1>
+        <Link to="/">Go to Home</Link>
+      </div>
+    );
+
+  if (!trip) return <div>Loading...</div>;
 
   return (
     <div className="trip-page">
@@ -72,7 +78,16 @@ export default function Trippage() {
           <hr className="split-line" />
         </div>
         <p className="contact">
-          For more information.... <Link to="/">Contact Us</Link>
+          For more information.... <Link to="/contact">Contact Us</Link>
+          <div className="divider">
+            <hr />
+            <h4>OR</h4>
+            <hr />
+          </div>
+          <div className="form">
+            <h3>Request Personalized Trip</h3>
+            <Quoteform minimized />
+          </div>
         </p>
       </div>
       <Trippricecard tripDetails={trip} />

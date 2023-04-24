@@ -1,0 +1,19 @@
+.guests-picker {
+  display: flex;
+  align-items: center;
+}
+.guests-picker input[type=number]::-webkit-inner-spin-button,
+.guests-picker input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.guests-picker input {
+  max-width: 50px;
+  text-align: center;
+  border: 0;
+  outline: 0;
+}
+.guests-picker svg {
+  cursor: pointer;
+  fill: #ca9841;
+}/*# sourceMappingURL=Guestspicker.css.map */

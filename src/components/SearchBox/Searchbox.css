@@ -45,22 +45,9 @@
   margin: 0 0 0 42px;
   width: 100%;
 }
-.search-box .search-terms .search-term .term .guests-picker {
-  display: flex;
-}
-.search-box .search-terms .search-term .term .guests-picker input[type=number]::-webkit-inner-spin-button,
-.search-box .search-terms .search-term .term .guests-picker input[type=number]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-.search-box .search-terms .search-term .term .guests-picker input {
-  max-width: 50px;
-  text-align: center;
-  border: 0;
-  outline: 0;
-}
-.search-box .search-terms .search-term .term .guests-picker img {
-  cursor: pointer;
+.search-box .search-terms .search-term .term .date-picker {
+  max-width: 175px;
+  width: 100%;
 }
 .search-box .search-terms .search-term .term .css-r5jwtn-MuiAutocomplete-root input {
   border: 0 !important;

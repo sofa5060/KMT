@@ -1,0 +1,38 @@
+.quote-form {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  width: 100%;
+  align-items: start;
+}
+.quote-form .row {
+  display: flex;
+  gap: 30px;
+  width: 100%;
+}
+.quote-form input[type=number]::-webkit-inner-spin-button,
+.quote-form input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.quote-form .input-field {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.2274509804);
+  border-radius: 5px;
+  padding: 15px;
+}
+.quote-form .input-field h4 {
+  color: rgba(0, 0, 0, 0.6);
+  font-weight: 500;
+  font-size: 14px;
+}
+.quote-form .btn {
+  padding: 20px 40px;
+  border: 0;
+  border-radius: 0;
+  cursor: pointer;
+}/*# sourceMappingURL=Quoteform.css.map */

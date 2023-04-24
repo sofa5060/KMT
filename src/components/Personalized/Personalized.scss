@@ -30,31 +30,36 @@ $golos: main.$golos;
     width: 100%;
 
     .left{
-      flex: 1;
+      display: flex;
+      gap: 15px;
+      max-width: 620px;
+      width: 100%;
 
       img{
-        width: 100%;
+        width: 40px;
+        height: 40px;
       }
-    }
-
-    .right{
-      flex: 1;
-      text-align: start;
 
       p{
         font-size: 16px;
         font-weight: 400;
         font: $ibm;
         line-height: 25px;
+        margin: 0 0 40px 0;
 
         span{
           color: $main-color;
           font-weight: 600;
         }
       }
+    }
 
-      p:nth-child(2){
-        margin: 18px 0 40px 0;
+    .right{
+      max-width: 500px;
+      width: 100%;
+
+      img{
+        width: 100%;
       }
     }
   }

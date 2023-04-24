@@ -8,32 +8,42 @@ import SearchContextProvider from "./context/SearchContextProvider";
 import Searchpage from "./pages/SearchPage/Searchpage";
 import Footer from "./components/Footer/Footer";
 import Contactpage from "./pages/ContactPage/Contactpage";
-import {useState} from "react";
+import { useState } from "react";
+import Quotepage from "./pages/QuotePage/Quotepage";
+import QuoteContextProvider from "./context/QuoteContextProvider";
 
 const App = () => {
   const [currPage, setCurrPage] = useState("home");
   return (
     <Router>
-      <Navbar currPage={currPage} />
       <SearchContextProvider>
-        <Scrolltotop />
-        <Switch>
-          <Route path="/" exact>
-            <Homepage setCurrPage={setCurrPage}/>
-          </Route>
-          <Route path="/trips" exact>
-            <Searchpage setCurrPage={setCurrPage} allTrips/>
-          </Route>
-          <Route path="/trip/:tripID" exact>
-            <Trippage setCurrPage={setCurrPage}/>
-          </Route>
-          <Route path="/search/:tripName">
-            <Searchpage setCurrPage={setCurrPage}/>
-          </Route>
-          <Route path="/contact">
-            <Contactpage setCurrPage={setCurrPage}/>
-          </Route>
-        </Switch>
+        <QuoteContextProvider>
+          <Navbar currPage={currPage} />
+          <Scrolltotop />
+          <Switch>
+            <Route path="/" exact>
+              <Homepage setCurrPage={setCurrPage} />
+            </Route>
+            <Route path="/quote" exact>
+              <Quotepage setCurrPage={setCurrPage} />
+            </Route>
+            <Route path="/trips" exact>
+              <Searchpage setCurrPage={setCurrPage} allTrips />
+            </Route>
+            <Route path="/trip/:tripID" exact>
+              <Trippage setCurrPage={setCurrPage} />
+            </Route>
+            <Route path="/search/:tripName">
+              <Searchpage setCurrPage={setCurrPage} />
+            </Route>
+            <Route path="/contact">
+              <Contactpage setCurrPage={setCurrPage} />
+            </Route>
+            <Route path="*">
+              <h1>Not Found</h1>
+            </Route>
+          </Switch>
+        </QuoteContextProvider>
       </SearchContextProvider>
       <Footer />
     </Router>

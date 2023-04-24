@@ -19,25 +19,43 @@ export default function Searchfilter({ filter }) {
       if (filter.name === "Destinations") {
         searchObj.addDestination(event.target.ariaLabel);
       } else if (filter.name === "Duration") {
-        searchObj.addToDurations(event.target.ariaLabel);
+        if (event.target.ariaLabel[0] === "1")
+          searchObj.addToDurations([
+            parseInt(event.target.ariaLabel[0]),
+            parseInt(event.target.ariaLabel[0]),
+          ]);
+        else
+          searchObj.addToDurations([
+            parseInt(event.target.ariaLabel[0]),
+            parseInt(event.target.ariaLabel[2]),
+          ]);
       } else if (filter.name === "Rating") {
-        searchObj.addToRatings(event.target.ariaLabel);
+        searchObj.addToRatings(parseInt(event.target.ariaLabel[0]));
       }
     } else {
       if (filter.name === "Destinations") {
         searchObj.removeDestination(event.target.ariaLabel);
       } else if (filter.name === "Duration") {
-        searchObj.removeFromDurations(event.target.ariaLabel);
+        if (event.target.ariaLabel[0] === "1")
+          searchObj.removeFromDurations([
+            parseInt(event.target.ariaLabel[0]),
+            parseInt(event.target.ariaLabel[0]),
+          ]);
+        else
+          searchObj.removeFromDurations([
+            parseInt(event.target.ariaLabel[0]),
+            parseInt(event.target.ariaLabel[2]),
+          ]);
       } else if (filter.name === "Rating") {
-        searchObj.removeFromRatings(event.target.ariaLabel);
+        searchObj.removeFromRatings(parseInt(event.target.ariaLabel[0]));
       }
     }
     setSearchObj(searchObj);
   };
 
   useEffect(() => {
-    console.log(searchObj)
-  }, [searchObj])
+    console.log(searchObj);
+  }, [searchObj]);
 
   return (
     <div className="filter">

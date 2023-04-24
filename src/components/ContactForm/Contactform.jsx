@@ -22,7 +22,7 @@ export default function Contactform() {
           <TextField label="Last Name" required fullWidth/>
         </div>
         <TextField label="Email Address" type="email" required fullWidth/>
-        <TextField label="Write Your Messeage" multiline required fullWidth/>
+        <TextField label="Write Your Message" multiline required fullWidth rows={5}/>
         <button className="btn">Submit</button>
       </form>
     </div>
