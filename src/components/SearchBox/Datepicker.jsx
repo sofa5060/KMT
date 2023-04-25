@@ -23,6 +23,12 @@ export default function Datepicker({ setDate, inputDate, label, min }) {
     }
   }, [min]);
 
+  useEffect(() => {
+    if (inputDate !== undefined) {
+      setValue(inputDate);
+    }
+  }, [inputDate]);
+
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DatePicker

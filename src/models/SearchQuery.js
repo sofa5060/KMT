@@ -1,17 +1,43 @@
 export default class SearchQuery {
-  constructor(searchQuery, date, guests, isSelectedCity = false, Destinations = [], durations = [], ratings = [], priceRange = [0, 1000]) {
-    if(isSelectedCity){
-      this.Destinations = [searchQuery, ...Destinations]
-    }else{
-      this.Destinations = Destinations;
-    }
+  constructor(
+    searchQuery,
+    date,
+    guests = 1,
+    isSelectedCity = false,
+    destinations = [],
+    durations = [],
+    ratings = [],
+    priceRange = [0, 1000]
+  ) {
     this.searchQuery = searchQuery;
     this.date = date;
     this.guests = guests;
     this.isSelectedCity = isSelectedCity;
+    this.destinations = destinations;
     this.durations = durations;
     this.ratings = ratings;
     this.priceRange = priceRange;
+  }
+
+  generateNewObj() {
+    return new SearchQuery(
+      this.searchQuery,
+      this.date,
+      this.guests,
+      this.isSelectedCity,
+      this.destinations,
+      this.durations,
+      this.ratings,
+      this.priceRange
+    );
+  }
+
+  setSearchQuery(searchQuery) {
+    this.searchQuery = searchQuery;
+  }
+
+  setIsSelectedCity(isSelectedCity) {
+    this.isSelectedCity = isSelectedCity;
   }
 
   setDate(date) {
@@ -19,16 +45,18 @@ export default class SearchQuery {
   }
 
   setGuests(guests) {
-    if(guests < 1) guests = 1;
+    if (guests < 1) guests = 1;
     this.guests = guests;
   }
 
   addDestination(destination) {
-    this.Destinations.push(destination);
+    this.destinations.push(destination);
   }
 
   removeDestination(destination) {
-    this.Destinations = this.Destinations.filter((dest) => dest !== destination);
+    this.destinations = this.destinations.filter(
+      (dest) => dest !== destination
+    );
   }
 
   addToDurations(duration) {
@@ -48,6 +76,7 @@ export default class SearchQuery {
   }
 
   setPriceRange(priceRange) {
+    console.log("called")
     this.priceRange = priceRange;
   }
 }

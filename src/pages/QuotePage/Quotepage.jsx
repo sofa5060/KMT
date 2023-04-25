@@ -13,7 +13,7 @@ export default function Quotepage({ setCurrPage }) {
       <div className="background">
         <img src={quote_background} alt="" />
       </div>
-      <div className="container">
+      <div className="form-container">
         <h1>Request a Quote</h1>
         <p className="quote-text">
           At KMT Tours, we understand that every traveler has different needs

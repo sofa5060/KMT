@@ -5,7 +5,8 @@ import Pricefilter from "./Pricefilter";
 import { SearchContext } from "../../context/SearchContextProvider";
 
 export default function Searchfilters() {
-  const { searchObj } = useContext(SearchContext);
+  const { searchObj, searchWithObj } = useContext(SearchContext);
+  const [priceRange, setPriceRange] = useState([0, 1000]);
   const [filters, setFilters] = useState([
     {
       name: "Destinations",
@@ -37,23 +38,21 @@ export default function Searchfilters() {
     },
   ]);
 
-  const priceRange = [0, 1000];
+  useEffect(() => {
+    // TODO: get price range from backend
+  }, [priceRange]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    searchWithObj(searchObj);
   };
 
-  useEffect(() => {
-    if (searchObj && searchObj.isSelectedCity) {
-      filters[0].options.find(option => option.name === searchObj.searchQuery).checked = true;
-    }
-  }, []);
-
   if(!filters) return <div></div>;
+
   return (
     <form className="search-filters" onSubmit={handleSubmit}>
-      {filters.map((filter) => (
-        <div>
+      {filters.map((filter, index) => (
+        <div key={index}>
           <Searchfilter filter={filter} key={filter.name} />
           <hr />
         </div>

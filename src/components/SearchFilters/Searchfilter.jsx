@@ -15,47 +15,26 @@ export default function Searchfilter({ filter }) {
     ).checked = event.target.checked;
     setFilterProps([...filter.options]);
 
+    let localSearchObj = searchObj.generateNewObj();
     if (event.target.checked) {
       if (filter.name === "Destinations") {
-        searchObj.addDestination(event.target.ariaLabel);
+        localSearchObj.addDestination(event.target.ariaLabel);
       } else if (filter.name === "Duration") {
-        if (event.target.ariaLabel[0] === "1")
-          searchObj.addToDurations([
-            parseInt(event.target.ariaLabel[0]),
-            parseInt(event.target.ariaLabel[0]),
-          ]);
-        else
-          searchObj.addToDurations([
-            parseInt(event.target.ariaLabel[0]),
-            parseInt(event.target.ariaLabel[2]),
-          ]);
+          localSearchObj.addToDurations(event.target.ariaValueText);
       } else if (filter.name === "Rating") {
-        searchObj.addToRatings(parseInt(event.target.ariaLabel[0]));
+        localSearchObj.addToRatings(parseInt(event.target.ariaLabel[0]));
       }
     } else {
       if (filter.name === "Destinations") {
-        searchObj.removeDestination(event.target.ariaLabel);
+        localSearchObj.removeDestination(event.target.ariaLabel);
       } else if (filter.name === "Duration") {
-        if (event.target.ariaLabel[0] === "1")
-          searchObj.removeFromDurations([
-            parseInt(event.target.ariaLabel[0]),
-            parseInt(event.target.ariaLabel[0]),
-          ]);
-        else
-          searchObj.removeFromDurations([
-            parseInt(event.target.ariaLabel[0]),
-            parseInt(event.target.ariaLabel[2]),
-          ]);
+        localSearchObj.removeFromDurations(event.target.ariaValueText);
       } else if (filter.name === "Rating") {
-        searchObj.removeFromRatings(parseInt(event.target.ariaLabel[0]));
+        localSearchObj.removeFromRatings(parseInt(event.target.ariaLabel[0]));
       }
     }
-    setSearchObj(searchObj);
+    setSearchObj(localSearchObj);
   };
-
-  useEffect(() => {
-    console.log(searchObj);
-  }, [searchObj]);
 
   return (
     <div className="filter">
@@ -70,7 +49,7 @@ export default function Searchfilter({ filter }) {
               <Checkbox
                 checked={option.checked}
                 onChange={handleChange}
-                inputProps={{ "aria-label": option.name }}
+                inputProps={{ "aria-label": option.name, 'aria-valuetext': index}}
                 sx={{
                   [`&, &.${checkboxClasses.checked}`]: {
                     color: "#CA9841",

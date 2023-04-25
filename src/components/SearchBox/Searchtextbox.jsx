@@ -1,23 +1,18 @@
 import React, { useState, useEffect } from "react";
 import Autocomplete from "@mui/material/Autocomplete";
 
-export default function Searchtextbox({ setSearchQuery, setIsSelectedCity, value }) {
+export default function Searchtextbox({ setSearchQuery, value }) {
   const cities = ["Luxor", "Aswan", "Cairo", "Giza", "Alexandria"];
   const [inputValue, setInputValue] = useState("");
 
   const handleChange = (e, newValue) => {
-    if(cities.includes(newValue)){
-      setIsSelectedCity(true);
-    }else{
-      setIsSelectedCity(false);
-    }
     setInputValue(newValue);
     setSearchQuery(newValue);
   };
   
 
   useEffect(() => {
-    if(value){
+    if(value !== undefined){
       setInputValue(value);
     }
   }, [value]);

@@ -3,7 +3,7 @@ import "./Guestspicker.css";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 
-export default function Guestspicker({ setGuestsCount }) {
+export default function Guestspicker({ setGuestsCount, value }) {
   const [guests, setGuests] = useState(1);
 
   const incrementGuests = () => {
@@ -24,6 +24,12 @@ export default function Guestspicker({ setGuestsCount }) {
     
     setGuestsCount(parseInt(guests));
   }, [guests]);
+
+  useEffect(() => {
+    if (value !== undefined) {
+      setGuests(value);
+    }
+  }, [value]);
 
   return (
     <div className="guests-picker">
