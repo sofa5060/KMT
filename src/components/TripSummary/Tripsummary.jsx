@@ -12,10 +12,12 @@ export default function Tripsummary({ RHR }) {
   return (
     <div className="trip-summary">
       <div className="title">
-        <h3>The Pyramids of Giza & Sphinx</h3>
+        <div className="title-data">
+          <h3>The Pyramids of Giza & Sphinx</h3>
+          <p>1 Day Trip - (49.99 USD)</p>
+        </div>
         <h5>x2</h5>
       </div>
-      <p>1 Day Trip - (49.99 USD)</p>
       <div className="addOns">
         <div className="addOn">
           <p>Hotel Pickup (Free)</p>

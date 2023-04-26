@@ -13,6 +13,7 @@ import Quotepage from "./pages/QuotePage/Quotepage";
 import QuoteContextProvider from "./context/QuoteContextProvider";
 import Checkoutpage from "./pages/CheckoutPage/Checkoutpage";
 import CheckoutContextProvider from "./context/CheckoutContextProvider";
+import Aboutpage from "./pages/AboutPage/Aboutpage";
 
 const App = () => {
   const [currPage, setCurrPage] = useState("home");
@@ -44,6 +45,9 @@ const App = () => {
               </Route>
               <Route path="/checkout">
                 <Checkoutpage setCurrPage={setCurrPage} />
+              </Route>
+              <Route path="/about">
+                <Aboutpage setCurrPage={setCurrPage} />
               </Route>
               <Route path="*">
                 <h1>Not Found</h1>
