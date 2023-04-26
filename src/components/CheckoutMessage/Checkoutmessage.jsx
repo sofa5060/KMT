@@ -6,7 +6,7 @@ import "./Checkoutmessage.css"
 export default function Checkoutmessage({ type }) {
   if (type === "paymentSuccess") {
     return (
-      <div className="container">
+      <div className="message-container">
         <img src={correct} alt="correct operation" />
         <h2>Congratulations! You are All set</h2>
         <h3>Your Trip ID #123456789</h3>
