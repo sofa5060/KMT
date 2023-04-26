@@ -28,7 +28,7 @@ export default function Checkoutdetails({ guests, handleNext }) {
   };
 
   const setPhone = (e, i) => {
-    e = `${e}`
+    e = `${e}`;
     setGuestsInfo((prev) => {
       let temp = [...prev];
       temp[i] = { ...temp[i], phone: e };
@@ -120,7 +120,9 @@ export default function Checkoutdetails({ guests, handleNext }) {
           {i === 0 && (
             <MuiTelInput
               value={
-                guestsInfo[i] && guestsInfo[i].phone ? guestsInfo[i].phone : "+20"
+                guestsInfo[i] && guestsInfo[i].phone
+                  ? guestsInfo[i].phone
+                  : "+20"
               }
               onChange={(newPhone) => setPhone(newPhone, i)}
               fullWidth
@@ -139,7 +141,10 @@ export default function Checkoutdetails({ guests, handleNext }) {
             />
           )}
           <div className="row">
-            <Countryselect setNationality={(e) => setNationality(e, i)} />
+            <Countryselect
+              setNationality={(e) => setNationality(e, i)}
+              inputNationality={guestsInfo[i] ? guestsInfo[i].nationality : null}
+            />
             <TextField
               label="Age"
               type="number"
