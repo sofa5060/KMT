@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "./Personalized.css";
 import bagTrip from "../../images/bagTrip.png";
 import tape from "../../images/tape.svg";
-import Quoteform from "../QuoteForm/Quoteform";
+import Quotepageform from "../QuotePageForm/Quotepageform";
 
 export default function Personalized() {
   return (
@@ -22,7 +22,7 @@ export default function Personalized() {
               schedule. Whether you're a first-time visitor or a seasoned
               traveler
             </p>
-            <Quoteform minimized />
+            <Quotepageform minimized />
           </div>
         </div>
         <div className="right">

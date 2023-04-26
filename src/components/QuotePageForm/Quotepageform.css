@@ -1,21 +1,21 @@
-.quote-form {
+.quote-page-form {
   display: flex;
   flex-direction: column;
   gap: 30px;
   width: 100%;
-  align-items: start;
+  align-items: flex-start;
 }
-.quote-form .row {
+.quote-page-form .row {
   display: flex;
   gap: 30px;
   width: 100%;
 }
-.quote-form input[type=number]::-webkit-inner-spin-button,
-.quote-form input[type=number]::-webkit-outer-spin-button {
+.quote-page-form input[type=number]::-webkit-inner-spin-button,
+.quote-page-form input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-.quote-form .input-field {
+.quote-page-form .input-field {
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -25,14 +25,14 @@
   border-radius: 5px;
   padding: 15px;
 }
-.quote-form .input-field h4 {
+.quote-page-form .input-field h4 {
   color: rgba(0, 0, 0, 0.6);
   font-weight: 500;
   font-size: 14px;
 }
-.quote-form .btn {
+.quote-page-form .btn {
   padding: 20px 40px;
   border: 0;
   border-radius: 0;
   cursor: pointer;
-}/*# sourceMappingURL=Quoteform.css.map */
+}/*# sourceMappingURL=Quotepageform.css.map */

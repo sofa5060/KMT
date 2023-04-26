@@ -1,10 +1,9 @@
-@use '../HomePage/Homepage.scss' as main;
+@use "../HomePage/Homepage.scss" as main;
 $main-color: main.$main-color;
 $secondary-color: main.$secondary-color;
 $text-color: main.$text-color;
 $ibm: main.$ibm;
 $golos: main.$golos;
-
 
 .quote-page {
   position: relative;
@@ -22,7 +21,7 @@ $golos: main.$golos;
     border-radius: 0 0 50px 50px;
     z-index: -1;
 
-    img{
+    img {
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -42,7 +41,7 @@ $golos: main.$golos;
       line-height: 77px;
     }
 
-    .quote-text{
+    .quote-text {
       font-size: 16px;
       font-weight: 400;
       color: $text-color;
@@ -51,7 +50,7 @@ $golos: main.$golos;
 
     .form-background {
       max-width: 750px;
-      margin: 0 auto 700px auto;
+      margin: 0 auto 800px auto;
       padding: 45px 35px 50px 35px;
       background: #fff;
       border-radius: 5px;

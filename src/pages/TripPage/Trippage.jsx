@@ -3,7 +3,7 @@ import { Link, Redirect, useParams } from "react-router-dom";
 import Imagesviewer from "../../components/ImagesViewer/Imagesviewer";
 import Map from "../../components/Map/Map";
 import Trippricecard from "../../components/TripPriceCard/Trippricecard";
-import Quoteform from "../../components/QuoteForm/Quoteform";
+import Quotepageform from "../../components/QuotePageForm/Quotepageform";
 import "./Trippage.css";
 import axios from "axios";
 import Tripsummarydetails from "../../components/TripSummaryDetails/Tripsummarydetails";
@@ -183,7 +183,7 @@ export default function Trippage({ setCurrPage }) {
             </div>
             <div className="form">
               <h3>Request Personalized Trip</h3>
-              <Quoteform minimized />
+              <Quotepageform minimized />
             </div>
           </p>
         </div>

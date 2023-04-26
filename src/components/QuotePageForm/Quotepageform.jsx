@@ -1,17 +1,16 @@
 import React, { useState, useEffect, useContext } from "react";
 import TextField from "@mui/material/TextField";
 import { MuiTelInput, matchIsValidTel } from "mui-tel-input";
-import "./Quoteform.css";
+import "./Quotepageform.css";
 import CountrySelect from "../CountrySelect/Countryselect";
 import { useHistory } from "react-router-dom";
 import Guestspicker from "../GuestsPicker/Guestspicker";
 import Datepicker from "../SearchBox/Datepicker";
 import dayjs from "dayjs";
 import Budget from "../Budget/Budget";
-import Numberinput from "../NumberInput/Numberinput";
 import { QuoteContext } from "../../context/QuoteContextProvider";
 
-export default function Quoteform({ minimized }) {
+export default function Quotepageform({ minimized }) {
   const history = useHistory();
   const { contextFullName, contextEmail, contextMsg, updateData, submitQuote } =
     useContext(QuoteContext);
@@ -102,7 +101,7 @@ export default function Quoteform({ minimized }) {
   }, [contextFullName, contextEmail, contextMsg]);
 
   return (
-    <form className="quote-form" onSubmit={handleSubmit}>
+    <form className="quote-page-form" onSubmit={handleSubmit}>
       <TextField
         label="Full Name"
         value={fullName}
@@ -119,7 +118,7 @@ export default function Quoteform({ minimized }) {
         fullWidth
       />
       {!minimized && (
-        <div className="quote-form">
+        <div className="quote-page-form ">
           <MuiTelInput
             value={phone}
             onChange={(newPhone) => setPhone(newPhone)}

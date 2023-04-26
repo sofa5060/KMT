@@ -1,0 +1,73 @@
+@use "../../pages/HomePage/Homepage.scss" as main;
+$main-color: main.$main-color;
+$secondary-color: main.$secondary-color;
+$text-color: main.$text-color;
+$ibm: main.$ibm;
+$golos: main.$golos;
+
+.trip-summary {
+  width: 100%;
+
+  .title{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  h3 {
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  p {
+    font: $ibm;
+    color: $text-color;
+    font-weight: 400;
+    font-size: 14px;
+  }
+
+  .addOns {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin: 15px 0;
+
+    .addOn {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      h5 {
+        font: $ibm;
+        color: $text-color;
+        font-weight: 600;
+        font-size: 14px;
+      }
+    }
+  }
+
+  .booking-details{
+    margin: 15px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    .booking-detail{
+      display: flex;
+      gap: 20px;
+      align-items: center;
+
+      p{
+        font: $golos;
+        color: $text-color;
+        font-weight: 400;
+        font-size: 14px;
+      }
+
+      img{
+        width: 32px;
+        height: 32px;
+      }
+    }
+  }
+}

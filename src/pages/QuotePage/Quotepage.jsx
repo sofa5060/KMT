@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import Quoteform from "../../components/QuoteForm/Quoteform";
+import Quotepageform from "../../components/QuotePageForm/Quotepageform";
 import "./Quotepage.css";
 import quote_background from "../../images/quote_background.png";
 
@@ -24,7 +24,7 @@ export default function Quotepage({ setCurrPage }) {
           customized itinerary and quote.
         </p>
         <div className="form-background">
-          <Quoteform />
+          <Quotepageform />
         </div>
       </div>
     </div>

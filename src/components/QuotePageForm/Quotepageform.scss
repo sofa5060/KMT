@@ -1,9 +1,9 @@
-.quote-form {
+.quote-page-form {
   display: flex;
   flex-direction: column;
   gap: 30px;
   width: 100%;
-  align-items: start;
+  align-items: flex-start;
 
   .row {
     display: flex;

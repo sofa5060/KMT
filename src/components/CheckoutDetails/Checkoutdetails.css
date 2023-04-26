@@ -1,0 +1,25 @@
+.checkout-details {
+  gap: 45px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+.checkout-details .person-details {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  width: 100%;
+}
+.checkout-details .person-details input[type=number]::-webkit-inner-spin-button,
+.checkout-details .person-details input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.checkout-details .person-details .row {
+  display: flex;
+  gap: 30px;
+}
+.checkout-details .btn {
+  align-self: flex-end;
+}/*# sourceMappingURL=Checkoutdetails.css.map */

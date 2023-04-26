@@ -11,6 +11,8 @@ import Contactpage from "./pages/ContactPage/Contactpage";
 import { useState } from "react";
 import Quotepage from "./pages/QuotePage/Quotepage";
 import QuoteContextProvider from "./context/QuoteContextProvider";
+import Checkoutpage from "./pages/CheckoutPage/Checkoutpage";
+import CheckoutContextProvider from "./context/CheckoutContextProvider";
 
 const App = () => {
   const [currPage, setCurrPage] = useState("home");
@@ -18,31 +20,36 @@ const App = () => {
     <Router>
       <SearchContextProvider>
         <QuoteContextProvider>
-          <Navbar currPage={currPage} />
-          <Scrolltotop />
-          <Switch>
-            <Route path="/" exact>
-              <Homepage setCurrPage={setCurrPage} />
-            </Route>
-            <Route path="/quote" exact>
-              <Quotepage setCurrPage={setCurrPage} />
-            </Route>
-            <Route path="/trips" exact>
-              <Searchpage setCurrPage={setCurrPage} allTrips />
-            </Route>
-            <Route path="/trip/:tripID" exact>
-              <Trippage setCurrPage={setCurrPage} />
-            </Route>
-            <Route path="/search/:tripName">
-              <Searchpage setCurrPage={setCurrPage} />
-            </Route>
-            <Route path="/contact">
-              <Contactpage setCurrPage={setCurrPage} />
-            </Route>
-            <Route path="*">
-              <h1>Not Found</h1>
-            </Route>
-          </Switch>
+          <CheckoutContextProvider>
+            <Navbar currPage={currPage} />
+            <Scrolltotop />
+            <Switch>
+              <Route path="/" exact>
+                <Homepage setCurrPage={setCurrPage} />
+              </Route>
+              <Route path="/quote" exact>
+                <Quotepage setCurrPage={setCurrPage} />
+              </Route>
+              <Route path="/trips" exact>
+                <Searchpage setCurrPage={setCurrPage} allTrips />
+              </Route>
+              <Route path="/trip/:tripID" exact>
+                <Trippage setCurrPage={setCurrPage} />
+              </Route>
+              <Route path="/search/:tripName">
+                <Searchpage setCurrPage={setCurrPage} />
+              </Route>
+              <Route path="/contact">
+                <Contactpage setCurrPage={setCurrPage} />
+              </Route>
+              <Route path="/checkout">
+                <Checkoutpage setCurrPage={setCurrPage} />
+              </Route>
+              <Route path="*">
+                <h1>Not Found</h1>
+              </Route>
+            </Switch>
+          </CheckoutContextProvider>
         </QuoteContextProvider>
       </SearchContextProvider>
       <Footer />
