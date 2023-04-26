@@ -1,0 +1,42 @@
+.card-list {
+  margin: 40px 0 80px 0;
+  display: flex;
+  gap: 35px;
+  justify-content: space-around;
+  align-items: stretch;
+}
+
+.card-list-outer {
+  width: 100%;
+  overflow: hidden;
+  padding: 0 50px;
+}
+.card-list-outer .extend {
+  padding: 0 0 80px 0;
+  justify-content: start;
+  width: 100%;
+  overflow-x: scroll;
+  -webkit-overflow-scrolling: touch;
+  /* width */
+  /* Track */
+  /* Handle */
+  /* Handle on hover */
+}
+.card-list-outer .extend::-webkit-scrollbar {
+  height: 15px !important;
+}
+.card-list-outer .extend::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.062745098);
+  border-radius: 10px;
+}
+.card-list-outer .extend::-webkit-scrollbar-thumb {
+  cursor: pointer;
+  background: #ca9841;
+  border-radius: 8px;
+}
+.card-list-outer .extend::-webkit-scrollbar-thumb:hover {
+  background: #ca9841;
+}
+.card-list-outer .extend .card {
+  width: 360px;
+}/*# sourceMappingURL=cardlist.css.map */

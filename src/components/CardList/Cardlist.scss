@@ -1,0 +1,55 @@
+@use '../../pages/HomePage/Homepage.scss' as main;
+$main-color: main.$main-color;
+$secondary-color: main.$secondary-color;
+$text-color: main.$text-color;
+$ibm: main.$ibm;
+$golos: main.$golos;
+
+.card-list {
+  margin: 40px 0 80px 0;
+  display: flex;
+  gap: 35px;
+  justify-content: space-around;
+  align-items: stretch;
+}
+
+.card-list-outer {
+  width: 100%;
+  overflow: hidden;
+  padding: 0 50px;
+
+  .extend {
+    padding: 0 0 80px 0;
+    justify-content: start;
+    width: 100%;
+    overflow-x: scroll;
+    -webkit-overflow-scrolling: touch;
+
+    /* width */
+    &::-webkit-scrollbar {
+      height: 15px !important;
+    }
+
+    /* Track */
+    &::-webkit-scrollbar-track {
+      background: #00000010;
+      border-radius: 10px;
+    }
+    
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+      cursor: pointer;
+      background: $main-color;
+      border-radius: 8px;
+    }
+
+    /* Handle on hover */
+    &::-webkit-scrollbar-thumb:hover {
+      background: $main-color;
+    }
+
+    .card {
+      width: 360px;
+    }
+  }
+}

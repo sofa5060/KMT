@@ -24,19 +24,11 @@ $golos: main.$golos;
     font-weight: 400;
   }
 
-  .card-list{
-    margin: 40px 0 100px 0;
+  .row{
+    width: 100%;
     display: flex;
-    gap: 35px;
-    justify-content: space-around;
-    align-items: stretch;
-
-    .row{
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+    justify-content: space-between;
+    align-items: center;
   }
 
   .btn {

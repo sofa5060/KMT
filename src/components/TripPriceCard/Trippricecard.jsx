@@ -1,14 +1,25 @@
 import React, { useState, useEffect } from "react";
 import Checkbox, { checkboxClasses } from "@mui/material/Checkbox";
 import "./Trippricecard.css";
+import Datepicker from "../SearchBox/Datepicker";
+import Guestspicker from "../GuestsPicker/Guestspicker";
+import dayjs from "dayjs";
 
 export default function Trippricecard({ tripDetails }) {
   const [addOns, setAddOns] = useState([]);
   const [trip, setTrip] = useState("");
+  const [date, setDate] = useState(dayjs());
+  const [guests, setGuests] = useState(1);
+  const [additionalPrice, setAdditionalPrice] = useState(0);
 
   const handleChange = (event) => {
-    addOns.find((addOn) => addOn.name === event.target.ariaLabel).checked =
-      event.target.checked;
+    let addOn = addOns.find((addOn) => addOn.name === event.target.ariaLabel)
+    addOn.checked = event.target.checked;
+    if (addOn.checked) {
+      setAdditionalPrice(additionalPrice + addOn.price);
+    } else {
+      setAdditionalPrice(additionalPrice - addOn.price);
+    }
     setAddOns([...addOns]);
   };
 
@@ -25,7 +36,9 @@ export default function Trippricecard({ tripDetails }) {
           <h3>ON SALE</h3>
         </div>
       )}
-      <h2 className={trip.discountedPrice > 0 && "shifted"}>{trip.duration === 1 ? "1 Day Trip" : `${trip.duration} Days Trip`}</h2>
+      <h2 className={trip.discountedPrice > 0 && "shifted"}>
+        {trip.duration === 1 ? "1 Day Trip" : `${trip.duration} Days Trip`}
+      </h2>
       <p>{trip.title}</p>
       <div className="add-ons">
         {addOns.map((addOn, index) => (
@@ -48,15 +61,28 @@ export default function Trippricecard({ tripDetails }) {
           </div>
         ))}
       </div>
+      <div className="booking-details">
+        <Datepicker setDate={setDate} inputDate={date} label="Booking Date" />
+        <div className="input-field">
+          <h4>How many are you?</h4>
+          <Guestspicker setGuestsCount={setGuests} value={guests} />
+        </div>
+      </div>
+      <hr />
       <div className="price">
         <h4>From</h4>
         <div className="price-section">
           <h2>
-            <span>$</span>{trip.discountedPrice > 0 ? trip.discountedPrice : trip.price}<span>USD</span>
+            <span>$</span>
+            {trip.discountedPrice > 0
+              ? (trip.discountedPrice + additionalPrice) * guests
+              : (trip.price + additionalPrice) * guests}
+            <span>USD</span>
           </h2>
           {trip.discountedPrice > 0 && (
             <h3>
-              <span>Was</span>{trip.price} USD
+              <span>Was</span>
+              {(trip.price + additionalPrice) * guests} USD
             </h3>
           )}
         </div>

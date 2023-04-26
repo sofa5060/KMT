@@ -8,28 +8,25 @@ export default function Guestspicker({ setGuestsCount, value }) {
 
   const incrementGuests = () => {
     setGuests(parseInt(guests) + 1);
+    setGuestsCount(parseInt(guests) + 1);
   };
 
   const decrementGuests = () => {
     if (parseInt(guests) > 1) {
       setGuests(parseInt(guests) - 1);
+      setGuestsCount(parseInt(guests) - 1);
     }
   };
-
-  useEffect(() => {
-    if(parseInt(guests) <= 0 || (isNaN(guests) && guests !== "")) {
-      setGuests(1);
-      return;
-    }
-    
-    setGuestsCount(parseInt(guests));
-  }, [guests]);
-
+  
   useEffect(() => {
     if (value !== undefined) {
       setGuests(value);
     }
   }, [value]);
+
+  useEffect(() => {
+    setGuestsCount(guests);
+  }, [guests]);
 
   return (
     <div className="guests-picker">
@@ -38,7 +35,10 @@ export default function Guestspicker({ setGuestsCount, value }) {
         type="number"
         value={guests}
         onChange={(e) => setGuests(e.target.value)}
-        onBlur={(e) => {if (e.target.value === "") setGuests(1)}}
+        onBlur={(e) => {
+          if (e.target.value === "" || parseInt(e.target.value) < 1)
+            setGuests(1);
+        }}
         min="1"
       />
       <AddIcon onClick={incrementGuests} />

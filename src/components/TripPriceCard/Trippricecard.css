@@ -46,6 +46,28 @@
   align-self: center;
   margin: 0;
 }
+.price-card .booking-details {
+  margin: 40px 0 0 0;
+}
+.price-card .booking-details .input-field {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.2274509804);
+  border-radius: 5px;
+  padding: 15px;
+  margin: 20px 0 0 0;
+}
+.price-card .booking-details .input-field h4 {
+  color: rgba(0, 0, 0, 0.6);
+  font-weight: 500;
+  font-size: 14px;
+}
+.price-card hr {
+  margin: 20px 0 10px 0;
+}
 .price-card .price {
   margin: 20px 0;
 }

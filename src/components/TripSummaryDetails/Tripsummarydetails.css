@@ -1,0 +1,34 @@
+.trip-summary-details {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin: 45px 0;
+  max-width: 800px;
+}
+.trip-summary-details .detail {
+  text-align: center;
+}
+.trip-summary-details .detail img {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto;
+}
+.trip-summary-details .detail svg {
+  width: 32px;
+  height: 32px;
+  margin: 0 auto;
+}
+.trip-summary-details .detail p {
+  font-size: 14px;
+  font-weight: 400;
+  color: #ca9841;
+  margin: 10px 0 0 0;
+}
+.trip-summary-details .detail h3 {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: 0em;
+  text-align: center;
+  margin: 0;
+}/*# sourceMappingURL=Tripsummarydetails.css.map */
