@@ -1,0 +1,69 @@
+@use "../../pages/HomePage/Homepage.scss" as main;
+$main-color: main.$main-color;
+$secondary-color: main.$secondary-color;
+$text-color: main.$text-color;
+$distance-from-center: 100px;
+$ibm: main.$ibm;
+$golos: main.$golos;
+
+.customers-details {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  margin: 30px 0 0 0;
+
+  .customer-details {
+    h2 {
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 26px;
+    }
+
+    .information {
+      display: flex;
+      gap: 50px;
+      margin: 20px 0 0 0;
+
+      .information-col {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        h3 {
+          font-size: 14px;
+          font-weight: 600;
+          line-height: 26px;
+          width: 100%;
+        }
+
+        p {
+          font-size: 14px;
+          font-weight: 400;
+          line-height: 26px;
+        }
+      }
+
+      .headers {
+        width: 100%;
+        max-width: max-content;
+      }
+    }
+  }
+
+  .btns {
+    align-self: flex-end;
+    display: flex;
+    gap: 30px;
+    .btn {
+      border-radius: 0;
+      cursor: pointer;
+    }
+
+    .outlined{
+      background: transparent;
+      border: 1px solid $text-color;
+      color: $text-color;
+      transition: all 0.3s ease;
+    }
+  }
+}

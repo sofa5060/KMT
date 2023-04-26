@@ -1,5 +1,6 @@
 .trip-summary {
   width: 100%;
+  max-width: 370px;
 }
 .trip-summary .title {
   display: flex;

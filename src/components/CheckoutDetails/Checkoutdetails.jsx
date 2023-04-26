@@ -28,6 +28,7 @@ export default function Checkoutdetails({ guests, handleNext }) {
   };
 
   const setPhone = (e, i) => {
+    e = `${e}`
     setGuestsInfo((prev) => {
       let temp = [...prev];
       temp[i] = { ...temp[i], phone: e };
@@ -47,10 +48,9 @@ export default function Checkoutdetails({ guests, handleNext }) {
         lastName === "" ||
         email === "" ||
         nationality === "" ||
-        phone === "" ||
         age === "" ||
         age < 16 ||
-        !matchIsValidTel(phone)
+        (phone && !matchIsValidTel(phone))
       ) {
         isValid = false;
         return isValid;
@@ -117,25 +117,27 @@ export default function Checkoutdetails({ guests, handleNext }) {
             onChange={(e) => handleChange(e, i, "email")}
             fullWidth
           />
-          <MuiTelInput
-            value={
-              guestsInfo[i] && guestsInfo[i].phone ? guestsInfo[i].phone : "+20"
-            }
-            onChange={(newPhone) => setPhone(newPhone, i)}
-            fullWidth
-            error={
-              guestsInfo[i] &&
-              guestsInfo[i].phone &&
-              !matchIsValidTel(guestsInfo[i].phone)
-            }
-            helperText={
-              guestsInfo[i] &&
-              guestsInfo[i].phone &&
-              !matchIsValidTel(guestsInfo[i].phone)
-                ? "Please enter a valid phone number"
-                : ""
-            }
-          />
+          {i === 0 && (
+            <MuiTelInput
+              value={
+                guestsInfo[i] && guestsInfo[i].phone ? guestsInfo[i].phone : "+20"
+              }
+              onChange={(newPhone) => setPhone(newPhone, i)}
+              fullWidth
+              error={
+                guestsInfo[i] &&
+                guestsInfo[i].phone &&
+                !matchIsValidTel(guestsInfo[i].phone)
+              }
+              helperText={
+                guestsInfo[i] &&
+                guestsInfo[i].phone &&
+                !matchIsValidTel(guestsInfo[i].phone)
+                  ? "Please enter a valid phone number"
+                  : ""
+              }
+            />
+          )}
           <div className="row">
             <Countryselect setNationality={(e) => setNationality(e, i)} />
             <TextField
@@ -160,7 +162,7 @@ export default function Checkoutdetails({ guests, handleNext }) {
             />
           </div>
           <TextField
-            label="Anything Special you would like us to consider"
+            label="Anything Special you would like us to consider (optional)"
             multiline
             fullWidth
             rows={3}

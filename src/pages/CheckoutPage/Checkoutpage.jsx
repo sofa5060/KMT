@@ -8,6 +8,8 @@ import "./Checkoutpage.css";
 import Checkoutdetails from "../../components/CheckoutDetails/Checkoutdetails";
 import Tripsummary from "../../components/TripSummary/Tripsummary";
 import { Link } from "react-router-dom";
+import Customersdetails from "../../components/CustomersDetails/Customersdetails";
+import Checkoutmessage from "../../components/CheckoutMessage/Checkoutmessage";
 
 const steps = ["Your Details", "Summary", "Payment", "Confirmation"];
 
@@ -44,7 +46,25 @@ export default function Checkoutpage({ setCurrPage }) {
         </Stepper>
         <div className="btns">
           <div className="displayed-element">
-            <Checkoutdetails guests={2} handleNext={handleNext} />
+            {activeStep === 0 && (
+              <Checkoutdetails guests={2} handleNext={handleNext} />
+            )}
+            {activeStep === 1 && (
+              <React.Fragment>
+                <Tripsummary RHR />
+                <Customersdetails handleNext={handleNext} handleBack={handleBack}/>
+              </React.Fragment>
+            )}
+            {activeStep === 2 && (
+              <React.Fragment>
+                <h1>Here You are Paying</h1>
+                <div className="btn" onClick={handleBack}>Back</div>
+                <div className="btn" onClick={handleNext}>Next</div>
+              </React.Fragment>
+            )}
+            {activeStep === 3 && (
+              <Checkoutmessage type="paymentSuccess"/>
+            )}
           </div>
         </div>
       </div>
@@ -72,6 +92,9 @@ export default function Checkoutpage({ setCurrPage }) {
                 <span>$</span>299.97<span>USD</span>
               </h2>
             </div>
+            {activeStep === 1 && (
+              <button className="btn" onClick={handleNext}>Proceed To Payment</button>
+            )}
           </div>
         </div>
       )}

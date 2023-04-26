@@ -4,8 +4,10 @@ import "./Trippricecard.css";
 import Datepicker from "../SearchBox/Datepicker";
 import Guestspicker from "../GuestsPicker/Guestspicker";
 import dayjs from "dayjs";
+import { useHistory } from "react-router-dom";
 
 export default function Trippricecard({ tripDetails }) {
+  const history = useHistory();
   const [addOns, setAddOns] = useState([]);
   const [trip, setTrip] = useState("");
   const [date, setDate] = useState(dayjs());
@@ -13,7 +15,7 @@ export default function Trippricecard({ tripDetails }) {
   const [additionalPrice, setAdditionalPrice] = useState(0);
 
   const handleChange = (event) => {
-    let addOn = addOns.find((addOn) => addOn.name === event.target.ariaLabel)
+    let addOn = addOns.find((addOn) => addOn.name === event.target.ariaLabel);
     addOn.checked = event.target.checked;
     if (addOn.checked) {
       setAdditionalPrice(additionalPrice + addOn.price);
@@ -23,6 +25,11 @@ export default function Trippricecard({ tripDetails }) {
     setAddOns([...addOns]);
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    history.push('/checkout');
+  };
+
   useEffect(() => {
     if (!tripDetails) return;
     setAddOns(tripDetails.addOns);
@@ -30,7 +37,7 @@ export default function Trippricecard({ tripDetails }) {
   }, [tripDetails]);
 
   return (
-    <form className="price-card">
+    <form className="price-card" onSubmit={handleSubmit}>
       {trip.discountedPrice > 0 && (
         <div className="sale-banner">
           <h3>ON SALE</h3>

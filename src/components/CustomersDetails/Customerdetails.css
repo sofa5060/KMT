@@ -1,0 +1,52 @@
+.customers-details {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  margin: 30px 0 0 0;
+}
+.customers-details .customer-details h2 {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 26px;
+}
+.customers-details .customer-details .information {
+  display: flex;
+  gap: 50px;
+  margin: 20px 0 0 0;
+}
+.customers-details .customer-details .information .information-col {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.customers-details .customer-details .information .information-col h3 {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 26px;
+  width: 100%;
+}
+.customers-details .customer-details .information .information-col p {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 26px;
+}
+.customers-details .customer-details .information .headers {
+  width: 100%;
+  max-width: -moz-max-content;
+  max-width: max-content;
+}
+.customers-details .btns {
+  align-self: flex-end;
+  display: flex;
+  gap: 30px;
+}
+.customers-details .btns .btn {
+  border-radius: 0;
+  cursor: pointer;
+}
+.customers-details .btns .outlined {
+  background: transparent;
+  border: 1px solid #2d2d2f;
+  color: #2d2d2f;
+  transition: all 0.3s ease;
+}/*# sourceMappingURL=Customerdetails.css.map */

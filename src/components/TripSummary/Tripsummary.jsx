@@ -29,7 +29,7 @@ export default function Tripsummary({ RHR }) {
         </div>
       </div>
       {!RHR && <hr />}
-      <div className="booking-details">
+      <div className="booking-details" style={{marginTop: RHR && 32}}>
         <div className="booking-detail">
           <img src={clock} alt="clock" />
           <LocalizationProvider dateAdapter={AdapterDayjs}>

@@ -1,0 +1,49 @@
+@use "../../pages/HomePage/Homepage.scss" as main;
+$main-color: main.$main-color;
+$secondary-color: main.$secondary-color;
+$text-color: main.$text-color;
+$distance-from-center: 100px;
+$ibm: main.$ibm;
+$golos: main.$golos;
+
+.container {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto;
+  img {
+    width: 200px;
+    margin: 0 auto;
+  }
+
+  h2 {
+    margin: 40px 0 0 0;
+    font-family: $ibm;
+    font-size: 36px;
+    font-weight: 600;
+    line-height: 47px;
+  }
+
+  h3 {
+    margin: 0 0 25px 0;
+    font-family: $ibm;
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 47px;
+  }
+
+  p {
+    font-family: $ibm;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 26px;
+    margin: 0 0 60px 0;
+  }
+
+  a {
+    color: $main-color;
+    font-family: $ibm;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 21px;
+  }
+}
