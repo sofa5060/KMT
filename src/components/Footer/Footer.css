@@ -53,7 +53,6 @@
 .footer-outer .footer-left .m-left .row {
   display: flex;
   align-items: center;
-  width: 100%;
 }
 .footer-outer .footer-left .m-left .row .text {
   margin: 0 0 0 15px;
@@ -63,10 +62,12 @@
   text-decoration: none;
 }
 .footer-outer .footer-left .m-left .location {
-  margin: 0 0 15px 0;
+  margin: 0 0 10px 0;
 }
-.footer-outer .footer-left .m-left .space-batween {
+.footer-outer .footer-left .m-left .space-between {
   justify-content: space-between;
+  gap: 15px;
+  flex-wrap: wrap;
 }
 .footer-outer .footer-left .m-left .social-media {
   display: flex;
@@ -148,4 +149,60 @@
 }
 .footer-outer .footer-right .footer-logo img {
   width: 100%;
+}
+
+@media screen and (max-width: 1024px) {
+  .footer-outer .footer .footer-right .footer-image .mask-1 {
+    max-width: 433px;
+    max-height: 433px;
+  }
+  .footer-outer .footer .footer-right .footer-image .mask-2 {
+    max-width: 362px;
+    max-height: 362px;
+  }
+  .footer-outer .footer .footer-right .footer-image .mask-3 {
+    max-width: 300px;
+    max-height: 300px;
+  }
+}
+@media screen and (max-width: 850px) {
+  .footer-outer .footer .footer-content {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex: unset;
+  }
+  .footer-outer .footer .footer-left {
+    justify-self: flex-start;
+    text-align: left;
+  }
+  .footer-outer .footer .footer-left h2 {
+    color: #fff;
+    font-weight: 700;
+    font-size: 36px;
+  }
+  .footer-outer .footer .footer-left .m-left {
+    margin: 0;
+  }
+  .footer-outer .footer .footer-left .m-left .footer-btn {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 25px 0 40px 0;
+    max-width: -moz-max-content;
+    max-width: max-content;
+  }
+  .footer-outer .footer .footer-right {
+    display: none;
+  }
+}
+@media screen and (max-width: 500px) {
+  .footer-outer .footer .footer-left h2 {
+    font-size: 24px;
+  }
+  .footer-outer .footer .footer-left .m-left {
+    margin: 0;
+  }
+  .footer-outer .footer .footer-left .m-left .row .text {
+    font-size: 14px;
+  }
 }/*# sourceMappingURL=Footer.css.map */
