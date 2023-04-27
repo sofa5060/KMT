@@ -1,3 +1,29 @@
+.navbar-list {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.navbar-list a {
+  color: #fff;
+  margin: 0 30px;
+  transition: all 0.1s ease-in-out;
+}
+.navbar-list .main {
+  color: #ca9841;
+}
+.navbar-list a:hover {
+  color: #ca9841;
+}
+
+.MuiSelect-standard {
+  color: #ca9841 !important;
+  margin: 4px 0 0 0 !important;
+}
+
+.MuiSelect-icon {
+  color: #ca9841 !important;
+}
+
 .navbar-background {
   position: sticky;
   top: 0;
@@ -14,6 +40,9 @@
   padding: 0 50px;
   margin: 0 auto;
 }
+.navbar-background .navbar .logo .show-sm {
+  display: none;
+}
 .navbar-background .navbar li {
   list-style: none;
 }
@@ -26,20 +55,65 @@
 .navbar-background .navbar ul {
   display: flex;
 }
-.navbar-background .navbar .navbar-language .MuiSelect-standard {
-  color: #ca9841 !important;
-}
-.navbar-background .navbar .navbar-language .MuiSelect-icon {
-  color: #ca9841 !important;
-}
-.navbar-background .navbar .navbar-list a {
+.navbar-background .navbar .navbar-hamburger {
+  display: none;
   color: #fff;
-  margin: 0 30px;
-  transition: all 0.1s ease-in-out;
+  font-size: 30px;
+  cursor: pointer;
 }
-.navbar-background .navbar .navbar-list .main {
-  color: #ca9841;
+
+.mobile-navbar {
+  background: #000;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding: 15px 30px;
+  align-items: flex-start;
+  text-align: start;
+  min-width: 200px;
 }
-.navbar-background .navbar .navbar-list a:hover {
-  color: #ca9841;
+.mobile-navbar img {
+  margin: 0 0 0 -20px;
+}
+.mobile-navbar .navbar-list {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 30px;
+}
+.mobile-navbar .navbar-list a {
+  text-decoration: none;
+  margin: 0;
+}
+.mobile-navbar .navbar-language {
+  margin: 40px 0 0 0;
+}
+
+@media screen and (max-width: 800px) {
+  .navbar-background {
+    padding: 5px 0;
+  }
+  .navbar-background .navbar {
+    padding: 0 35px;
+  }
+}
+@media screen and (max-width: 650px) {
+  .navbar-background .navbar {
+    padding: 5px 50px;
+  }
+  .navbar-background .navbar .logo .show-sm {
+    display: block;
+  }
+  .navbar-background .navbar .logo .hide-sm {
+    display: none;
+  }
+  .navbar-background .navbar .navbar-hamburger {
+    display: block;
+  }
+  .navbar-background .navbar .navbar-list {
+    display: none;
+  }
+  .navbar-background .navbar .navbar-language {
+    display: none;
+  }
 }/*# sourceMappingURL=Navbar.css.map */

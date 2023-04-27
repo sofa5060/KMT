@@ -5,6 +5,34 @@ $text-color: main.$text-color;
 $ibm: main.$ibm;
 $golos: main.$golos;
 
+.navbar-list {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  a {
+    color: #fff;
+    margin: 0 30px;
+    transition: all 0.1s ease-in-out;
+  }
+
+  .main {
+    color: $main-color;
+  }
+
+  a:hover {
+    color: $main-color;
+  }
+}
+
+.MuiSelect-standard {
+  color: $main-color !important;
+  margin: 4px 0 0 0 !important;
+}
+
+.MuiSelect-icon {
+  color: $main-color !important;
+}
+
 .navbar-background {
   position: -webkit-sticky;
   position: sticky;
@@ -22,6 +50,12 @@ $golos: main.$golos;
     padding: 0 50px;
     margin: 0 auto;
 
+    .logo{
+      .show-sm{
+        display: none;
+      }
+    }
+
     li {
       list-style: none;
     }
@@ -37,29 +71,80 @@ $golos: main.$golos;
       display: flex;
     }
 
-    .navbar-language {
-      .MuiSelect-standard{
-        color: $main-color !important;
-      }
-
-      .MuiSelect-icon{
-        color: $main-color !important;
-      }
+    .navbar-hamburger {
+      display: none;
+      color: #fff;
+      font-size: 30px;
+      cursor: pointer;
     }
+  }
+}
 
-    .navbar-list{
-      a {
-        color: #fff;
-        margin: 0 30px;
-        transition: all 0.1s ease-in-out;
+.mobile-navbar {
+  background: #000;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding: 15px 30px;
+  align-items: flex-start;
+  text-align: start;
+  min-width: 200px;
+
+  img{
+    margin: 0 0 0 -20px;
+  }
+
+  .navbar-list {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 30px;
+
+    a {
+      text-decoration: none;
+      margin: 0;
+    }
+  }
+
+  .navbar-language {
+    margin: 40px 0 0 0;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .navbar-background {
+    padding: 5px 0;
+    .navbar {
+      padding: 0 35px;
+    }
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .navbar-background {
+    .navbar {
+      padding: 5px 50px;
+
+      .logo{
+        .show-sm{
+          display: block;
+        }
+
+        .hide-sm{
+          display: none;
+        }
       }
 
-      .main{
-        color: $main-color;
+      .navbar-hamburger {
+        display: block;
       }
 
-      a:hover{
-        color: $main-color;
+      .navbar-list {
+        display: none;
+      }
+
+      .navbar-language {
+        display: none;
       }
     }
   }
