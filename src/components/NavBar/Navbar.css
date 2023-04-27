@@ -26,9 +26,11 @@
 .navbar-background .navbar ul {
   display: flex;
 }
-.navbar-background .navbar .navbar-user li, .navbar-background .navbar .navbar-user a {
-  color: #ca9841;
-  text-transform: uppercase;
+.navbar-background .navbar .navbar-language .MuiSelect-standard {
+  color: #ca9841 !important;
+}
+.navbar-background .navbar .navbar-language .MuiSelect-icon {
+  color: #ca9841 !important;
 }
 .navbar-background .navbar .navbar-list a {
   color: #fff;

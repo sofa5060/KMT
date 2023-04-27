@@ -37,10 +37,13 @@ $golos: main.$golos;
       display: flex;
     }
 
-    .navbar-user {
-      li, a {
-        color: $main-color;
-        text-transform: uppercase;
+    .navbar-language {
+      .MuiSelect-standard{
+        color: $main-color !important;
+      }
+
+      .MuiSelect-icon{
+        color: $main-color !important;
       }
     }
 
