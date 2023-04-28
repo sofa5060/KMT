@@ -3,8 +3,6 @@
   width: 100%;
   max-width: 1440px;
   margin: 0 auto;
-  height: auto;
-  overflow: auto;
 }
 .quote-page .background {
   position: absolute;
@@ -45,4 +43,21 @@
   background: #fff;
   border-radius: 5px;
   box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.1607843137);
+}
+
+@media (max-width: 620px) {
+  .quote-page .background img {
+    border-radius: 0;
+  }
+  .quote-page .form-container {
+    padding: 30px 15px 0 15px;
+  }
+  .quote-page .form-container h1 {
+    font-size: 24px;
+    line-height: 29px;
+  }
+  .quote-page .form-container .quote-text {
+    font-size: 14px;
+    margin: 20px 0 50px 0;
+  }
 }/*# sourceMappingURL=Quotepage.css.map */

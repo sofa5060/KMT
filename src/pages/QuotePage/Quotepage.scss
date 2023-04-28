@@ -10,8 +10,6 @@ $golos: main.$golos;
   width: 100%;
   max-width: 1440px;
   margin: 0 auto;
-  height: auto;
-  overflow: auto;
 
   .background {
     position: absolute;
@@ -55,6 +53,30 @@ $golos: main.$golos;
       background: #fff;
       border-radius: 5px;
       box-shadow: 0px 0px 5px 1px #00000029;
+    }
+  }
+}
+
+@media (max-width: 620px) {
+  .quote-page {
+    .background {
+      img {
+        border-radius: 0;
+      }
+    }
+
+    .form-container {
+      padding: 30px 15px 0 15px;
+
+      h1 {
+        font-size: 24px;
+        line-height: 29px;
+      }
+
+      .quote-text {
+        font-size: 14px;
+        margin: 20px 0 50px 0;
+      }
     }
   }
 }

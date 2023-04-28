@@ -35,4 +35,13 @@
   border: 0;
   border-radius: 0;
   cursor: pointer;
+}
+
+@media screen and (max-width: 620px) {
+  .quote-page-form .row {
+    flex-direction: column;
+  }
+  .quote-page-form .btn {
+    width: 100%;
+  }
 }/*# sourceMappingURL=Quotepageform.css.map */

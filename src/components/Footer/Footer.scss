@@ -201,6 +201,10 @@ $small-circle-size: 300px;
 
 @media screen and (max-width: 850px) {
   .footer-outer {
+    overflow: hidden;
+    .footer-clip {
+      clip-path: ellipse(50% 25% at 50% 100%);
+    }
     .footer {
       .footer-content {
         flex-direction: column;
@@ -211,6 +215,7 @@ $small-circle-size: 300px;
       .footer-left {
         justify-self: flex-start;
         text-align: left;
+        margin: 30px 0 0 0;
         h2 {
           color: #fff;
           font-weight: 700;

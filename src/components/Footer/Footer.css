@@ -166,6 +166,13 @@
   }
 }
 @media screen and (max-width: 850px) {
+  .footer-outer {
+    overflow: hidden;
+  }
+  .footer-outer .footer-clip {
+    -webkit-clip-path: ellipse(50% 25% at 50% 100%);
+            clip-path: ellipse(50% 25% at 50% 100%);
+  }
   .footer-outer .footer .footer-content {
     flex-direction: column;
     justify-content: flex-start;
@@ -175,6 +182,7 @@
   .footer-outer .footer .footer-left {
     justify-self: flex-start;
     text-align: left;
+    margin: 30px 0 0 0;
   }
   .footer-outer .footer .footer-left h2 {
     color: #fff;
