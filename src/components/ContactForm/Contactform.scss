@@ -54,3 +54,13 @@ $golos: main.$golos;
     }
   }
 }
+
+@media screen and (max-width: 450px){
+  .contact-form{
+    .form{
+      .row{
+        flex-direction: column;
+      }
+    }
+  }
+}

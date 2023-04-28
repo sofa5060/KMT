@@ -39,4 +39,43 @@
   line-height: 16px;
   color: #ca9841;
   text-decoration: none;
+}
+.contact-page .divider {
+  display: none;
+}
+
+@media screen and (max-width: 700px) {
+  .contact-page {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    gap: 50px;
+    margin: 50px auto 750px auto;
+  }
+  .contact-page .left-col {
+    align-items: flex-start;
+    text-align: left;
+    max-width: 100%;
+  }
+  .contact-page .left-col .section h3 {
+    font-size: 24px;
+  }
+  .contact-page .divider {
+    display: flex;
+    gap: 10px;
+    max-width: 500px;
+    width: 100%;
+    align-items: center;
+    margin: 20px 0;
+  }
+  .contact-page .divider h4 {
+    font-weight: 600;
+    font-size: 16px;
+    color: #ca9841;
+    font: "IBM Plex Sans", sans-serif;
+  }
+  .contact-page .divider hr {
+    width: 100%;
+    margin: 0;
+    height: 1px;
+  }
 }/*# sourceMappingURL=Contactpage.css.map */

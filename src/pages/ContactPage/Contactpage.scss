@@ -1,11 +1,11 @@
-@use '../HomePage/Homepage.scss' as main;
+@use "../HomePage/Homepage.scss" as main;
 $main-color: main.$main-color;
 $secondary-color: main.$secondary-color;
 $text-color: main.$text-color;
 $ibm: main.$ibm;
 $golos: main.$golos;
 
-.contact-page{
+.contact-page {
   max-width: 1300px;
   margin: 100px auto 750px auto;
   padding: 0 30px;
@@ -13,44 +13,91 @@ $golos: main.$golos;
   justify-content: space-between;
   gap: 50px;
 
-  .left-col{
+  .left-col {
     text-align: start;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: 40px;
 
-    .section{
-      h3{
+    .section {
+      h3 {
         font-size: 16px;
         font-weight: bold;
       }
 
-      p{
+      p {
         font-size: 14px;
         font-weight: 400;
         line-height: 26px;
         margin: 10px 0;
       }
 
-      .row{
+      .row {
         display: flex;
         gap: 15px;
         align-items: center;
 
-        svg{
+        svg {
           width: 24px;
           height: 24px;
           color: $main-color;
         }
 
-        .text{
+        .text {
           font-size: 14px;
           font-weight: 600;
           line-height: 16px;
           color: $main-color;
           text-decoration: none;
         }
+      }
+    }
+  }
+
+  .divider {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .contact-page {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    gap: 50px;
+    margin: 50px auto 750px auto;
+
+    .left-col {
+      align-items: flex-start;
+      text-align: left;
+      max-width: 100%;
+
+      .section{
+        h3{
+          font-size: 24px;
+        }
+      }
+    }
+
+    .divider {
+      display: flex;
+      gap: 10px;
+      max-width: 500px;
+      width: 100%;
+      align-items: center;
+      margin: 20px 0;
+
+      h4 {
+        font-weight: 600;
+        font-size: 16px;
+        color: $main-color;
+        font: $ibm;
+      }
+
+      hr {
+        width: 100%;
+        margin: 0;
+        height: 1px;
       }
     }
   }

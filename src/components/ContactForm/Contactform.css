@@ -39,4 +39,10 @@
   border: 0;
   cursor: pointer;
   border-radius: 0;
+}
+
+@media screen and (max-width: 450px) {
+  .contact-form .form .row {
+    flex-direction: column;
+  }
 }/*# sourceMappingURL=Contactform.css.map */
