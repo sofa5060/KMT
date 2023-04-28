@@ -28,3 +28,13 @@
     border-radius: 0;
   }
 }
+
+@media screen and (max-width: 600px) {
+  .checkout-details{
+    .person-details{
+      .row{
+        flex-direction: column;
+      }
+    }
+  }
+}

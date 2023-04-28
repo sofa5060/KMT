@@ -21,6 +21,7 @@
 .checkout-page .right {
   max-width: 360px;
   width: 100%;
+  z-index: 1000;
 }
 .checkout-page .right .container {
   position: sticky;
@@ -29,6 +30,18 @@
   background: #fff;
   border-radius: 5px;
   box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.1607843137);
+}
+.checkout-page .right .container .expand {
+  gap: 10px;
+  align-items: center;
+  margin: 0 0 20px 0;
+  justify-content: space-between;
+  display: none;
+}
+.checkout-page .right .container .expand svg {
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
 }
 .checkout-page .right .container .container-header {
   display: flex;
@@ -81,4 +94,33 @@
   cursor: pointer;
   border: 0;
   outline: 0;
+}
+
+@media screen and (max-width: 1000px) {
+  .checkout-page .right {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 500px;
+  }
+  .checkout-page .right .container-padding {
+    padding: 10px;
+  }
+  .checkout-page .right .container-padding .container .collapse {
+    max-height: 400px;
+    overflow-y: scroll;
+  }
+  .checkout-page .right .container-padding .container .expand {
+    display: flex;
+  }
+}
+@media screen and (max-width: 600px) {
+  .checkout-page {
+    padding: 40px 15px;
+  }
+  .checkout-page .left .displayed-element {
+    margin: 20px 0 0 0;
+    padding: 30px 20px;
+  }
 }/*# sourceMappingURL=Checkoutpage.css.map */

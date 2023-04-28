@@ -30,6 +30,7 @@ $golos: main.$golos;
   .right {
     max-width: 360px;
     width: 100%;
+    z-index: 1000;
 
     .container {
       position: -webkit-sticky;
@@ -39,6 +40,20 @@ $golos: main.$golos;
       background: #fff;
       border-radius: 5px;
       box-shadow: 0px 0px 5px 1px #00000029;
+
+      .expand {
+        gap: 10px;
+        align-items: center;
+        margin: 0 0 20px 0;
+        justify-content: space-between;
+        display: none;
+
+        svg {
+          cursor: pointer;
+          width: 32px;
+          height: 32px;
+        }
+      }
 
       .container-header {
         display: flex;
@@ -85,7 +100,7 @@ $golos: main.$golos;
         }
       }
 
-      .btn{
+      .btn {
         width: 100%;
         margin: 15px 0 0 0;
       }
@@ -101,5 +116,43 @@ $golos: main.$golos;
     cursor: pointer;
     border: 0;
     outline: 0;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .checkout-page {
+    .right {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      max-width: 500px;
+
+      .container-padding {
+        padding: 10px;
+        .container {
+          .collapse {
+            max-height: 400px;
+            overflow-y: scroll;
+          }
+          .expand {
+            display: flex;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .checkout-page {
+    padding: 40px 15px;
+
+    .left {
+      .displayed-element {
+        margin: 20px 0 0 0;
+        padding: 30px 20px;
+      }
+    }
   }
 }

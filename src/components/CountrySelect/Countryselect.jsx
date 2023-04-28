@@ -19,7 +19,6 @@ export default function Countryselect({ setNationality, inputNationality }) {
       }
       autoHighlight
       getOptionLabel={(option) => option.label}
-      isOptionEqualToValue={(option, value) => option.code === value.code}
       onChange={(event, newValue) => {
         setNationality(newValue ? newValue.label : "");
       }}

@@ -10,11 +10,18 @@ import Tripsummary from "../../components/TripSummary/Tripsummary";
 import { Link } from "react-router-dom";
 import Customersdetails from "../../components/CustomersDetails/Customersdetails";
 import Checkoutmessage from "../../components/CheckoutMessage/Checkoutmessage";
+import Collapse from "@mui/material/Collapse";
+import { ExpandLess, ExpandMore } from "@mui/icons-material";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 const steps = ["Your Details", "Summary", "Payment", "Confirmation"];
 
 export default function Checkoutpage({ setCurrPage }) {
   const [activeStep, setActiveStep] = useState(0);
+  const [open, setOpen] = useState(true);
+
+  const matches = useMediaQuery("(min-width:1000px)");
+  const matches2 = useMediaQuery("(max-width:600px)");
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -32,10 +39,14 @@ export default function Checkoutpage({ setCurrPage }) {
     console.log(activeStep);
   }, [activeStep]);
 
+  useEffect(() => {
+    setOpen(matches);
+  }, [matches]);
+
   return (
     <div className="checkout-page">
       <div className="left">
-        <Stepper activeStep={activeStep}>
+        <Stepper activeStep={activeStep} alternativeLabel={matches2}>
           {steps.map((label, index) => {
             return (
               <Step key={label}>
@@ -52,49 +63,65 @@ export default function Checkoutpage({ setCurrPage }) {
             {activeStep === 1 && (
               <React.Fragment>
                 <Tripsummary RHR />
-                <Customersdetails handleNext={handleNext} handleBack={handleBack}/>
+                <Customersdetails
+                  handleNext={handleNext}
+                  handleBack={handleBack}
+                />
               </React.Fragment>
             )}
             {activeStep === 2 && (
               <React.Fragment>
                 <h1>Here You are Paying</h1>
-                <div className="btn" onClick={handleBack}>Back</div>
-                <div className="btn" onClick={handleNext}>Next</div>
+                <div className="btn" onClick={handleBack}>
+                  Back
+                </div>
+                <div className="btn" onClick={handleNext}>
+                  Next
+                </div>
               </React.Fragment>
             )}
-            {activeStep === 3 && (
-              <Checkoutmessage type="paymentSuccess"/>
-            )}
+            {activeStep === 3 && <Checkoutmessage type="paymentSuccess" />}
           </div>
         </div>
       </div>
       {(activeStep === 0 || activeStep === 1) && (
         <div className="right">
-          <div className="container">
-            <div className="container-header">
-              {activeStep === 0 ? (
-                <React.Fragment>
-                  <h3>Summary</h3>
-                  <Link to="/">EDIT</Link>
-                </React.Fragment>
-              ) : (
-                <h3>Total to pay</h3>
+          <div className="container-padding">
+            <div className="container">
+              <div className="expand" onClick={() => setOpen(!open)}>
+                <h3>The Pyramids of Giza & Sphinx </h3>
+                {open ? <ExpandLess /> : <ExpandMore />}
+              </div>
+              <Collapse in={open} timeout="auto" className="collapse">
+                <div className="container-header">
+                  {activeStep === 0 ? (
+                    <React.Fragment>
+                      <h3>Summary</h3>
+                      <Link to="/">EDIT</Link>
+                    </React.Fragment>
+                  ) : (
+                    <h3>Total to pay</h3>
+                  )}
+                </div>
+                {activeStep === 0 && (
+                  <React.Fragment>
+                    <Tripsummary />
+                    <hr />
+                  </React.Fragment>
+                )}
+              </Collapse>
+
+              <div className="price-section">
+                <h2>
+                  <span>$</span>299.97<span>USD</span>
+                </h2>
+              </div>
+              {activeStep === 1 && (
+                <button className="btn" onClick={handleNext}>
+                  Proceed To Payment
+                </button>
               )}
             </div>
-            {activeStep === 0 && (
-              <React.Fragment>
-                <Tripsummary />
-                <hr />
-              </React.Fragment>
-            )}
-            <div className="price-section">
-              <h2>
-                <span>$</span>299.97<span>USD</span>
-              </h2>
-            </div>
-            {activeStep === 1 && (
-              <button className="btn" onClick={handleNext}>Proceed To Payment</button>
-            )}
           </div>
         </div>
       )}

@@ -34,4 +34,23 @@
   font-size: 16px;
   font-weight: 600;
   line-height: 21px;
+}
+
+@media screen and (max-width: 600px) {
+  .message-container img {
+    width: 132px;
+    height: 132px;
+  }
+  .message-container h2 {
+    font-size: 24px;
+    line-height: 31px;
+  }
+  .message-container h3 {
+    font-size: 20px;
+    line-height: 26px;
+  }
+  .message-container p {
+    font-size: 14px;
+    line-height: 18px;
+  }
 }/*# sourceMappingURL=Checkoutmessage.css.map */
