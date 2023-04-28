@@ -9,22 +9,9 @@ export default function Cardlist({ destinations, extend }) {
     return (
       <div className="card-list-outer">
         <div className="card-list extend">
-          {destinations.map((destination, index) => {
-            if (extend) {
-              return <Card data={destination} key={index} />;
-            } else {
-              return (
-                <AnimationOnScroll
-                  animateIn="animate__fadeInLeft"
-                  delay={index * 200}
-                  animateOnce
-                  key={destination.id}
-                >
-                  <Card data={destination} />
-                </AnimationOnScroll>
-              );
-            }
-          })}
+          {destinations.map((destination, index) => (
+            <Card data={destination} key={index} />
+          ))}
         </div>
       </div>
     );

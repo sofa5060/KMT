@@ -1,55 +1,70 @@
-.price-card {
+.price-card-container .price-card {
   background: #fff;
   max-width: 360px;
   width: 100%;
+  min-width: 320px;
   border-radius: 20px;
   padding: 0 20px;
   position: sticky;
   top: 130px;
 }
-.price-card .sale-banner {
+.price-card-container .price-card .sale-banner {
   background: #ca9841;
   border-radius: 0 20px;
   max-width: -moz-max-content;
   max-width: max-content;
   margin: 0 -20px 0 auto;
 }
-.price-card .sale-banner h3 {
+.price-card-container .price-card .sale-banner h3 {
   font-weight: 700;
   font-size: 16px;
   padding: 15px 30px;
   color: #fff;
 }
-.price-card h2 {
+.price-card-container .price-card .row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.price-card-container .price-card .row .trip-price-header h2 {
   font-size: 24px;
   font-weight: 600;
   margin: 20px 0 0 0;
 }
-.price-card .shifted {
+.price-card-container .price-card .row .trip-price-header .shifted {
   margin: -20px 0 0 0;
 }
-.price-card p {
+.price-card-container .price-card .row .trip-price-header p {
   font-size: 14px;
   font-weight: 400;
   font-family: "IBM Plex Sans", sans-serif;
   margin: 10px 0 20px 0;
   color: #2d2d2f;
 }
-.price-card .add-ons .add-on {
+.price-card-container .price-card .row .collapse-arrow {
+  display: none;
+  margin: 0 0 0 10px;
+  cursor: pointer;
+}
+.price-card-container .price-card .row .collapse-arrow svg {
+  width: 32px;
+  height: 32px;
+}
+.price-card-container .price-card .add-ons .add-on {
   display: flex;
   align-items: center;
   gap: 10px;
   margin: 10px 0;
 }
-.price-card .add-ons .add-on p {
+.price-card-container .price-card .add-ons .add-on p {
   font-size: 13px;
   align-self: center;
   margin: 0;
 }
-.price-card .booking-details {
+.price-card-container .price-card .booking-details {
   margin: 40px 0 0 0;
 }
-.price-card .booking-details .input-field {
+.price-card-container .price-card .booking-details .input-field {
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -60,18 +75,18 @@
   padding: 15px;
   margin: 20px 0 0 0;
 }
-.price-card .booking-details .input-field h4 {
+.price-card-container .price-card .booking-details .input-field h4 {
   color: rgba(0, 0, 0, 0.6);
   font-weight: 500;
   font-size: 14px;
 }
-.price-card hr {
+.price-card-container .price-card hr {
   margin: 20px 0 10px 0;
 }
-.price-card .price {
+.price-card-container .price-card .price {
   margin: 20px 0;
 }
-.price-card .price h4 {
+.price-card-container .price-card .price h4 {
   font-family: "Golos Text", sans-serif;
   font-size: 14px;
   font-weight: 400;
@@ -80,11 +95,11 @@
   opacity: 0.5;
   margin: 0 0 0 5px;
 }
-.price-card .price .price-section {
+.price-card-container .price-card .price .price-section {
   display: flex;
   justify-content: space-between;
 }
-.price-card .price .price-section h2 {
+.price-card-container .price-card .price .price-section h2 {
   margin: 0;
   color: #ca9841;
   font-size: 24px;
@@ -93,21 +108,21 @@
   display: flex;
   align-items: self-start;
 }
-.price-card .price .price-section h2 span {
+.price-card-container .price-card .price .price-section h2 span {
   margin: 0 4px;
   font-size: 14px;
 }
-.price-card .price .price-section h3 {
+.price-card-container .price-card .price .price-section h3 {
   color: #2d2d2f;
   opacity: 0.5;
   font-size: 14px;
   font-weight: 700;
 }
-.price-card .price .price-section h3 span {
+.price-card-container .price-card .price .price-section h3 span {
   font-weight: 400;
   margin: 0 5px 0 0;
 }
-.price-card .btn {
+.price-card-container .price-card .btn {
   width: 100%;
   color: #fff;
   background: #ca9841;
@@ -118,4 +133,32 @@
   margin: 0 0 20px 0;
   font-weight: 700;
   font-size: 14px;
+}
+
+@media screen and (max-width: 900px) {
+  .price-card-container {
+    padding: 5px 10px;
+    max-width: 500px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    position: fixed;
+    bottom: 0;
+    top: unset;
+    width: 100%;
+  }
+  .price-card-container .price-card {
+    margin: 0 auto;
+    position: static;
+    max-width: 100%;
+  }
+  .price-card-container .price-card .row .trip-price-header h2 {
+    font-size: 20px;
+  }
+  .price-card-container .price-card .row .trip-price-header p {
+    font-size: 12px;
+  }
+  .price-card-container .price-card .row .collapse-arrow {
+    display: inline;
+  }
 }/*# sourceMappingURL=Trippricecard.css.map */

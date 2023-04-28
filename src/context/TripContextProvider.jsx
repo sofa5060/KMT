@@ -8,7 +8,7 @@ import trip5 from "../images/trip5.png";
 export const TripContext = createContext();
 
 const TripContextProvider = (props) => {
-  const [trip, setTrip] = useState({
+  const [contextTrip, setTrip] = useState({
     title: "The Pyramids of Giza & Sphinx",
     addOns: [
       { name: "Private Tour", price: 299.99, checked: false },
@@ -41,6 +41,7 @@ const TripContextProvider = (props) => {
         order: 4,
       },
     ],
+    cities: ["Giza", "Aswan", "Luxor", "Alexandria"],
     inclusion: [
       "Entry Fees",
       "All Fees and Taxes",
@@ -70,7 +71,7 @@ const TripContextProvider = (props) => {
         "Hotel drop off.",
       ],
     },
-    images: [trip1, trip2, trip3, trip4, trip5, trip2],
+    images: ["https://i.ibb.co/r7fZHHD/temp1.png", trip1, trip2, trip3, trip4, trip5, trip2],
     discountedPrice: 49.99,
     price: 99.99,
     duration: 1,
@@ -79,7 +80,7 @@ const TripContextProvider = (props) => {
   return (
     <TripContext.Provider
       value={{
-        trip: trip,
+        contextTrip: contextTrip,
       }}
     >
       {props.children}

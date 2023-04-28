@@ -100,4 +100,24 @@
   line-height: 29px;
   text-align: center;
   margin: 200px 0 0 0;
+}
+
+@media screen and (max-width: 1000px) {
+  .trip-page {
+    padding: 50px 20px;
+  }
+}
+@media screen and (max-width: 700px) {
+  .trip-page {
+    padding: 30px 15px;
+  }
+  .trip-page .trip-content h1 {
+    font-size: 20px;
+  }
+  .trip-page .trip-content .section-header {
+    font-size: 20px;
+  }
+  .trip-page .trip-content .section-content {
+    margin: 0 0 0 15px;
+  }
 }/*# sourceMappingURL=Trippage.css.map */

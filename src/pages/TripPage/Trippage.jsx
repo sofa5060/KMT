@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, Redirect, useParams } from "react-router-dom";
 import Imagesviewer from "../../components/ImagesViewer/Imagesviewer";
 import Map from "../../components/Map/Map";
@@ -10,8 +10,10 @@ import Tripsummarydetails from "../../components/TripSummaryDetails/Tripsummaryd
 import Newsletter from "../../components/Newsletter/Newsletter";
 import nile from "../../images/nile.png";
 import Cardlist from "../../components/CardList/Cardlist";
+import { TripContext } from "../../context/TripContextProvider";
 
 export default function Trippage({ setCurrPage }) {
+  const { contextTrip } = useContext(TripContext);
   const [trip, setTrip] = useState(null);
   const [error, setError] = useState("");
   const { tripID } = useParams();
@@ -113,9 +115,11 @@ export default function Trippage({ setCurrPage }) {
       console.log(response);
       setTrip(response.data);
     } catch (e) {
+      // TODO Change this at production
       // setNotFound(true);
       console.log(e);
-      setError(e.response ? e.response.data.message : e.message);
+      setTrip(contextTrip);
+      // setError(e.response ? e.response.data.message : e.message);
     }
   };
 
@@ -144,7 +148,7 @@ export default function Trippage({ setCurrPage }) {
         <div className="trip-content">
           <h1>{trip.title}</h1>
           <Imagesviewer imagesList={trip.images} />
-          <Tripsummarydetails trip={trip}/>
+          <Tripsummarydetails trip={trip} />
           <h3 className="section-header">Overview</h3>
           <div className="section-content">
             <p>{trip.overView.mainDescription}</p>
@@ -190,7 +194,7 @@ export default function Trippage({ setCurrPage }) {
         <Trippricecard tripDetails={trip} />
       </div>
       <h4 className="trips-header">Related Trips</h4>
-      <Cardlist destinations={trips} extend/>
+      <Cardlist destinations={trips} extend />
       <Newsletter />
     </div>
   );

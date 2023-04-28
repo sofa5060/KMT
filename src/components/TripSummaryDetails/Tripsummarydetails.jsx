@@ -11,11 +11,6 @@ export default function Tripsummarydetails({ trip }) {
   return (
     <div className="trip-summary-details">
       <div className="detail">
-        <img src={clock} alt="" />
-        <p>Duration</p>
-        <h3>{trip.duration} Days / {trip.duration - 1} Nights</h3>
-      </div>
-      <div className="detail">
         <img src={location} alt="" />
         <p>Hotel Pickup</p>
         <h3>Available</h3>
@@ -26,6 +21,13 @@ export default function Tripsummarydetails({ trip }) {
         <h3>6 AM</h3>
       </div>
       <div className="detail">
+        <img src={clock} alt="" />
+        <p>Duration</p>
+        <h3>
+          {trip.duration} Days
+        </h3>
+      </div>
+      <div className="detail">
         <img src={people} alt="" />
         <p>Trip Type</p>
         <h3>Private Tour</h3>
@@ -33,7 +35,9 @@ export default function Tripsummarydetails({ trip }) {
       <div className="detail">
         <img src={world} alt="" />
         <p>No of Cities</p>
-        <h3>{trip.cities.length > 1 ? `${trip.cities.length} Cities` : "1 City"}</h3>
+        <h3>
+          {trip.cities.length > 1 ? `${trip.cities.length} Cities` : "1 City"}
+        </h3>
       </div>
     </div>
   );

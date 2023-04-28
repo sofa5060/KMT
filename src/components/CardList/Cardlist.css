@@ -39,4 +39,10 @@
 }
 .card-list-outer .extend .card {
   width: 360px;
+}
+
+@media screen and (max-width: 700px) {
+  .card-list-outer {
+    padding: 0 15px;
+  }
 }/*# sourceMappingURL=Cardlist.css.map */
