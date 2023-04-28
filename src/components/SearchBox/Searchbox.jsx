@@ -10,6 +10,7 @@ import { SearchContext } from "../../context/SearchContextProvider";
 import { useHistory } from "react-router-dom";
 import Guestspicker from "../GuestsPicker/Guestspicker";
 import SearchQuery from "../../models/SearchQuery";
+import { useMediaQuery } from "@mui/material";
 
 export default function Searchbox({ minimized }) {
   const history = useHistory();
@@ -17,7 +18,15 @@ export default function Searchbox({ minimized }) {
   const [date, setDate] = useState(dayjs());
   const [guests, setGuests] = useState(1);
 
-  const { setSearchObj, searchObj, searchWithObj, isRedirectedFromOutside, setIsRedirectedFromOutside } = useContext(SearchContext);
+  const matches = useMediaQuery("(max-width:800px)");
+
+  const {
+    setSearchObj,
+    searchObj,
+    searchWithObj,
+    isRedirectedFromOutside,
+    setIsRedirectedFromOutside,
+  } = useContext(SearchContext);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -41,7 +50,7 @@ export default function Searchbox({ minimized }) {
     localSearchObj.date = date;
     localSearchObj.guests = guests;
 
-    // Searching with that obj 
+    // Searching with that obj
     searchWithObj(localSearchObj);
 
     // Setting the search object in the context so the search results page can use it
@@ -54,7 +63,7 @@ export default function Searchbox({ minimized }) {
       history.push(`/search/${searchQuery}`);
     }
 
-    if(minimized){
+    if (minimized) {
       if (searchObj !== null && isRedirectedFromOutside) {
         // Setting the search box values with the search object values in the search results page
         setIsRedirectedFromOutside(false);
@@ -77,8 +86,6 @@ export default function Searchbox({ minimized }) {
       setSearchObj(localSearchObj);
     }
   }, [searchQuery, date, guests]);
-
-
 
   return (
     <form className="search-box" onSubmit={handleSubmit}>
@@ -103,7 +110,7 @@ export default function Searchbox({ minimized }) {
           </div>
           <div className="term">
             <div className="date-picker">
-              <Datepicker setDate={setDate} inputDate={date}/>
+              <Datepicker setDate={setDate} inputDate={date} />
             </div>
           </div>
         </div>
@@ -114,11 +121,15 @@ export default function Searchbox({ minimized }) {
             {!minimized && <h4>Guests</h4>}
           </div>
           <div className="term">
-            <Guestspicker setGuestsCount={setGuests} value={guests}/>
+            <Guestspicker setGuestsCount={setGuests} value={guests} />
           </div>
         </div>
       </div>
-      <input type="submit" value="" className="search-btn" />
+      <input
+        type="submit"
+        value={matches ? "Search" : ""}
+        className="search-btn"
+      />
     </form>
   );
 }

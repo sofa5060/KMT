@@ -4,7 +4,7 @@ import Searchfilter from "./Searchfilter";
 import Pricefilter from "./Pricefilter";
 import { SearchContext } from "../../context/SearchContextProvider";
 
-export default function Searchfilters() {
+export default function Searchfilters({ big }) {
   const { searchObj, searchWithObj } = useContext(SearchContext);
   const [priceRange, setPriceRange] = useState([0, 1000]);
   const [filters, setFilters] = useState([
@@ -47,18 +47,21 @@ export default function Searchfilters() {
     searchWithObj(searchObj);
   };
 
-  if(!filters) return <div></div>;
+  if (!filters) return <div></div>;
 
   return (
-    <form className="search-filters" onSubmit={handleSubmit}>
+    <form
+      className={big ? "search-filters big" : "search-filters"}
+      onSubmit={handleSubmit}
+    >
       {filters.map((filter, index) => (
-        <div key={index}>
-          <Searchfilter filter={filter} key={filter.name} />
-          <hr />
-        </div>
+          <React.Fragment key={index}>
+            <Searchfilter filter={filter} key={filter.name} />
+            <hr />
+          </React.Fragment>
       ))}
       <Pricefilter priceRange={priceRange} />
-      <input type="submit" value="Submit" className="btn" />
+      <input type="submit" value="Apply" className="btn" />
     </form>
   );
 }

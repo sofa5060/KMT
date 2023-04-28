@@ -34,6 +34,7 @@ export default function Datepicker({ setDate, inputDate, label, min }) {
       <DatePicker
         sx={{
           width: 1,
+          minWidth: 170,
           [`&`]: {
             color: "#CA9841",
           },

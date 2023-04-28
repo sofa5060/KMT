@@ -1,8 +1,12 @@
 .search-filters {
   max-width: 310px;
+  min-width: 250px;
   padding: 30px 20px;
   background: #fff;
   border: 1px solid rgba(0, 0, 0, 0.2);
+  width: 100%;
+}
+.search-filters .filter {
   width: 100%;
 }
 .search-filters .filter-header {
@@ -54,4 +58,8 @@
   border: 0;
   width: 100%;
   cursor: pointer;
+}
+
+.big {
+  max-width: 100%;
 }/*# sourceMappingURL=Searchfilters.css.map */

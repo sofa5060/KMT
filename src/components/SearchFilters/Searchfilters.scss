@@ -7,12 +7,14 @@ $golos: main.$golos;
 
 .search-filters{
   max-width: 310px;
+  min-width: 250px;
   padding: 30px 20px;
   background: #fff;
   border: 1px solid rgba(0, 0, 0, 0.2);
   width: 100%;
 
   .filter{
+    width: 100%;
     &-header{
       display: flex;
       justify-content: space-between;
@@ -70,4 +72,8 @@ $golos: main.$golos;
     width: 100%;
     cursor: pointer;
   }
+}
+
+.big{
+  max-width: 100%;
 }

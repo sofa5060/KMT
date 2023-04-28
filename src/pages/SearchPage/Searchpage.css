@@ -8,16 +8,24 @@
   width: 100%;
   margin: 0 0 150px 0;
 }
+.search-page .search-header .cover {
+  width: 100%;
+}
+.search-page .search-header .cover img {
+  width: 100%;
+}
 .search-page .search-body {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   gap: 25px;
+  width: 100%;
 }
 .search-page .search-body .search-result {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 }
 .search-page .search-body .search-result-first-row {
   display: flex;
@@ -25,6 +33,21 @@
   align-items: center;
   width: 100%;
   margin: 0 0 65px 0;
+}
+.search-page .search-body .search-result-first-row .search-result-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.search-page .search-body .search-result-first-row .search-result-group .btn {
+  border: 1px solid #ca9841;
+  border-radius: 0;
+  padding: 12px 28px;
+  background: transparent;
+  color: #ca9841;
+  outline: 0;
+  display: none;
 }
 .search-page .search-body .search-result-first-row h3 {
   font-weight: 600;
@@ -37,4 +60,39 @@
 .search-page .search-body .search-result .Mui-selected {
   background: #ca9841 !important;
   color: #fff !important;
+}
+
+@media screen and (max-width: 1000px) {
+  .search-page {
+    padding: 0 20px 50px 20px;
+  }
+  .search-page .search-header {
+    min-height: 400px;
+  }
+  .search-page .search-header .cover {
+    height: 400px;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+  .search-page .search-header .cover img {
+    position: absolute;
+    left: -50%;
+    width: unset;
+    height: 100%;
+  }
+  .search-page .search-body .search-result-first-row {
+    flex-direction: column-reverse;
+    align-items: flex-end;
+    gap: 50px;
+    margin: 70px 0 20px 0;
+  }
+  .search-page .search-body .search-result-first-row .search-result-group .btn {
+    display: block;
+  }
+  .search-page .search-body .search-result .search-mobile-filters {
+    max-width: 1000px;
+    width: 100%;
+    margin: 0 0 50px 0;
+  }
 }/*# sourceMappingURL=Searchpage.css.map */

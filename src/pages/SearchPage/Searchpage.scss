@@ -14,6 +14,14 @@ $golos: main.$golos;
     position: relative;
     width: 100%;
     margin: 0 0 150px 0;
+
+    .cover {
+      width: 100%;
+
+      img{
+        width: 100%;
+      }
+    }
   }
 
   .search-body {
@@ -21,25 +29,43 @@ $golos: main.$golos;
     justify-content: space-between;
     align-items: flex-start;
     gap: 25px;
+    width: 100%;
 
-    
     .search-result {
       display: flex;
       flex-direction: column;
       align-items: center;
+      width: 100%;
 
-      &-first-row{
+      &-first-row {
         display: flex;
         justify-content: space-between;
         align-items: center;
         width: 100%;
         margin: 0 0 65px 0;
-  
-        h3{
+
+        .search-result-group {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          width: 100%;
+
+          .btn {
+            border: 1px solid $main-color;
+            border-radius: 0;
+            padding: 12px 28px;
+            background: transparent;
+            color: $main-color;
+            outline: 0;
+            display: none;
+          }
+        }
+
+        h3 {
           font-weight: 600;
           font-size: 16px;
-  
-          span{
+
+          span {
             font-size: 24px;
             color: $main-color;
           }
@@ -47,8 +73,55 @@ $golos: main.$golos;
       }
 
       .Mui-selected {
-          background: $main-color !important;
-          color: #fff !important;
+        background: $main-color !important;
+        color: #fff !important;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .search-page {
+    padding: 0 20px 50px 20px;
+
+    .search-header{
+      min-height: 400px;
+
+      .cover{
+        height: 400px;
+        width: 100%;
+        position: relative;
+        overflow: hidden;
+        
+        img{
+          position: absolute;
+          left: -50%;
+          width: unset;
+          height: 100%;
+        }
+      }
+    }
+
+    .search-body {
+      .search-result {
+        &-first-row {
+          flex-direction: column-reverse;
+          align-items: flex-end;
+          gap: 50px;
+          margin: 70px 0 20px 0;
+
+          .search-result-group {
+            .btn {
+              display: block;
+            }
+          }
+        }
+
+        .search-mobile-filters{
+          max-width: 1000px;
+          width: 100%;
+          margin: 0 0 50px 0;
+        }
       }
     }
   }

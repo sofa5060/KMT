@@ -31,7 +31,7 @@ export default function Pricefilter({ priceRange }) {
         {open ? <ExpandLess /> : <ExpandMore />}
       </div>
       <div className="filter-body" style={{ marginTop: open && 20 }}>
-        <Collapse in={open} timeout="auto" unmountOnExit>
+        <Collapse in={open} timeout="auto" unmountOnExit style={{padding: "0 10px"}}>
           <Slider
             getAriaLabel={() => "Price range"}
             value={range}
@@ -44,8 +44,6 @@ export default function Pricefilter({ priceRange }) {
             valueLabelFormat={valuetext}
             disableSwap
             sx={{
-              mx: 1.5,
-              maxWidth: 0.9,
               [`&`]: {
                 color: "#CA9841",
               },

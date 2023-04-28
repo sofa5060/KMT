@@ -23,7 +23,8 @@ export default function Searchtextbox({ setSearchQuery, value }) {
       sx={{
         display: "inline-block",
         "& input": {
-          width: 175,
+          minWidth: 120,
+          width: 1,
           border: 0,
           outline: 0,
         },

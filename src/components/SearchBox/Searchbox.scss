@@ -14,7 +14,6 @@ $golos: main.$golos;
   justify-content: space-between;
   max-width: 850px;
   width: 100%;
-  // margin: -100px auto 0 auto;
   bottom: 0;
   border: 3px solid $main-color;
   border-radius: 10px;
@@ -79,7 +78,6 @@ $golos: main.$golos;
         }
       }
     }
-
   }
 
   .minimized {
@@ -116,5 +114,47 @@ $golos: main.$golos;
     cursor: pointer;
     background: $main-color url("../../images/search.svg") no-repeat center;
     border: 5px solid $main-color;
+  }
+}
+
+
+@media screen and (max-width: 800px) {
+  .search-box {
+    flex-direction: column;
+    padding: 0 0 25px 0;
+    max-width: 400px;
+    margin: 0 auto;
+    width: 100%;
+    top: 0;
+    bottom: unset;
+
+    .search-terms {
+      flex-direction: column;
+      gap: 20px;
+
+      .search-term {
+        max-width: 250px;
+        width: 100%;
+
+        .icon-header {
+          margin: 0;
+        }
+
+        .term {
+          margin: 0 0 0 30px;
+        }
+      }
+    }
+
+    .search-btn {
+      padding: 20px 100px;
+      width: max-content;
+      border-radius: 0 10px 10px 0;
+      color: #fff;
+      cursor: pointer;
+      background: $main-color;
+      border-radius: 0;
+      margin: 0 0 0 35px;
+    }
   }
 }

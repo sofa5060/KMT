@@ -11,13 +11,18 @@ import { useParams } from "react-router-dom";
 import { SearchContext } from "../../context/SearchContextProvider";
 import SearchQuery from "../../models/SearchQuery";
 import dayjs from "dayjs";
+import { Collapse, useMediaQuery } from "@mui/material";
 
 export default function Searchpage({ setCurrPage, allTrips }) {
-  const { searchObj, setSearchObj, searchWithObj, setIsRedirectedFromOutside } = useContext(SearchContext);
+  const { searchObj, setSearchObj, searchWithObj, setIsRedirectedFromOutside } =
+    useContext(SearchContext);
   const { tripName } = useParams();
   let resultsPerPage = 3;
   const [page, setPage] = useState(1);
   const [sortBy, setSortBy] = useState("A-Z");
+  const [filtersOpen, setFiltersOpen] = useState(false);
+
+  const matches = useMediaQuery("(min-width: 1001px)");
 
   useEffect(() => {
     console.log(tripName);
@@ -35,7 +40,7 @@ export default function Searchpage({ setCurrPage, allTrips }) {
 
   useEffect(() => {
     // The user entered from the navbar link
-    if(allTrips){
+    if (allTrips) {
       // Creating a new search object with the url parameter and searching with it
       let searchObj = new SearchQuery("", dayjs(), 1);
       searchWithObj(searchObj);
@@ -45,7 +50,6 @@ export default function Searchpage({ setCurrPage, allTrips }) {
       setIsRedirectedFromOutside(true);
     }
   }, [allTrips]);
-
 
   const handleChange = (event, value) => {
     setPage(value);
@@ -175,17 +179,32 @@ export default function Searchpage({ setCurrPage, allTrips }) {
   return (
     <div className="search-page">
       <div className="search-header">
-        <img src={pyramids} alt="" />
+        <div className="cover">
+          <img src={pyramids} alt="" />
+        </div>
         <Searchbox minimized />
       </div>
       <div className="search-body">
-        <Searchfilters />
+        {matches && <Searchfilters />}
         <div className="search-result">
           <div className="search-result-first-row">
-            <h3>
-              Found: <span>{trips.length} Premium Tours</span>
-            </h3>
+            <div className="search-result-group">
+              <h3>
+                Found: <span>{trips.length} Premium Tours</span>
+              </h3>
+              <button
+                className="btn"
+                onClick={() => setFiltersOpen(!filtersOpen)}
+              >
+                Filters
+              </button>
+            </div>
             <Sortselect selectSort={selectSort} />
+          </div>
+          <div className="search-mobile-filters">
+            <Collapse in={filtersOpen}>
+              <Searchfilters big />
+            </Collapse>
           </div>
           <Triplist
             trips={trips.slice(
