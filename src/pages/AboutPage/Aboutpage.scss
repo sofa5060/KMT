@@ -92,17 +92,80 @@ $golos: main.$golos;
           line-height: 24px;
         }
 
-        p:nth-of-type(2){
+        p:nth-of-type(2) {
           margin: 30px 0 0 0;
         }
       }
 
-      .left-p{
+      .left-p {
         padding-left: 120px;
       }
 
-      .right-p{
+      .right-p {
         padding-right: 120px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1300px) {
+  .about-page {
+    .section2 {
+      .row {
+        .left-p {
+          padding-left: 50px;
+        }
+
+        .right-p {
+          padding-right: 50px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .about-page {
+    .sub-title {
+      font-size: 16px;
+      margin: 30px 0;
+    }
+    .section1{
+      flex-direction: column;
+      padding: 0 25px;
+      .img-container{
+        display: none;
+      }
+
+      .section1-content{
+        max-width: 100%;
+        text-align: center;
+      }
+    }
+    .section2 {
+      .row {
+        flex-direction: column;
+        margin: 0 0 50px 0;
+
+        img {
+          width: 100%;
+        }
+
+        .left-p {
+          padding-left: 20px;
+        }
+
+        .right-p {
+          padding-right: 20px;
+        }
+
+        .section2-content{
+          padding: 50px 20px;
+        }
+      }
+
+      .reverse {
+        flex-direction: column-reverse;
       }
     }
   }

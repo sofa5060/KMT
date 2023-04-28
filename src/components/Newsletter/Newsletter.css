@@ -1,7 +1,7 @@
 .newsletter {
   max-width: 1200px;
   margin: 300px auto 0 auto;
-  background: #EDE4D3;
+  background: #ede4d3;
   text-align: center;
   border-radius: 70px;
   padding: 100px 50px 90px 50px;
@@ -11,7 +11,7 @@
   width: 200px;
   height: 200px;
   border-radius: 50%;
-  background: #EDE4D3;
+  background: #ede4d3;
   z-index: 1;
   padding: 35px;
   position: absolute;
@@ -40,6 +40,7 @@
   margin: 0 auto;
   font-size: 16px;
   font-weight: 400;
+  line-height: 22px;
 }
 .newsletter-form {
   margin: 85px 0 0 0;
@@ -67,4 +68,38 @@
   padding: 20px 44px;
   cursor: pointer;
   border-radius: 0;
+}
+
+@media screen and (max-width: 650px) {
+  .newsletter {
+    padding: 80px 20px 50px 20px !important;
+  }
+  .newsletter .icon-background {
+    width: 160px;
+    height: 160px;
+    top: -80px;
+  }
+  .newsletter h3 {
+    font-size: 22px;
+    line-height: 34px;
+    margin: 0 0 10px 0;
+  }
+  .newsletter p {
+    margin: 0 auto;
+    font-size: 14px;
+  }
+  .newsletter-form {
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 30px 0 0 0;
+  }
+  .newsletter-form input[type=text] {
+    max-width: 600px;
+  }
+  .newsletter-form input[type=email] {
+    max-width: 600px;
+  }
+  .newsletter-form button {
+    margin: 20px 0 0;
+  }
 }/*# sourceMappingURL=Newsletter.css.map */

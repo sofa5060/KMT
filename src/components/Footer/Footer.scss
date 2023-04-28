@@ -242,6 +242,10 @@ $small-circle-size: 300px;
 @media screen and (max-width: 500px) {
   .footer-outer {
     .footer {
+      .footer-content {
+        padding: 0 20px 50px 20px;
+      }
+
       .footer-left {
         h2 {
           font-size: 24px;

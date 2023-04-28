@@ -52,7 +52,7 @@ export default function Aboutpage({ setCurrPage }) {
             </p>
           </div>
         </div>
-        <div className="row">
+        <div className="row reverse">
           <div className="section2-content left-p">
             <h3>Our Mission</h3>
             <p>
