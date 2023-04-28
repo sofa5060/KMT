@@ -82,20 +82,20 @@ $golos: main.$golos;
 
 @media screen and (max-width: 1000px) {
   .search-page {
-    padding: 0 20px 50px 20px;
+    padding: 0 0 50px 0;
 
     .search-header{
-      min-height: 400px;
+      min-height: 300px;
 
       .cover{
-        height: 400px;
+        height: 300px;
         width: 100%;
         position: relative;
         overflow: hidden;
         
         img{
           position: absolute;
-          left: -50%;
+          left: -150px;
           width: unset;
           height: 100%;
         }
@@ -103,14 +103,20 @@ $golos: main.$golos;
     }
 
     .search-body {
+      padding: 0 20px;
       .search-result {
         &-first-row {
           flex-direction: column-reverse;
           align-items: flex-end;
           gap: 50px;
-          margin: 70px 0 20px 0;
+          margin: 120px 0 20px 0;
 
           .search-result-group {
+            h3{
+              span{
+                display: inline-block;
+              }
+            }
             .btn {
               display: block;
             }

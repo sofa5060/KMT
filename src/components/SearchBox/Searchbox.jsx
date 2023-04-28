@@ -125,11 +125,7 @@ export default function Searchbox({ minimized }) {
           </div>
         </div>
       </div>
-      <input
-        type="submit"
-        value={matches ? "Search" : ""}
-        className="search-btn"
-      />
+      <button className="search-btn">{matches ? "Search" : ""}</button>
     </form>
   );
 }

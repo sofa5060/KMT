@@ -70,7 +70,7 @@ export default function Trippricecard({ tripDetails }) {
             {open ? <ExpandLess /> : <ExpandMore />}
           </div>
         </div>
-        <Collapse in={open} timeout="auto" style={ !matches && {maxHeight: 400, overflow: "scroll"}}>
+        <Collapse in={open} timeout="auto" style={ !matches && {maxHeight: "50dvh", overflow: "scroll"}}>
           <div className="add-ons">
             {addOns.map((addOn, index) => (
               <div className="add-on" key={index}>
