@@ -23,9 +23,11 @@
   width: 100%;
   z-index: 1000;
 }
-.checkout-page .right .container {
+.checkout-page .right .container-padding {
   position: sticky;
   top: 130px;
+}
+.checkout-page .right .container {
   padding: 20px;
   background: #fff;
   border-radius: 5px;

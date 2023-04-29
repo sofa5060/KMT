@@ -88,8 +88,8 @@ export default function Searchbox({ minimized }) {
   }, [searchQuery, date, guests]);
 
   return (
-    <form className="search-box" onSubmit={handleSubmit}>
-      <div className={minimized ? "search-terms minimized" : "search-terms"}>
+    <form className={minimized ? "search-box minimized" : "search-box"} onSubmit={handleSubmit}>
+      <div className="search-terms">
         <div className="search-term">
           <div className="icon-header">
             <img src={location} alt="" />

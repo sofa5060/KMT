@@ -31,11 +31,14 @@ $golos: main.$golos;
     max-width: 360px;
     width: 100%;
     z-index: 1000;
-
-    .container {
+    
+    .container-padding {
       position: -webkit-sticky;
       position: sticky;
       top: 130px;
+    }
+
+    .container {
       padding: 20px;
       background: #fff;
       border-radius: 5px;

@@ -20,7 +20,7 @@ export default function Trippage({ setCurrPage }) {
   const [trips, setTrips] = useState([
     {
       id: 1,
-      name: "Felucca Ride on The Nile in Aswan",
+      title: "Felucca Ride on The Nile in Aswan",
       description:
         "Enjoy your Felucca ride in Aswan and Take a relaxing ride on an Egyptian sailboat in Aswan",
       location: "Aswan, Egypt",
@@ -31,7 +31,7 @@ export default function Trippage({ setCurrPage }) {
     },
     {
       id: 2,
-      name: "Felucca Ride on The Nile in Aswan",
+      title: "Felucca Ride on The Nile in Aswan",
       description:
         "Enjoy your Felucca ride in Aswan and Take a relaxing ride on an Egyptian sailboat in Aswan",
       location: "Aswan, Egypt",
@@ -42,7 +42,7 @@ export default function Trippage({ setCurrPage }) {
     },
     {
       id: 3,
-      name: "Felucca Ride on The Nile in Aswan",
+      title: "Felucca Ride on The Nile in Aswan",
       description:
         "Enjoy your Felucca ride in Aswan and Take a relaxing ride on an Egyptian sailboat in Aswan",
       location: "Aswan, Egypt",
@@ -53,7 +53,7 @@ export default function Trippage({ setCurrPage }) {
     },
     {
       id: 3,
-      name: "Felucca Ride on The Nile in Aswan",
+      title: "Felucca Ride on The Nile in Aswan",
       description:
         "Enjoy your Felucca ride in Aswan and Take a relaxing ride on an Egyptian sailboat in Aswan",
       location: "Aswan, Egypt",
@@ -64,7 +64,7 @@ export default function Trippage({ setCurrPage }) {
     },
     {
       id: 3,
-      name: "Felucca Ride on The Nile in Aswan",
+      title: "Felucca Ride on The Nile in Aswan",
       description:
         "Enjoy your Felucca ride in Aswan and Take a relaxing ride on an Egyptian sailboat in Aswan",
       location: "Aswan, Egypt",
@@ -75,7 +75,7 @@ export default function Trippage({ setCurrPage }) {
     },
     {
       id: 3,
-      name: "Lowest Felucca Ride on The Nile in Aswan",
+      title: "Lowest Felucca Ride on The Nile in Aswan",
       description:
         "Enjoy your Felucca ride in Aswan and Take a relaxing ride on an Egyptian sailboat in Aswan",
       location: "Aswan, Egypt",
@@ -86,7 +86,7 @@ export default function Trippage({ setCurrPage }) {
     },
     {
       id: 3,
-      name: "Highest Felucca Ride on The Nile in Aswan",
+      title: "Highest Felucca Ride on The Nile in Aswan",
       description:
         "Enjoy your Felucca ride in Aswan and Take a relaxing ride on an Egyptian sailboat in Aswan",
       location: "Aswan, Egypt",
@@ -97,7 +97,7 @@ export default function Trippage({ setCurrPage }) {
     },
     {
       id: 3,
-      name: "Zelucca Ride on The Nile in Aswan",
+      title: "Zelucca Ride on The Nile in Aswan",
       description:
         "Enjoy your Felucca ride in Aswan and Take a relaxing ride on an Egyptian sailboat in Aswan",
       location: "Aswan, Egypt",

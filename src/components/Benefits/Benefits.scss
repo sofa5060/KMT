@@ -23,58 +23,109 @@ $golos: main.$golos;
     justify-content: space-between;
     align-items: center;
     max-width: 1300px;
-    padding: 100px 50px;
+    padding: 50px;
     margin: 0 auto;
 
-    .images {
-      position: relative;
-
-      .main-image{
-        width: 100%;
+    .left {
+      .main-image {
+        width: 500px;
       }
+    }
 
-      .benefits-images {
-        position: absolute;
-        display: inline-block;
-        max-width: 300px;
-        width: 100%;
-        top: 20px;
-        right: -20%;
+    .right {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      margin: 0 0 0 -200px;
+
+      .point {
         display: flex;
-        flex-direction: column;
-        gap: 20px;
+        align-items: center;
+        gap: 50px;
+        justify-content: space-between;
 
         .benefit {
           width: 100%;
           text-align: center;
           background: #fff;
-          padding: 20px 0 30px 0;
+          padding: 15px 65px;
           border-radius: 20px;
+          min-width: 300px;
 
           img {
-            margin: 0 0 20px 0;
+            margin: 0 0 10px 0;
           }
 
           h4 {
             font-size: 16px;
             font-weight: 600;
+            min-width: max-content;
           }
+        }
+
+        p {
+          font-size: 14px;
+          font-weight: 400;
+          font-family: $ibm;
         }
       }
     }
+  }
+}
 
-    .description {
-      max-width: 440px;
+@media screen and (max-width: 1100px) {
+  .benefits {
+    section {
+      padding: 50px 20px;
 
-      p{
-        font-size: 16px;
-        font-weight: 400;
-        font-family: $ibm;
+      .right {
+        gap: 20px;
+        .point {
+          gap: 20px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .benefits {
+    section {
+      padding: 50px 20px;
+
+      .left {
+        display: none;
       }
 
-      p:nth-child(2) {
-        margin: 65px 0;
+      .right {
+        margin: 0;
+        gap: 80px;
+
+        .point {
+          flex-direction: column;
+          align-items: center;
+          gap: 10px;
+          margin: 0;
+          text-align: center;
+          max-width: 550px;
+          margin: 0 auto;
+        }
       }
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .benefits {
+    h1 {
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 29px;
+    }
+
+    section{
+      padding: 20px;
     }
   }
 }

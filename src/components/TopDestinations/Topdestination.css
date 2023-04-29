@@ -19,6 +19,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 20px;
 }
 .top-destination .btn {
   padding: 14px 55px;
@@ -30,4 +31,15 @@
   font-weight: 600;
   font-family: "IBM Plex Sans", sans-serif;
   border-radius: 5px;
+}
+
+@media screen and (max-width: 1100px) {
+  .top-destination {
+    padding: 50px 20px;
+  }
+}
+@media screen and (max-width: 1000px) {
+  .top-destination .row {
+    gap: 10px;
+  }
 }/*# sourceMappingURL=Topdestination.css.map */

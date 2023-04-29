@@ -26,15 +26,18 @@ export default function Statsbar() {
                   {isTravelersCountEnded ? (
                     "9k+"
                   ) : (
-                    <CountUp
-                      start={0}
-                      end={9000}
-                      duration={1.5}
-                      separator=""
-                      onEnd={() => {
-                        setTravelersCountEnded(true);
-                      }}
-                    />
+                    <React.Fragment>
+                      <CountUp
+                        start={0}
+                        end={9}
+                        duration={1.5}
+                        separator=""
+                        onEnd={() => {
+                          setTravelersCountEnded(true);
+                        }}
+                      />
+                      k
+                    </React.Fragment>
                   )}
                 </h1>
               )}
@@ -46,15 +49,20 @@ export default function Statsbar() {
                   {isTripsCountEnded ? (
                     "1.1k"
                   ) : (
-                    <CountUp
-                      start={0}
-                      end={1100}
-                      duration={1.5}
-                      separator=""
-                      onEnd={() => {
-                        setTripsCountEnded(true);
-                      }}
-                    />
+                    <React.Fragment>
+                      <CountUp
+                        start={0}
+                        end={1.1}
+                        duration={2}
+                        separator=""
+                        decimal="."
+                        decimals={1}
+                        onEnd={() => {
+                          setTripsCountEnded(true);
+                        }}
+                      />
+                      k
+                    </React.Fragment>
                   )}
                 </h1>
               )}
@@ -69,7 +77,7 @@ export default function Statsbar() {
                     decimals={1}
                     decimal="."
                     duration={2}
-                    />
+                  />
                   /5
                 </h1>
               )}

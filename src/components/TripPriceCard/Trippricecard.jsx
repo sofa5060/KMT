@@ -113,14 +113,14 @@ export default function Trippricecard({ tripDetails }) {
             <h2>
               <span>$</span>
               {trip.discountedPrice > 0
-                ? (trip.discountedPrice + additionalPrice) * guests
-                : (trip.price + additionalPrice) * guests}
+                ? ((trip.discountedPrice + additionalPrice) * guests).toFixed(2)
+                : ((trip.price + additionalPrice) * guests).toFixed(2)}
               <span>USD</span>
             </h2>
             {trip.discountedPrice > 0 && (
               <h3>
                 <span>Was</span>
-                {(trip.price + additionalPrice) * guests} USD
+                {((trip.price + additionalPrice) * guests).toFixed(2)} USD
               </h3>
             )}
           </div>

@@ -1,13 +1,17 @@
 .quote-page-form {
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 20px;
   width: 100%;
   align-items: flex-start;
 
+  .MuiInputLabel-root{
+    font-size: 14px !important;
+  }
+
   .row {
     display: flex;
-    gap: 30px;
+    gap: 20px;
     width: 100%;
   }
 

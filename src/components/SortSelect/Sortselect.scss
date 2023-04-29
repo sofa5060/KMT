@@ -9,5 +9,9 @@ $golos: main.$golos;
 .MuiSelect-select{
   font-size: 16px !important;
   font-weight: 600 !important;
-  border: $main-color;
+  border: $main-color !important;
+}
+
+#demo-simple-select-autowidth-label{
+  color: $main-color !important;
 }

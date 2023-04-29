@@ -1,65 +1,111 @@
-@use '../../pages/HomePage/Homepage.scss' as main;
+@use "../../pages/HomePage/Homepage.scss" as main;
 $main-color: main.$main-color;
 $secondary-color: main.$secondary-color;
 $text-color: main.$text-color;
 $ibm: main.$ibm;
 $golos: main.$golos;
 
-.personalized{
+.personalized {
   max-width: 1300px;
-  margin: 0 auto 150px auto;
+  margin: 100px auto 150px auto;
   padding: 0 50px;
 
-  h2{
+  h2 {
     font-size: 36px;
     font-weight: 700;
-    margin: 0 0 100px 0;
+    margin: 0 0 50px 0;
     text-align: center;
 
-    span{
+    span {
       color: $main-color;
     }
   }
 
-
-  .row{
+  .row {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 50px;
     width: 100%;
 
-    .left{
+    .left {
       display: flex;
       gap: 15px;
       max-width: 620px;
       width: 100%;
 
-      img{
+      img {
         width: 40px;
         height: 40px;
       }
 
-      p{
-        font-size: 16px;
+      p {
+        font-size: 14px;
         font-weight: 400;
         font: $ibm;
         line-height: 25px;
-        margin: 0 0 40px 0;
+        margin: 0 0 20px 0;
 
-        span{
+        span {
           color: $main-color;
           font-weight: 600;
         }
       }
     }
 
-    .right{
+    .right {
       max-width: 500px;
       width: 100%;
 
-      img{
+      img {
         width: 100%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .personalized {
+    .row {
+      flex-direction: column-reverse;
+      gap: 20px;
+
+      .left {
+        max-width: 100%;
+        width: 100%;
+
+        p {
+          margin: 0 0 20px 0;
+        }
+      }
+
+      .right {
+        width: 100%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .personalized {
+    padding: 0 20px;
+
+    h2 {
+      font-size: 24px;
+      line-height: 29px;
+      text-align: left;
+      margin: 0 0 30px 0;
+    }
+
+    
+    .row {
+      .left{
+        flex-direction: column;
+        gap: 5px;
+      }
+
+      .right {
+        display: none;
       }
     }
   }

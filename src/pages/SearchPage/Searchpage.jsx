@@ -53,6 +53,7 @@ export default function Searchpage({ setCurrPage, allTrips }) {
 
   const handleChange = (event, value) => {
     setPage(value);
+    window.scrollTo(0, 0);
   };
 
   const [trips, setTrips] = useState([

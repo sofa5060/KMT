@@ -11,7 +11,6 @@ $golos: main.$golos;
   max-width: 1300px;
   margin: 0 auto;
 
-
   h3 {
     font-size: 24px;
     font-weight: 700;
@@ -24,11 +23,12 @@ $golos: main.$golos;
     font-weight: 400;
   }
 
-  .row{
+  .row {
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 20px;
   }
 
   .btn {
@@ -41,5 +41,19 @@ $golos: main.$golos;
     font-weight: 600;
     font-family: $ibm;
     border-radius: 5px;
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .top-destination {
+    padding: 50px 20px;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .top-destination {
+    .row {
+      gap: 10px;
+    }
   }
 }

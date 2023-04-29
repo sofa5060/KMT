@@ -1,13 +1,16 @@
 .quote-page-form {
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 20px;
   width: 100%;
   align-items: flex-start;
 }
+.quote-page-form .MuiInputLabel-root {
+  font-size: 14px !important;
+}
 .quote-page-form .row {
   display: flex;
-  gap: 30px;
+  gap: 20px;
   width: 100%;
 }
 .quote-page-form input[type=number]::-webkit-inner-spin-button,

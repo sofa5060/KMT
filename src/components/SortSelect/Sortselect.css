@@ -1,5 +1,9 @@
 .MuiSelect-select {
   font-size: 16px !important;
   font-weight: 600 !important;
-  border: #ca9841;
+  border: #ca9841 !important;
+}
+
+#demo-simple-select-autowidth-label {
+  color: #ca9841 !important;
 }/*# sourceMappingURL=Sortselect.css.map */

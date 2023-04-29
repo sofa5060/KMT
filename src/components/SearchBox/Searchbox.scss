@@ -8,13 +8,13 @@ $golos: main.$golos;
 .search-box {
   position: absolute;
   left: 50%;
-  transform: translate(-50%, 50%);
+  transform: translate(-50%, -50%);
   z-index: 1;
   display: flex;
   justify-content: space-between;
   max-width: 850px;
   width: 100%;
-  bottom: 0;
+  top: 100%;
   border: 3px solid $main-color;
   border-radius: 10px;
   background: #fff;
@@ -56,7 +56,7 @@ $golos: main.$golos;
         margin: 0 0 0 42px;
         width: 100%;
 
-        .date-picker{
+        .date-picker {
           max-width: 175px;
           width: 100%;
         }
@@ -80,32 +80,6 @@ $golos: main.$golos;
     }
   }
 
-  .minimized {
-    gap: 10px;
-    width: 100%;
-    justify-content: space-between;
-
-    .search-term{
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-    
-      .icon-header {
-        margin: 0;
-        width: 32px;
-    
-        img{
-          width: 32px;
-        }
-      }
-    
-      .term{
-        margin: 0 0 0 25px;
-
-      }
-    }
-  }
-  
   .search-btn {
     width: 70px;
     border-radius: 0 10px 10px 0;
@@ -117,12 +91,38 @@ $golos: main.$golos;
   }
 }
 
-@media screen and (max-width: 1000px) {
-  .search-box{
-    max-width: 750px;
+.minimized {
+  .search-terms {
+    gap: 10px;
+    width: 100%;
+    justify-content: space-between;
+
+    .search-term {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+
+      .icon-header {
+        margin: 0;
+        width: 32px;
+
+        img {
+          width: 32px;
+        }
+      }
+
+      .term {
+        margin: 0 0 0 25px;
+      }
+    }
   }
 }
 
+@media screen and (max-width: 1000px) {
+  .minimized {
+    max-width: 750px;
+  }
+}
 
 @media screen and (max-width: 800px) {
   .search-box {
@@ -131,8 +131,6 @@ $golos: main.$golos;
     max-width: 350px;
     margin: 0 auto;
     width: 100%;
-    top: 0;
-    bottom: unset;
 
     .search-terms {
       flex-direction: column;
@@ -141,9 +139,16 @@ $golos: main.$golos;
       .search-term {
         max-width: 250px;
         width: 100%;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
 
         .icon-header {
           margin: 0;
+
+          h4 {
+            display: none;
+          }
         }
 
         .term {

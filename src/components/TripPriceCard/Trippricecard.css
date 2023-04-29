@@ -1,3 +1,7 @@
+.price-card-container {
+  position: sticky;
+  top: 130px;
+}
 .price-card-container .price-card {
   background: #fff;
   max-width: 360px;
@@ -5,8 +9,6 @@
   min-width: 320px;
   border-radius: 20px;
   padding: 0 20px;
-  position: sticky;
-  top: 130px;
 }
 .price-card-container .price-card .sale-banner {
   background: #ca9841;

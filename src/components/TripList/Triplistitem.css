@@ -10,9 +10,9 @@
   min-width: 600px;
 }
 .trip-list-item .trip-image {
-  max-width: 300px;
+  width: 300px;
   max-height: 250px;
-  min-width: 220px;
+  min-width: 250px;
 }
 .trip-list-item .trip-image img {
   width: 100%;
@@ -20,9 +20,10 @@
 .trip-list-item .trip-info {
   display: flex;
   flex-direction: column;
+  max-width: 450px;
 }
 .trip-list-item .trip-info h3 {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 600;
 }
 .trip-list-item .trip-info p {

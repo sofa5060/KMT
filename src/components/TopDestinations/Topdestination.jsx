@@ -4,12 +4,14 @@ import Card from "../Card/Card";
 import Skeleton from "@mui/material/Skeleton";
 import "./Topdestination.css";
 import axios from "axios";
-import { AnimationOnScroll } from "react-animation-on-scroll";
 import "animate.css/animate.min.css";
 import Cardlist from "../CardList/Cardlist";
+import { useMediaQuery } from "@mui/material";
 
 export default function Topdestination() {
   const [destinations, setDestinations] = useState(null);
+
+  const matches = useMediaQuery("(max-width:1000px)");
 
   const getTopDestinations = async () => {
     if (destinations) return;
@@ -37,9 +39,9 @@ export default function Topdestination() {
         <Cardlist destinations={destinations} />
       ) : (
         <div className="row">
-          <Skeleton animation="wave" width={360} height={400} />
-          <Skeleton animation="wave" width={360} height={400} />
-          <Skeleton animation="wave" width={360} height={400} />
+          <Skeleton animation="wave" width={360} height={matches ? 240 : 400} />
+          <Skeleton animation="wave" width={360} height={matches ? 240 : 400} />
+          <Skeleton animation="wave" width={360} height={matches ? 240 : 400} />
         </div>
       )}
       <Link to="/trips" className="btn">

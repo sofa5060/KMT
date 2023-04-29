@@ -22,7 +22,7 @@ export default function Footer() {
             <h2>Ready to get started?</h2>
             <div className="m-left">
               <Link to="/trips" className="btn footer-btn">
-                Get Started with KMT Tours
+                Explore KMT Trips
               </Link>
               <div className="row location">
                 <LocationOnIcon />

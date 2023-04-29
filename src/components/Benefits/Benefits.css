@@ -14,48 +14,87 @@
   justify-content: space-between;
   align-items: center;
   max-width: 1300px;
-  padding: 100px 50px;
+  padding: 50px;
   margin: 0 auto;
 }
-.benefits section .images {
-  position: relative;
+.benefits section .left .main-image {
+  width: 500px;
 }
-.benefits section .images .main-image {
+.benefits section .right {
   width: 100%;
-}
-.benefits section .images .benefits-images {
-  position: absolute;
-  display: inline-block;
-  max-width: 300px;
-  width: 100%;
-  top: 20px;
-  right: -20%;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 30px;
+  margin: 0 0 0 -200px;
 }
-.benefits section .images .benefits-images .benefit {
+.benefits section .right .point {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+  justify-content: space-between;
+}
+.benefits section .right .point .benefit {
   width: 100%;
   text-align: center;
   background: #fff;
-  padding: 20px 0 30px 0;
+  padding: 15px 65px;
   border-radius: 20px;
+  min-width: 300px;
 }
-.benefits section .images .benefits-images .benefit img {
-  margin: 0 0 20px 0;
+.benefits section .right .point .benefit img {
+  margin: 0 0 10px 0;
 }
-.benefits section .images .benefits-images .benefit h4 {
+.benefits section .right .point .benefit h4 {
   font-size: 16px;
   font-weight: 600;
+  min-width: -moz-max-content;
+  min-width: max-content;
 }
-.benefits section .description {
-  max-width: 440px;
-}
-.benefits section .description p {
-  font-size: 16px;
+.benefits section .right .point p {
+  font-size: 14px;
   font-weight: 400;
   font-family: "IBM Plex Sans", sans-serif;
 }
-.benefits section .description p:nth-child(2) {
-  margin: 65px 0;
+
+@media screen and (max-width: 1100px) {
+  .benefits section {
+    padding: 50px 20px;
+  }
+  .benefits section .right {
+    gap: 20px;
+  }
+  .benefits section .right .point {
+    gap: 20px;
+  }
+}
+@media screen and (max-width: 900px) {
+  .benefits section {
+    padding: 50px 20px;
+  }
+  .benefits section .left {
+    display: none;
+  }
+  .benefits section .right {
+    margin: 0;
+    gap: 80px;
+  }
+  .benefits section .right .point {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+    text-align: center;
+    max-width: 550px;
+    margin: 0 auto;
+  }
+}
+@media screen and (max-width: 600px) {
+  .benefits h1 {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 29px;
+  }
+  .benefits section {
+    padding: 20px;
+  }
 }/*# sourceMappingURL=Benefits.css.map */
