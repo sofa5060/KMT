@@ -1,22 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "./Newsletter.css";
 import newsletterIcon from "../../images/newsletterIcon.png";
 import { AnimationOnScroll } from "react-animation-on-scroll";
 import "animate.css/animate.min.css";
+import axios from "axios";
+import { AlertContext } from "../../context/AlertContextProvider";
 
 export default function Newsletter() {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
 
-  const handleChange = (e) => {
-    const result = e.target.value.replace(/[^a-z]/gi, "");
-    setName(result);
-  };
+  const { showAlert } = useContext(AlertContext);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submitted");
-    console.log("Name: " + name + " Email: " + email);
+
+    let res;
+    try {
+      await axios.post("http://localhost:5000/api/newsletter", {
+        name,
+        email,
+      });
+    } catch (e) {
+      if(e.code !== "ERR_NETWORK" && e.response.status === 500){
+        return showAlert("error", e.response.data);
+      }
+
+      return showAlert("error", "Error in submitting the form");
+    }
+
+    setName("");
+    setEmail("");
+    showAlert("success", "Submitted Successfully");
   };
 
   return (
@@ -29,7 +44,12 @@ export default function Newsletter() {
       <h3>
         <span>Unlock the Wonders of Egypt</span>
         <br />
-        <AnimationOnScroll animateOut="animate__headShake show" style={{opacity: 1}} offset={300} initiallyVisible>
+        <AnimationOnScroll
+          animateOut="animate__headShake show"
+          style={{ opacity: 1 }}
+          offset={300}
+          initiallyVisible
+        >
           Get Exclusive Tour Offers and Tips
         </AnimationOnScroll>
       </h3>
@@ -44,7 +64,7 @@ export default function Newsletter() {
           type="text"
           placeholder="Full Name"
           value={name}
-          onChange={handleChange}
+          onChange={(e) => setName(e.target.value)}
           required
         />
         <input

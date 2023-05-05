@@ -1,4 +1,6 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useState, useContext } from "react";
+import { AlertContext } from "./AlertContextProvider";
+import axios from "axios";
 
 export const QuoteContext = createContext();
 
@@ -7,26 +9,41 @@ export default function QuoteContextProvider({ children }) {
   const [contextEmail, setEmail] = useState("");
   const [contextMsg, setMsg] = useState("");
 
+  const { showAlert } = useContext(AlertContext);
+
   const updateData = (name, email, msg) => {
     setName(name);
     setEmail(email);
     setMsg(msg);
   };
 
-  const submitQuote = (name, email, phoneNumber, nationality, age, guests, checkInDate, checkOutDate, places, currency, budget, healthConditions, msg) => {
-    console.log(
-      `full name: ${name} Email: ${email} phone: ${phoneNumber} Nationality: ${nationality}`
-    );
+  const submitQuote = async (name, email, phoneNum, nationality, age, guests, checkInDate, checkOutDate, places, currency, budget, healthConditions, message) => {
+    try{
+      await axios.post("http://localhost:5000/api/quote", {
+        name,
+        email,
+        phoneNum,
+        nationality,
+        age,
+        guests,
+        checkInDate,
+        checkOutDate,
+        places,
+        currency,
+        budget,
+        healthConditions,
+        message
+      });
+    }catch(e){
+      showAlert("error", "Something went wrong, please try again later");
+      return false;
+    }
 
-    console.log(
-      `Age: ${age} Guests: ${guests} Check In Date: ${checkInDate} Check Out Date: ${checkOutDate}`
-    );
-
-    console.log(
-      `Places: ${places} Budget: ${budget} Currency: ${currency} Health Conditions: ${healthConditions}`
-    );
-
-    console.log(`Message: ${msg}`);
+    showAlert("success", "Your quote has been submitted successfully");
+    setName("");
+    setEmail("");
+    setMsg("");
+    return true;
   }
 
   return (

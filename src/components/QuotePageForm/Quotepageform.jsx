@@ -9,6 +9,7 @@ import Datepicker from "../SearchBox/Datepicker";
 import dayjs from "dayjs";
 import Budget from "../Budget/Budget";
 import { QuoteContext } from "../../context/QuoteContextProvider";
+import { AlertContext } from "../../context/AlertContextProvider";
 
 export default function Quotepageform({ minimized }) {
   const history = useHistory();
@@ -28,6 +29,8 @@ export default function Quotepageform({ minimized }) {
   const [currency, setCurrency] = useState("USD");
   const [healthConditions, setHealthConditions] = useState("");
   const [msg, setMsg] = useState("");
+
+  const { showAlert } = useContext(AlertContext);
 
   const validate = () => {
     let isValid = true;
@@ -61,7 +64,7 @@ export default function Quotepageform({ minimized }) {
     return isValid;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // In Home Page or in Trip Page
@@ -72,9 +75,13 @@ export default function Quotepageform({ minimized }) {
       return;
     }
     // In Quote Page
-    if (!validate()) return; // If not valid return
+    if (!validate()) {
+      // If not valid return
+      showAlert("error", "Please fill all required fields correctly");
+      return;
+    }
 
-    submitQuote(
+    let success = await submitQuote(
       fullName,
       email,
       phone,
@@ -89,6 +96,23 @@ export default function Quotepageform({ minimized }) {
       healthConditions,
       msg
     );
+
+    if (success) {
+      setFullName("");
+      setEmail("");
+      setPhone("+20");
+      setNationality("");
+      setAge("");
+      setGuests(1);
+      setCheckInDate(dayjs());
+      setCheckOutDate(dayjs());
+      setPlaces("");
+      setBudget("");
+      setCurrency("USD");
+      setHealthConditions("");
+      setMsg("");
+      history.push("/");
+    }
   };
 
   // For getting data from context
