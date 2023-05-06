@@ -1,24 +1,49 @@
-import React, { useState, useEffect, createContext } from "react";
-import SearchQuery from "../models/SearchQuery";
+import React, { useState, useEffect, createContext, useContext } from "react";
 import dayjs from "dayjs";
+import axios from "axios";
+import { AlertContext } from "./AlertContextProvider";
 
 export const SearchContext = createContext();
 
 const SearchContextProvider = (props) => {
-  const [searchObj, setSearchObj] = useState(null);
-  const [isRedirectedFromOutside, setIsRedirectedFromOutside] = useState(false);
+  const [contextSearchTerm, setSearchTerm] = useState("");
+  const [contextDate, setDate] = useState(dayjs());
+  const [contextGuests, setGuests] = useState(1);
+  const [searchResults, setSearchResults] = useState([]);
+  const [isSearched, setIsSearched] = useState(false);
 
-  const searchWithObj = (searchObj) => {
-    console.log("searching with ");
-    console.log(searchObj);
-  }
+  const {showAlert} = useContext(AlertContext);
 
-  useEffect(() => {
-    console.log(searchObj);
-  },[searchObj]);
+  const searchForTrip = async (term, date, count) => {
+    setSearchTerm(term);
+    setDate(date);
+    setGuests(count);
+    setIsSearched(true);
+    let res;
+    try{
+      res = await axios.get(`http://localhost:5000/api/trips/search?searchTerm=${term}&day=${dayjs(date).day()}&guests=${count}`);
+    }catch(err){
+      console.log(err);
+      if(err.status !== 404)
+        showAlert("error", "Error searching for trips")
+      return;
+    }
+    setSearchResults(res.data);
+    console.log(res);
+  };
 
   return (
-    <SearchContext.Provider value={{ setSearchObj, searchObj, searchWithObj, isRedirectedFromOutside, setIsRedirectedFromOutside}}>
+    <SearchContext.Provider
+      value={{
+        contextSearchTerm,
+        contextDate,
+        contextGuests,
+        searchForTrip,
+        searchResults,
+        isSearched,
+        setIsSearched,
+      }}
+    >
       {props.children}
     </SearchContext.Provider>
   );

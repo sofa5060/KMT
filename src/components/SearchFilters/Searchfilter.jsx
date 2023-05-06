@@ -7,7 +7,6 @@ import { SearchContext } from "../../context/SearchContextProvider";
 export default function Searchfilter({ filter }) {
   const [open, setOpen] = useState(true);
   const [filterProps, setFilterProps] = useState(filter.options);
-  const { searchObj, setSearchObj } = useContext(SearchContext);
 
   const handleChange = (event) => {
     filter.options.find(
@@ -15,25 +14,23 @@ export default function Searchfilter({ filter }) {
     ).checked = event.target.checked;
     setFilterProps([...filter.options]);
 
-    let localSearchObj = searchObj.generateNewObj();
-    if (event.target.checked) {
-      if (filter.name === "Destinations") {
-        localSearchObj.addDestination(event.target.ariaLabel);
-      } else if (filter.name === "Duration") {
-          localSearchObj.addToDurations(event.target.ariaValueText);
-      } else if (filter.name === "Rating") {
-        localSearchObj.addToRatings(parseInt(event.target.ariaLabel[0]));
-      }
-    } else {
-      if (filter.name === "Destinations") {
-        localSearchObj.removeDestination(event.target.ariaLabel);
-      } else if (filter.name === "Duration") {
-        localSearchObj.removeFromDurations(event.target.ariaValueText);
-      } else if (filter.name === "Rating") {
-        localSearchObj.removeFromRatings(parseInt(event.target.ariaLabel[0]));
-      }
-    }
-    setSearchObj(localSearchObj);
+    // if (event.target.checked) {
+    //   if (filter.name === "Destinations") {
+    //     localSearchObj.addDestination(event.target.ariaLabel);
+    //   } else if (filter.name === "Duration") {
+    //       localSearchObj.addToDurations(event.target.ariaValueText);
+    //   } else if (filter.name === "Rating") {
+    //     localSearchObj.addToRatings(parseInt(event.target.ariaLabel[0]));
+    //   }
+    // } else {
+    //   if (filter.name === "Destinations") {
+    //     localSearchObj.removeDestination(event.target.ariaLabel);
+    //   } else if (filter.name === "Duration") {
+    //     localSearchObj.removeFromDurations(event.target.ariaValueText);
+    //   } else if (filter.name === "Rating") {
+    //     localSearchObj.removeFromRatings(parseInt(event.target.ariaLabel[0]));
+    //   }
+    // }
   };
 
   return (

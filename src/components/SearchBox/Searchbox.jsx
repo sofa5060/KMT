@@ -20,75 +20,28 @@ export default function Searchbox({ minimized }) {
 
   const matches = useMediaQuery("(max-width:800px)");
 
-  const {
-    setSearchObj,
-    searchObj,
-    searchWithObj,
-    isRedirectedFromOutside,
-    setIsRedirectedFromOutside,
-  } = useContext(SearchContext);
+  const { searchForTrip, contextSearchTerm, contextDate, contextGuests } =
+    useContext(SearchContext);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (!minimized) {
-      // Creating a new search object with input parameters
-      let localSearchObj = new SearchQuery(searchQuery, date, guests);
-
-      // Searching with that obj and redirecting to the search results page using the useEffect hook
-      searchWithObj(localSearchObj);
-
-      // Setting the search object in the context so the search results page can use it
-      setSearchObj(localSearchObj);
-      setIsRedirectedFromOutside(true);
-      return;
-    }
-
-    // create a new search object with the input parameters but with the same filters
-    let localSearchObj = searchObj.generateNewObj();
-    localSearchObj.searchQuery = searchQuery;
-    localSearchObj.date = date;
-    localSearchObj.guests = guests;
-
-    // Searching with that obj
-    searchWithObj(localSearchObj);
-
-    // Setting the search object in the context so the search results page can use it
-    setSearchObj(localSearchObj);
+    await searchForTrip(searchQuery, date, guests);
+    history.replace(`/search/${searchQuery}`);
   };
 
   useEffect(() => {
-    // Redirecting to the search results page when the search object is ready
-    if (!minimized && searchObj !== null && isRedirectedFromOutside) {
-      history.push(`/search/${searchQuery}`);
-    }
-
     if (minimized) {
-      if (searchObj !== null && isRedirectedFromOutside) {
-        // Setting the search box values with the search object values in the search results page
-        setIsRedirectedFromOutside(false);
-        setSearchQuery(searchObj.searchQuery);
-        setDate(searchObj.date);
-        setGuests(searchObj.guests);
-      }
+      setSearchQuery(contextSearchTerm);
+      setDate(contextDate);
+      setGuests(contextGuests);
     }
-  }, [searchObj, isRedirectedFromOutside]);
-
-  useEffect(() => {
-    if (minimized) {
-      // Creating a new search object with input parameters
-      let localSearchObj = searchObj.generateNewObj();
-      localSearchObj.searchQuery = searchQuery;
-      localSearchObj.date = date;
-      localSearchObj.guests = guests;
-
-      // Setting the search object in the context so the search results page can use it
-      setSearchObj(localSearchObj);
-    }
-  }, [searchQuery, date, guests]);
+  }, [minimized, contextSearchTerm, contextDate, contextGuests]);
 
   return (
-    <form className={minimized ? "search-box minimized" : "search-box"} onSubmit={handleSubmit}>
+    <form
+      className={minimized ? "search-box minimized" : "search-box"}
+      onSubmit={handleSubmit}
+    >
       <div className="search-terms">
         <div className="search-term">
           <div className="icon-header">

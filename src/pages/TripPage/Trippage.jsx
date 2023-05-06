@@ -11,6 +11,7 @@ import Newsletter from "../../components/Newsletter/Newsletter";
 import nile from "../../images/nile.png";
 import Cardlist from "../../components/CardList/Cardlist";
 import { TripContext } from "../../context/TripContextProvider";
+import AddOn from "../../models/AddOn";
 
 export default function Trippage({ setCurrPage }) {
   const { contextTrip } = useContext(TripContext);
@@ -111,9 +112,11 @@ export default function Trippage({ setCurrPage }) {
   const getTripByID = async (id) => {
     if (trip) return;
     try {
-      const response = await axios.get(`http://localhost:5000/api/trip/${id}`);
-      console.log(response);
-      setTrip(response.data);
+      const res = await axios.get(`http://localhost:5000/api/trip/${id}`);
+      console.log(res);
+      let resTrip = res.data;
+      resTrip.addOns = resTrip.addOns.map((addOn) => new AddOn(addOn.name, addOn.prices, addOn.checked));
+      setTrip(resTrip);
     } catch (e) {
       // TODO Change this at production
       // setNotFound(true);
@@ -151,12 +154,7 @@ export default function Trippage({ setCurrPage }) {
           <Tripsummarydetails trip={trip} />
           <h3 className="section-header">Overview</h3>
           <div className="section-content">
-            <p>{trip.overView.mainDescription}</p>
-            <ul className="bullet-list">
-              {trip.overView.points.map((item, index) => (
-                <li key={index}>{item}</li>
-              ))}
-            </ul>
+            <p>{trip.overView}</p>
           </div>
           <Map locations={trip.locations} />
           <hr className="split-line" />

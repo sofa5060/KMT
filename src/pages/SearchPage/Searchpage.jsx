@@ -9,12 +9,11 @@ import Sortselect from "../../components/SortSelect/Sortselect";
 import Searchbox from "../../components/SearchBox/Searchbox";
 import { useParams } from "react-router-dom";
 import { SearchContext } from "../../context/SearchContextProvider";
-import SearchQuery from "../../models/SearchQuery";
 import dayjs from "dayjs";
 import { Collapse, useMediaQuery } from "@mui/material";
 
 export default function Searchpage({ setCurrPage, allTrips }) {
-  const { searchObj, setSearchObj, searchWithObj, setIsRedirectedFromOutside } =
+  const { searchForTrip, searchResults, contextDate, contextGuests } =
     useContext(SearchContext);
   const { tripName } = useParams();
   let resultsPerPage = 3;
@@ -25,29 +24,15 @@ export default function Searchpage({ setCurrPage, allTrips }) {
   const matches = useMediaQuery("(min-width: 1001px)");
 
   useEffect(() => {
-    console.log(tripName);
-    // The user entered from the url and not from the search box
-    if (tripName !== undefined && searchObj === null) {
-      // Creating a new search object with the url parameter and searching with it
-      let searchObj = new SearchQuery(tripName, dayjs(), 1);
-      searchWithObj(searchObj);
-
-      // Setting the search object in the context so the search results page can use it
-      setSearchObj(searchObj);
-      setIsRedirectedFromOutside(true);
+    if (tripName !== undefined && searchResults.length === 0) {
+      console.log("Runned");
+      searchForTrip(tripName, contextDate, contextGuests);
     }
   }, [tripName]);
 
   useEffect(() => {
-    // The user entered from the navbar link
     if (allTrips) {
-      // Creating a new search object with the url parameter and searching with it
-      let searchObj = new SearchQuery("", dayjs(), 1);
-      searchWithObj(searchObj);
-
-      // Setting the search object in the context so the search results page can use it
-      setSearchObj(searchObj);
-      setIsRedirectedFromOutside(true);
+      searchForTrip("", contextDate, contextGuests);
     }
   }, [allTrips]);
 
@@ -56,88 +41,7 @@ export default function Searchpage({ setCurrPage, allTrips }) {
     window.scrollTo(0, 0);
   };
 
-  const [trips, setTrips] = useState([
-    {
-      id: 1,
-      name: "Felucca Ride on The Nile in Aswan",
-      description:
-        "Enjoy your Felucca ride in Aswan and Take a relaxing ride on an Egyptian sailboat in Aswan",
-      location: "Aswan, Egypt",
-      price: 99.99,
-      image: nile,
-      sells: 5,
-    },
-    {
-      id: 2,
-      name: "Felucca Ride on The Nile in Aswan",
-      description:
-        "Enjoy your Felucca ride in Aswan and Take a relaxing ride on an Egyptian sailboat in Aswan",
-      location: "Aswan, Egypt",
-      price: 99.99,
-      image: nile,
-      sells: 5,
-    },
-    {
-      id: 3,
-      name: "Felucca Ride on The Nile in Aswan",
-      description:
-        "Enjoy your Felucca ride in Aswan and Take a relaxing ride on an Egyptian sailboat in Aswan",
-      location: "Aswan, Egypt",
-      price: 50.0,
-      image: nile,
-      sells: 5,
-    },
-    {
-      id: 3,
-      name: "Felucca Ride on The Nile in Aswan",
-      description:
-        "Enjoy your Felucca ride in Aswan and Take a relaxing ride on an Egyptian sailboat in Aswan",
-      location: "Aswan, Egypt",
-      price: 50.0,
-      image: nile,
-      sells: 5,
-    },
-    {
-      id: 3,
-      name: "Felucca Ride on The Nile in Aswan",
-      description:
-        "Enjoy your Felucca ride in Aswan and Take a relaxing ride on an Egyptian sailboat in Aswan",
-      location: "Aswan, Egypt",
-      price: 50.0,
-      image: nile,
-      sells: 5,
-    },
-    {
-      id: 3,
-      name: "Lowest Felucca Ride on The Nile in Aswan",
-      description:
-        "Enjoy your Felucca ride in Aswan and Take a relaxing ride on an Egyptian sailboat in Aswan",
-      location: "Aswan, Egypt",
-      price: 50.0,
-      image: nile,
-      sells: 2,
-    },
-    {
-      id: 3,
-      name: "Highest Felucca Ride on The Nile in Aswan",
-      description:
-        "Enjoy your Felucca ride in Aswan and Take a relaxing ride on an Egyptian sailboat in Aswan",
-      location: "Aswan, Egypt",
-      price: 50.0,
-      image: nile,
-      sells: 10,
-    },
-    {
-      id: 3,
-      name: "Zelucca Ride on The Nile in Aswan",
-      description:
-        "Enjoy your Felucca ride in Aswan and Take a relaxing ride on an Egyptian sailboat in Aswan",
-      location: "Aswan, Egypt",
-      price: 50.0,
-      image: nile,
-      sells: 5,
-    },
-  ]);
+  const [trips, setTrips] = useState(searchResults);
 
   const selectSort = (sort) => {
     if (sort === sortBy) return;
@@ -145,10 +49,12 @@ export default function Searchpage({ setCurrPage, allTrips }) {
   };
 
   useEffect(() => {
+    if(!trips || !trips.length) return;
+
     if (sortBy === "A-Z") {
-      setTrips([...trips].sort((a, b) => a.name.localeCompare(b.name)));
+      setTrips([...trips].sort((a, b) => a.title.localeCompare(b.title)));
     } else if (sortBy === "Z-A") {
-      setTrips([...trips].sort((a, b) => b.name.localeCompare(a.name)));
+      setTrips([...trips].sort((a, b) => b.title.localeCompare(a.title)));
     } else if (sortBy === "Lowest Price") {
       setTrips(
         [...trips].sort((a, b) => {
@@ -175,7 +81,11 @@ export default function Searchpage({ setCurrPage, allTrips }) {
     setCurrPage("trips");
   }, []);
 
-  if (!searchObj) return <div>loading</div>;
+  useEffect(() => {
+    setTrips(searchResults);
+  }, [searchResults])
+
+  if (!trips.length) return <div>loading</div>;
 
   return (
     <div className="search-page">

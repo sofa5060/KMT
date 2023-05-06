@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Card from "../Card/Card";
 import Skeleton from "@mui/material/Skeleton";
 import "./Topdestination.css";
 import axios from "axios";
@@ -17,7 +16,7 @@ export default function Topdestination() {
     if (destinations) return;
     try {
       const response = await axios.get(
-        "http://localhost:5000/api/trips/top-destinations"
+        "http://localhost:5000/api/trips/top"
       );
       console.log(response);
       setDestinations(response.data);
@@ -26,9 +25,11 @@ export default function Topdestination() {
       console.log(e);
     }
   };
+
   useEffect(() => {
     getTopDestinations();
   }, []);
+
   return (
     <div className="top-destination">
       <h3>Top Destinations</h3>

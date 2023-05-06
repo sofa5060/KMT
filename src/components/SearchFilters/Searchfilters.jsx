@@ -5,7 +5,7 @@ import Pricefilter from "./Pricefilter";
 import { SearchContext } from "../../context/SearchContextProvider";
 
 export default function Searchfilters({ big }) {
-  const { searchObj, searchWithObj } = useContext(SearchContext);
+  const { searchResults, setSearchResults } = useContext(SearchContext);
   const [priceRange, setPriceRange] = useState([0, 1000]);
   const [filters, setFilters] = useState([
     {
@@ -44,7 +44,6 @@ export default function Searchfilters({ big }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    searchWithObj(searchObj);
   };
 
   if (!filters) return <div></div>;

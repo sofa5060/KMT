@@ -10,10 +10,10 @@ import Personalized from "../../components/Personalized/Personalized";
 import { SearchContext } from "../../context/SearchContextProvider";
 
 export default function Homepage({ setCurrPage }) {
-  const { setSearchObj } = useContext(SearchContext);
+  const { setIsSearched } = useContext(SearchContext);
   useEffect(() => {
     setCurrPage("home");
-    setSearchObj(null);
+    setIsSearched(false);
   }, []);
 
   return (

@@ -5,21 +5,30 @@ import price from "../../images/price.svg";
 import EastIcon from "@mui/icons-material/East";
 import "./Triplistitem.css";
 
-export default function Triplistitem({trip}) {
+export default function Triplistitem({ trip }) {
+  const displayCities = (cities) => {
+    let result = "";
+    for (let i = 0; i < cities.length && i < 3; i++) {
+      if (i === cities.length - 1 || i === 2) {
+        result += cities[i];
+      } else {
+        result += cities[i] + ", ";
+      }
+    }
+    return result;
+  };
   return (
     <div className="trip-list-item">
       <div className="trip-image">
-        <img src={trip.image} alt="" />
+        <img src={trip.overViewImage} alt="" />
       </div>
       <div className="trip-info">
-        <h3>{trip.name}</h3>
-        <p>
-          {trip.description}
-        </p>
+        <h3>{trip.title}</h3>
+        <p>{trip.description}</p>
         <div className="features">
           <div className="feature">
             <img src={location} alt="" />
-            <h5>{trip.location}</h5>
+            <h5>{displayCities(trip.cities)}</h5>
           </div>
           <hr />
           <div className="feature">

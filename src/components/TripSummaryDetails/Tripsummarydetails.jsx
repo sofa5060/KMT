@@ -15,22 +15,22 @@ export default function Tripsummarydetails({ trip }) {
         <p>Hotel Pickup</p>
         <h3>Available</h3>
       </div>
+      {/*
       <div className="detail">
         <img src={sunrise} alt="" />
         <p>Start From</p>
         <h3>6 AM</h3>
       </div>
+      */}
       <div className="detail">
         <img src={clock} alt="" />
         <p>Duration</p>
-        <h3>
-          {trip.duration} Days
-        </h3>
+        <h3>{trip.dayDuration} Days {trip.nightDuration > 0 && `/ ${trip.nightDuration} Nights`}</h3>
       </div>
       <div className="detail">
         <img src={people} alt="" />
         <p>Trip Type</p>
-        <h3>Private Tour</h3>
+        <h3>{trip.tripType} Tour</h3>
       </div>
       <div className="detail">
         <img src={world} alt="" />
