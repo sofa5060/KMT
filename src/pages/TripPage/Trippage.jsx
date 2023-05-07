@@ -12,110 +12,24 @@ import nile from "../../images/nile.png";
 import Cardlist from "../../components/CardList/Cardlist";
 import { TripContext } from "../../context/TripContextProvider";
 import AddOn from "../../models/AddOn";
+import { CircularProgress } from "@mui/material";
 
 export default function Trippage({ setCurrPage }) {
   const { contextTrip } = useContext(TripContext);
   const [trip, setTrip] = useState(null);
   const [error, setError] = useState("");
   const { tripID } = useParams();
-  const [trips, setTrips] = useState([
-    {
-      id: 1,
-      title: "Felucca Ride on The Nile in Aswan",
-      description:
-        "Enjoy your Felucca ride in Aswan and Take a relaxing ride on an Egyptian sailboat in Aswan",
-      location: "Aswan, Egypt",
-      price: 99.99,
-      overViewImage: nile,
-      sells: 5,
-      cities: ["Giza", "Aswan", "Luxor", "Alexandria"],
-    },
-    {
-      id: 2,
-      title: "Felucca Ride on The Nile in Aswan",
-      description:
-        "Enjoy your Felucca ride in Aswan and Take a relaxing ride on an Egyptian sailboat in Aswan",
-      location: "Aswan, Egypt",
-      price: 99.99,
-      overViewImage: nile,
-      sells: 5,
-      cities: ["Giza", "Aswan", "Luxor", "Alexandria"],
-    },
-    {
-      id: 3,
-      title: "Felucca Ride on The Nile in Aswan",
-      description:
-        "Enjoy your Felucca ride in Aswan and Take a relaxing ride on an Egyptian sailboat in Aswan",
-      location: "Aswan, Egypt",
-      price: 50.0,
-      overViewImage: nile,
-      sells: 5,
-      cities: ["Giza", "Aswan", "Luxor", "Alexandria"],
-    },
-    {
-      id: 3,
-      title: "Felucca Ride on The Nile in Aswan",
-      description:
-        "Enjoy your Felucca ride in Aswan and Take a relaxing ride on an Egyptian sailboat in Aswan",
-      location: "Aswan, Egypt",
-      price: 50.0,
-      overViewImage: nile,
-      sells: 5,
-      cities: ["Giza", "Aswan", "Luxor", "Alexandria"],
-    },
-    {
-      id: 3,
-      title: "Felucca Ride on The Nile in Aswan",
-      description:
-        "Enjoy your Felucca ride in Aswan and Take a relaxing ride on an Egyptian sailboat in Aswan",
-      location: "Aswan, Egypt",
-      price: 50.0,
-      overViewImage: nile,
-      sells: 5,
-      cities: ["Giza", "Aswan", "Luxor", "Alexandria"],
-    },
-    {
-      id: 3,
-      title: "Lowest Felucca Ride on The Nile in Aswan",
-      description:
-        "Enjoy your Felucca ride in Aswan and Take a relaxing ride on an Egyptian sailboat in Aswan",
-      location: "Aswan, Egypt",
-      price: 50.0,
-      overViewImage: nile,
-      sells: 2,
-      cities: ["Giza", "Aswan", "Luxor", "Alexandria"],
-    },
-    {
-      id: 3,
-      title: "Highest Felucca Ride on The Nile in Aswan",
-      description:
-        "Enjoy your Felucca ride in Aswan and Take a relaxing ride on an Egyptian sailboat in Aswan",
-      location: "Aswan, Egypt",
-      price: 50.0,
-      overViewImage: nile,
-      sells: 10,
-      cities: ["Giza", "Aswan", "Luxor", "Alexandria"],
-    },
-    {
-      id: 3,
-      title: "Zelucca Ride on The Nile in Aswan",
-      description:
-        "Enjoy your Felucca ride in Aswan and Take a relaxing ride on an Egyptian sailboat in Aswan",
-      location: "Aswan, Egypt",
-      price: 50.0,
-      overViewImage: nile,
-      sells: 5,
-      cities: ["Giza", "Aswan", "Luxor", "Alexandria"],
-    },
-  ]);
+  const [trips, setTrips] = useState([]);
 
   const getTripByID = async (id) => {
-    if (trip) return;
+    if (trip && trip.id === id) return;
     try {
       const res = await axios.get(`http://localhost:5000/api/trip/${id}`);
       console.log(res);
       let resTrip = res.data;
-      resTrip.addOns = resTrip.addOns.map((addOn) => new AddOn(addOn.name, addOn.prices, addOn.checked));
+      resTrip.addOns = resTrip.addOns.map(
+        (addOn) => new AddOn(addOn.name, addOn.prices, addOn.checked)
+      );
       setTrip(resTrip);
     } catch (e) {
       // TODO Change this at production
@@ -133,6 +47,20 @@ export default function Trippage({ setCurrPage }) {
   useEffect(() => {
     setCurrPage("trips");
   }, []);
+
+  useEffect(() => {
+    if(!trip) return;
+    const getTrips = async () => {
+      try {
+        const res = await axios.get(`http://localhost:5000/api/related?cities=${trip.cities}&id=${trip.id}`);
+        console.log(res);
+        setTrips(res.data);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    getTrips();
+  }, [trip]);
 
   if (error.length > 0)
     // TODO add error page with variable msg
@@ -192,7 +120,13 @@ export default function Trippage({ setCurrPage }) {
         <Trippricecard tripDetails={trip} />
       </div>
       <h4 className="trips-header">Related Trips</h4>
-      <Cardlist destinations={trips} extend />
+      {trips.length === 0 ? (
+        <div className="center">
+          <CircularProgress />
+        </div>
+      ) : (
+        <Cardlist destinations={trips} extend />
+      )}
       <Newsletter />
     </div>
   );

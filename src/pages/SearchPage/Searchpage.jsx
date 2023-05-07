@@ -10,10 +10,10 @@ import Searchbox from "../../components/SearchBox/Searchbox";
 import { useParams } from "react-router-dom";
 import { SearchContext } from "../../context/SearchContextProvider";
 import dayjs from "dayjs";
-import { Collapse, useMediaQuery } from "@mui/material";
+import { Collapse, useMediaQuery, CircularProgress } from "@mui/material";
 
 export default function Searchpage({ setCurrPage, allTrips }) {
-  const { searchForTrip, searchResults, contextDate, contextGuests } =
+  const { searchForTrip, searchResults, contextDate, contextGuests, isSearchResultsLoading } =
     useContext(SearchContext);
   const { tripName } = useParams();
   let resultsPerPage = 3;
@@ -49,7 +49,7 @@ export default function Searchpage({ setCurrPage, allTrips }) {
   };
 
   useEffect(() => {
-    if(!trips || !trips.length) return;
+    if (!trips || !trips.length) return;
 
     if (sortBy === "A-Z") {
       setTrips([...trips].sort((a, b) => a.title.localeCompare(b.title)));
@@ -83,9 +83,7 @@ export default function Searchpage({ setCurrPage, allTrips }) {
 
   useEffect(() => {
     setTrips(searchResults);
-  }, [searchResults])
-
-  if (!trips.length) return <div>loading</div>;
+  }, [searchResults]);
 
   return (
     <div className="search-page">
@@ -117,12 +115,24 @@ export default function Searchpage({ setCurrPage, allTrips }) {
               <Searchfilters big />
             </Collapse>
           </div>
-          <Triplist
-            trips={trips.slice(
-              (page - 1) * resultsPerPage,
-              page * resultsPerPage
-            )}
-          />
+          {trips.length === 0 && isSearchResultsLoading && (
+            <div className="center">
+              <CircularProgress />
+            </div>
+          )}
+          {trips.length === 0 && !isSearchResultsLoading && (
+            <div className="center">
+              <h2>No results found</h2>
+            </div>
+          )}
+          {searchResults.length !== 0 && !isSearchResultsLoading && (
+            <Triplist
+              trips={trips.slice(
+                (page - 1) * resultsPerPage,
+                page * resultsPerPage
+              )}
+            />
+          )}
           {trips.length > resultsPerPage && (
             <Pagination
               count={Math.ceil(trips.length / resultsPerPage)}

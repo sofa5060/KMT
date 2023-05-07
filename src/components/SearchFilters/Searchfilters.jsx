@@ -5,18 +5,14 @@ import Pricefilter from "./Pricefilter";
 import { SearchContext } from "../../context/SearchContextProvider";
 
 export default function Searchfilters({ big }) {
-  const { searchResults, setSearchResults } = useContext(SearchContext);
+  const { contextCities } = useContext(SearchContext);
   const [priceRange, setPriceRange] = useState([0, 1000]);
   const [filters, setFilters] = useState([
     {
       name: "Destinations",
-      options: [
-        { name: "Luxor", checked: false },
-        { name: "Aswan", checked: false },
-        { name: "Cairo", checked: false },
-        { name: "Giza", checked: false },
-        { name: "Alexandria", checked: false },
-      ],
+      options: contextCities.map((city) => {
+        return { name: city, checked: false };
+      }),
     },
     {
       name: "Duration",
@@ -25,7 +21,6 @@ export default function Searchfilters({ big }) {
         { name: "2-5 Days", checked: false },
         { name: "5-10 Days", checked: false },
         { name: "10-15 Days", checked: false },
-        { name: "15-20 Days", checked: false },
       ],
     },
     {
@@ -46,6 +41,24 @@ export default function Searchfilters({ big }) {
     event.preventDefault();
   };
 
+  useEffect(() => {
+    if (contextCities.length > 0) {
+      setFilters((prevFilters) => {
+        return prevFilters.map((filter) => {
+          if (filter.name === "Destinations") {
+            return {
+              ...filter,
+              options: contextCities.map((city) => {
+                return { name: city, checked: false };
+              }),
+            };
+          }
+          return filter;
+        });
+      });
+    }
+  }, [contextCities]);
+
   if (!filters) return <div></div>;
 
   return (
@@ -53,12 +66,15 @@ export default function Searchfilters({ big }) {
       className={big ? "search-filters big" : "search-filters"}
       onSubmit={handleSubmit}
     >
-      {filters.map((filter, index) => (
-          <React.Fragment key={index}>
-            <Searchfilter filter={filter} key={filter.name} />
-            <hr />
-          </React.Fragment>
-      ))}
+      {filters.map(
+        (filter, index) =>
+          filter.options?.length > 0 && (
+            <React.Fragment key={index}>
+              <Searchfilter filter={filter} key={filter.name} />
+              <hr />
+            </React.Fragment>
+          )
+      )}
       <Pricefilter priceRange={priceRange} />
       <input type="submit" value="Apply" className="btn" />
     </form>

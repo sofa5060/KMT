@@ -36,7 +36,7 @@ export default function Triplistitem({ trip }) {
             <h5>${trip.price}</h5>
           </div>
         </div>
-        <Link to="/trip/1">
+        <Link to={`/trip/${trip.id}`}>
           Explore More <EastIcon />
         </Link>
       </div>

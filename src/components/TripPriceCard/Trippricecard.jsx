@@ -33,6 +33,7 @@ export default function Trippricecard({ tripDetails }) {
       setOpen(true);
       return;
     }
+    if(tripDetails.disabledDays && tripDetails.disabledDays.includes(date.day())) return;
     history.push("/checkout");
   };
 
@@ -130,6 +131,7 @@ export default function Trippricecard({ tripDetails }) {
               setDate={setDate}
               inputDate={date}
               label="Booking Date"
+              disabledDays={trip.disabledDays}
             />
             <div className="input-field">
               <h4>How many are you?</h4>

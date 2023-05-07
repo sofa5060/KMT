@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Autocomplete from "@mui/material/Autocomplete";
+import { SearchContext } from "../../context/SearchContextProvider";
+
 
 export default function Searchtextbox({ setSearchQuery, value }) {
-  const cities = ["Luxor", "Aswan", "Cairo", "Giza", "Alexandria"];
+  const { contextCities } = useContext(SearchContext);
   const [inputValue, setInputValue] = useState("");
+  const [cities, setCities] = useState([]);
 
   const handleChange = (e, newValue) => {
     setInputValue(newValue);
@@ -16,6 +19,16 @@ export default function Searchtextbox({ setSearchQuery, value }) {
       setInputValue(value);
     }
   }, [value]);
+
+  useEffect(() => {
+    if(contextCities.length > 0){
+      setCities(contextCities.map((city) => city));
+    }
+  }, [contextCities]);
+
+  useEffect(() => {
+    console.log(cities);
+  }, [cities]);
 
   return (
     <Autocomplete
@@ -30,9 +43,14 @@ export default function Searchtextbox({ setSearchQuery, value }) {
         },
       }}
       id="custom-input-demo"
-      options={cities}
+      options={cities.length ? cities : [""]}
       onInputChange={handleChange}
       inputValue={inputValue}
+      getOptionDisabled={(option) => {
+        if (option === "") return true;
+        return false;
+      }}
+      getOptionLabel={(option) => option || ""}
       renderInput={(params) => (
         <div ref={params.InputProps.ref}>
           <input
