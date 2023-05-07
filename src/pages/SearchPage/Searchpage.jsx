@@ -13,8 +13,16 @@ import dayjs from "dayjs";
 import { Collapse, useMediaQuery, CircularProgress } from "@mui/material";
 
 export default function Searchpage({ setCurrPage, allTrips }) {
-  const { searchForTrip, searchResults, contextDate, contextGuests, isSearchResultsLoading } =
-    useContext(SearchContext);
+  const {
+    searchForTrip,
+    searchResults,
+    contextDate,
+    contextGuests,
+    isSearchResultsLoading,
+    isWaitingForSearch,
+    setIsWaitingForSearch,
+    contextSearchTerm,
+  } = useContext(SearchContext);
   const { tripName } = useParams();
   let resultsPerPage = 3;
   const [page, setPage] = useState(1);
@@ -24,11 +32,15 @@ export default function Searchpage({ setCurrPage, allTrips }) {
   const matches = useMediaQuery("(min-width: 1001px)");
 
   useEffect(() => {
-    if (tripName !== undefined && searchResults.length === 0) {
+    if (
+      tripName !== undefined &&
+      (isWaitingForSearch || (!isWaitingForSearch && contextSearchTerm === ""))
+    ) {
       console.log("Runned");
       searchForTrip(tripName, contextDate, contextGuests);
+      setIsWaitingForSearch(false);
     }
-  }, [tripName]);
+  }, [tripName, isWaitingForSearch]);
 
   useEffect(() => {
     if (allTrips) {
@@ -123,6 +135,7 @@ export default function Searchpage({ setCurrPage, allTrips }) {
           {trips.length === 0 && !isSearchResultsLoading && (
             <div className="center">
               <h2>No results found</h2>
+              <h3>Try searching for another trip or another date</h3>
             </div>
           )}
           {searchResults.length !== 0 && !isSearchResultsLoading && (

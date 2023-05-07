@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, Redirect, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Imagesviewer from "../../components/ImagesViewer/Imagesviewer";
 import Map from "../../components/Map/Map";
 import Trippricecard from "../../components/TripPriceCard/Trippricecard";
@@ -8,16 +8,16 @@ import "./Trippage.css";
 import axios from "axios";
 import Tripsummarydetails from "../../components/TripSummaryDetails/Tripsummarydetails";
 import Newsletter from "../../components/Newsletter/Newsletter";
-import nile from "../../images/nile.png";
 import Cardlist from "../../components/CardList/Cardlist";
 import { TripContext } from "../../context/TripContextProvider";
 import AddOn from "../../models/AddOn";
 import { CircularProgress } from "@mui/material";
+import Messagepage from "../../components/MessagePage/Messagepage";
 
 export default function Trippage({ setCurrPage }) {
   const { contextTrip } = useContext(TripContext);
   const [trip, setTrip] = useState(null);
-  const [error, setError] = useState("");
+  const [tripNotFound, setNotFound] = useState(false);
   const { tripID } = useParams();
   const [trips, setTrips] = useState([]);
 
@@ -32,12 +32,11 @@ export default function Trippage({ setCurrPage }) {
       );
       setTrip(resTrip);
     } catch (e) {
-      // TODO Change this at production
-      // setNotFound(true);
+      setNotFound(true);
       console.log(e);
-      setTrip(contextTrip);
-      // setError(e.response ? e.response.data.message : e.message);
+      // setTrip(contextTrip);
     }
+    window.scrollTo(0, 0);
   };
 
   useEffect(() => {
@@ -49,10 +48,12 @@ export default function Trippage({ setCurrPage }) {
   }, []);
 
   useEffect(() => {
-    if(!trip) return;
+    if (!trip) return;
     const getTrips = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/related?cities=${trip.cities}&id=${trip.id}`);
+        const res = await axios.get(
+          `http://localhost:5000/api/related?cities=${trip.cities}&id=${trip.id}`
+        );
         console.log(res);
         setTrips(res.data);
       } catch (e) {
@@ -62,16 +63,17 @@ export default function Trippage({ setCurrPage }) {
     getTrips();
   }, [trip]);
 
-  if (error.length > 0)
-    // TODO add error page with variable msg
+  if (tripNotFound)
     return (
-      <div className="error">
-        <h1>{error}</h1>
-        <Link to="/">Go to Home</Link>
-      </div>
+      <Messagepage type="page404"/>
     );
 
-  if (!trip) return <div>Loading...</div>; // TODO add trip loading component
+  if (!trip)
+    return (
+      <div className="center">
+        <CircularProgress />
+      </div>
+    );
 
   return (
     <div className="trip-page-container">

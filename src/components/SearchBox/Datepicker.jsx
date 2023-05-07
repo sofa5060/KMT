@@ -5,14 +5,12 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers";
 
 const nearestAvailableDate = (date, disabled) => {
-  console.log(disabled);
   let day = date.day();
   let diff = 0;
   while (disabled.includes(day)) {
     day = (day + 1) % 7;
     diff++;
   }
-  console.log(date.add(diff, "day").day());
   return date.add(diff, "day");
 };
 

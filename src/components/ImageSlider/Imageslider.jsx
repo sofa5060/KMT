@@ -1,24 +1,33 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext } from "react";
+import { useHistory } from "react-router-dom";
 import { Fade } from "react-slideshow-image";
 import nextArrowIcon from "../../images/next.svg";
 import prevArrowIcon from "../../images/prev.svg";
 import "./Imageslider.css";
 import Searchbox from "../SearchBox/Searchbox";
+import dayjs from "dayjs";
+import { SearchContext } from "../../context/SearchContextProvider";
 
 export default function Imageslider() {
+  const history = useHistory();
   const images = [
     {
       imageLink: "https://i.ibb.co/1QNKHFd/Egypt-Modified-1.png",
       cityName: "Pyramids of Giza",
-      searchTerm: "giza",
+      searchTerm: "Giza",
     },
     {
       imageLink: "https://i.ibb.co/m0NZH8C/Egypt-Modified-2.png",
       cityName: "Aswan",
-      searchTerm: "aswan",
+      searchTerm: "Aswan",
     },
   ];
+
+  const {
+    setContextDate,
+    setContextGuests,
+    setIsWaitingForSearch,
+  } = useContext(SearchContext);
 
   const properties = {
     prevArrow: (
@@ -35,6 +44,13 @@ export default function Imageslider() {
     infinite: true,
     autoplay: true,
   };
+
+  const handleClick = (searchTerm) => {
+    setContextDate(dayjs());
+    setContextGuests(1);
+    setIsWaitingForSearch(true);
+    history.push(`/search/${searchTerm}`)
+  }
 
   return (
     <div className="image-slider">
@@ -54,10 +70,10 @@ export default function Imageslider() {
                   temples and monuments.
                 </h3>
                 <div className="slider">
-                  <Link to={"search/" + img.searchTerm}>{img.cityName}</Link>
+                  <span onClick={() => handleClick(img.searchTerm)}>{img.cityName}</span>
                 </div>
               </div>
-            </div>
+            </div> 
           );
         })}
       </Fade>

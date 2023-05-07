@@ -76,9 +76,10 @@ $golos: main.$golos;
 
       .slider {
         margin: 30px 0 0 0;
-        a {
+        span {
           color: $secondary-color;
           text-decoration: none;
+          cursor: pointer;
         }
       }
     }

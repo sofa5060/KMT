@@ -9,7 +9,7 @@ import Checkoutdetails from "../../components/CheckoutDetails/Checkoutdetails";
 import Tripsummary from "../../components/TripSummary/Tripsummary";
 import { Link } from "react-router-dom";
 import Customersdetails from "../../components/CustomersDetails/Customersdetails";
-import Checkoutmessage from "../../components/CheckoutMessage/Checkoutmessage";
+import Messagepage from "../../components/MessagePage/Messagepage";
 import Collapse from "@mui/material/Collapse";
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -82,7 +82,7 @@ export default function Checkoutpage({ setCurrPage }) {
                 </div>
               </React.Fragment>
             )}
-            {activeStep === 3 && <Checkoutmessage type="paymentSuccess" />}
+            {activeStep === 3 && <Messagepage type="paymentSuccess" />}
           </div>
         </div>
       </div>

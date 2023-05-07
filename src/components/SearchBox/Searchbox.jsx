@@ -20,13 +20,19 @@ export default function Searchbox({ minimized }) {
 
   const matches = useMediaQuery("(max-width:800px)");
 
-  const { searchForTrip, contextSearchTerm, contextDate, contextGuests } =
+  const { searchForTrip, contextSearchTerm, contextDate, contextGuests, setIsWaitingForSearch, setContextDate, setContextGuests } =
     useContext(SearchContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await searchForTrip(searchQuery, date, guests);
-    history.replace(`/search/${searchQuery}`);
+    if(!minimized){
+      setIsWaitingForSearch(true);
+      setContextDate(date);
+      setContextGuests(guests);
+      history.replace(`/search/${searchQuery}`);
+    }else{
+      await searchForTrip(searchQuery, date, guests);
+    }
   };
 
   useEffect(() => {
