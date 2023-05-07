@@ -46,7 +46,7 @@ export default function Newsletter() {
         <br />
         <AnimationOnScroll
           animateOut="animate__headShake show"
-          style={{ opacity: 1 }}
+          style={{ opacity: 1, zIndex: 1 }}
           offset={300}
           initiallyVisible
         >

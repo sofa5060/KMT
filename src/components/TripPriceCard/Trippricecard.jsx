@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Checkbox, { checkboxClasses } from "@mui/material/Checkbox";
 import "./Trippricecard.css";
 import Datepicker from "../SearchBox/Datepicker";
@@ -8,6 +8,7 @@ import { useHistory } from "react-router-dom";
 import Collapse from "@mui/material/Collapse";
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { CheckoutContext } from "../../context/CheckoutContextProvider";
 
 export default function Trippricecard({ tripDetails }) {
   const history = useHistory();
@@ -20,10 +21,11 @@ export default function Trippricecard({ tripDetails }) {
   const [oldTotalPrice, setOldTotalPrice] = useState(0);
   const matches = useMediaQuery("(min-width:900px)");
 
+  const {startCheckout, tripId, contextAddOns, contextGuests, contextDate} = useContext(CheckoutContext);
+
   const handleChange = (event) => {
     let addOn = addOns.find((addOn) => addOn.name === event.target.ariaLabel);
     addOn.checked = event.target.checked;
-    console.log(addOns);
     setAddOns([...addOns]);
   };
 
@@ -34,6 +36,7 @@ export default function Trippricecard({ tripDetails }) {
       return;
     }
     if(tripDetails.disabledDays && tripDetails.disabledDays.includes(date.day())) return;
+    startCheckout(addOns, guests, date, totalPrice, trip.price, trip.id);
     history.push("/checkout");
   };
 
@@ -43,7 +46,7 @@ export default function Trippricecard({ tripDetails }) {
     for (let i = 0; i < addOns.length; i++)
       if (addOns[i].checked) total += addOns[i].getPrice(guests);
 
-    return total * guests;
+    return (total * guests).toFixed(2);
   };
 
   const calcOldTotal = () => {
@@ -52,7 +55,7 @@ export default function Trippricecard({ tripDetails }) {
     for (let i = 0; i < addOns.length; i++)
       if (addOns[i].checked) total += addOns[i].getOldPrice(guests);
 
-    return total * guests;
+    return (total * guests).toFixed(2);
   };
 
   // For loading
@@ -74,6 +77,14 @@ export default function Trippricecard({ tripDetails }) {
   useEffect(() => {
     setOpen(matches);
   }, [matches]);
+
+  // for loading data from checkout context
+  useEffect(() => {
+    if(!tripId || tripId !== trip.id) return;
+    setAddOns(contextAddOns);
+    setGuests(contextGuests);
+    setDate(contextDate);
+  }, [tripId, trip.id]);
 
   return (
     <div className="price-card-container">
@@ -146,13 +157,13 @@ export default function Trippricecard({ tripDetails }) {
           <div className="price-section">
             <h2>
               <span>$</span>
-              {totalPrice && totalPrice.toFixed(2)}
+              {totalPrice}
               <span>USD</span>
             </h2>
-            {oldTotalPrice > 0 && (
+            {trip.oldPrice > 0 && (
               <h3>
                 <span>Was</span>
-                {oldTotalPrice && oldTotalPrice.toFixed(2)} USD
+                {oldTotalPrice} USD
               </h3>
             )}
           </div>

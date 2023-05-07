@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
@@ -13,12 +13,15 @@ import Messagepage from "../../components/MessagePage/Messagepage";
 import Collapse from "@mui/material/Collapse";
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { CheckoutContext } from "../../context/CheckoutContextProvider";
 
 const steps = ["Your Details", "Summary", "Payment", "Confirmation"];
 
 export default function Checkoutpage({ setCurrPage }) {
   const [activeStep, setActiveStep] = useState(0);
   const [open, setOpen] = useState(true);
+
+  const { contextGuests, totalPrice, tripId } = useContext(CheckoutContext);
 
   const matches = useMediaQuery("(min-width:1000px)");
   const matches2 = useMediaQuery("(max-width:600px)");
@@ -60,7 +63,7 @@ export default function Checkoutpage({ setCurrPage }) {
         <div className="btns">
           <div className="displayed-element">
             {activeStep === 0 && (
-              <Checkoutdetails guests={2} handleNext={handleNext} />
+              <Checkoutdetails guests={contextGuests} handleNext={handleNext} />
             )}
             {activeStep === 1 && (
               <React.Fragment>
@@ -99,7 +102,7 @@ export default function Checkoutpage({ setCurrPage }) {
                   {activeStep === 0 ? (
                     <React.Fragment>
                       <h3>Summary</h3>
-                      <Link to="/">EDIT</Link>
+                      <Link to={`/trip/${tripId}`}>EDIT</Link>
                     </React.Fragment>
                   ) : (
                     <h3>Total to pay</h3>
@@ -115,7 +118,9 @@ export default function Checkoutpage({ setCurrPage }) {
 
               <div className="price-section">
                 <h2>
-                  <span>$</span>299.97<span>USD</span>
+                  <span>$</span>
+                  {totalPrice}
+                  <span>USD</span>
                 </h2>
               </div>
               {activeStep === 1 && (
