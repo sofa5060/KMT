@@ -135,7 +135,7 @@ export default function Searchpage({ setCurrPage, allTrips }) {
           {trips.length === 0 && !isSearchResultsLoading && (
             <div className="center">
               <h2>No results found</h2>
-              <h3>Try searching for another trip or another date</h3>
+              <h3 style={{textAlign: "center"}}>Try searching for another trip or another date</h3>
             </div>
           )}
           {searchResults.length !== 0 && !isSearchResultsLoading && (
