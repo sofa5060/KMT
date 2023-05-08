@@ -25,10 +25,12 @@ export default function Trippage({ setCurrPage }) {
     if (trip && trip.id === id) return;
     try {
       const res = await axios.get(`http://localhost:5000/api/trip/${id}`);
-      console.log(res);
       let resTrip = res.data;
       resTrip.addOns = resTrip.addOns.map(
         (addOn) => new AddOn(addOn.name, addOn.prices, addOn.checked)
+      );
+      resTrip.accommodations = resTrip.accommodations.map(
+        (accommodation) => new AddOn(accommodation.name, accommodation.prices, accommodation.checked)
       );
       setTrip(resTrip);
     } catch (e) {

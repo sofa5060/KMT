@@ -82,6 +82,14 @@ $golos: main.$golos;
           margin: 0;
         }
       }
+
+      h4{
+        margin: 20px 0 0 0;
+        color: $text-color;
+        opacity: 0.5;
+        font-weight: 400;
+        font-size: 14px;
+      }
     }
 
     .booking-details {

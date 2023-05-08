@@ -63,6 +63,13 @@
   align-self: center;
   margin: 0;
 }
+.price-card-container .price-card .add-ons h4 {
+  margin: 20px 0 0 0;
+  color: #2d2d2f;
+  opacity: 0.5;
+  font-weight: 400;
+  font-size: 14px;
+}
 .price-card-container .price-card .booking-details {
   margin: 40px 0 0 0;
 }

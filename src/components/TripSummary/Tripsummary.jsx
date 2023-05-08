@@ -9,13 +9,22 @@ import people from "../../images/people.svg";
 import { CheckoutContext } from "../../context/CheckoutContextProvider";
 
 export default function Tripsummary({ RHR }) {
-  const { contextAddOns, contextGuests, contextDate, tripPrice } = useContext(CheckoutContext);
+  const {
+    contextAddOns,
+    contextGuests,
+    contextDate,
+    tripPrice,
+    contextAccommodations,
+    pickedAccommodation,
+    contextTripTitle,
+    contextTripDuration
+  } = useContext(CheckoutContext);
   return (
     <div className="trip-summary">
       <div className="title">
         <div className="title-data">
-          <h3>The Pyramids of Giza & Sphinx</h3>
-          <p>1 Day Trip - ({tripPrice} USD)</p>
+          <h3>{contextTripTitle}</h3>
+          <p>{contextTripDuration > 1 ? `${contextTripDuration} Days` : "1 Day Trip"} - ({tripPrice} USD)</p>
         </div>
         <h5>x{contextGuests}</h5>
       </div>
@@ -33,6 +42,27 @@ export default function Tripsummary({ RHR }) {
           }
         })}
       </div>
+      {pickedAccommodation && (
+        <React.Fragment>
+          <hr />
+          <h4>Accommodation</h4>
+          <div className="addOns">
+            {contextAccommodations.map((accommodation) => {
+              if (accommodation.checked) {
+                return (
+                  <div className="addOn">
+                    <p>
+                      {accommodation.name} Stars Hotel (
+                      {accommodation.getPrice(contextGuests)} USD)
+                    </p>
+                    <h5>x{contextGuests}</h5>
+                  </div>
+                );
+              }
+            })}
+          </div>
+        </React.Fragment>
+      )}
       {!RHR && <hr />}
       <div className="booking-details" style={{ marginTop: RHR && 32 }}>
         <div className="booking-detail">

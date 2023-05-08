@@ -34,6 +34,12 @@
   font-weight: 600;
   font-size: 14px;
 }
+.trip-summary h4 {
+  margin: 10px 0 0 0;
+  color: #2d2d2f;
+  font-weight: 500;
+  font-size: 16px;
+}
 .trip-summary .booking-details {
   margin: 15px 0;
   display: flex;

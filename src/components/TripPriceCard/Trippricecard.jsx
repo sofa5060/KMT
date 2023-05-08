@@ -13,20 +13,43 @@ import { CheckoutContext } from "../../context/CheckoutContextProvider";
 export default function Trippricecard({ tripDetails }) {
   const history = useHistory();
   const [addOns, setAddOns] = useState([]);
+  const [accommodations, setAccommodations] = useState([]);
   const [trip, setTrip] = useState("");
   const [date, setDate] = useState(dayjs());
   const [guests, setGuests] = useState(1);
   const [open, setOpen] = useState(true);
   const [totalPrice, setTotalPrice] = useState(0);
   const [oldTotalPrice, setOldTotalPrice] = useState(0);
+  const [pickedAccommodation, setPickedAccommodation] = useState(false);
   const matches = useMediaQuery("(min-width:900px)");
 
-  const {startCheckout, tripId, contextAddOns, contextGuests, contextDate} = useContext(CheckoutContext);
+  const {
+    startCheckout,
+    tripId,
+    contextAddOns,
+    contextGuests,
+    contextDate,
+    contextAccommodations,
+  } = useContext(CheckoutContext);
 
   const handleChange = (event) => {
     let addOn = addOns.find((addOn) => addOn.name === event.target.ariaLabel);
     addOn.checked = event.target.checked;
     setAddOns([...addOns]);
+  };
+
+  const handleAccommodationChange = (event) => {
+    setAccommodations((prev) => {
+      let temp = prev.map((accommodation) => {
+        if (accommodation.name === parseInt(event.target.ariaLabel)) {
+          accommodation.checked = event.target.checked;
+        } else {
+          accommodation.checked = false;
+        }
+        return accommodation;
+      });
+      return [...temp];
+    });
   };
 
   const handleSubmit = (e) => {
@@ -35,17 +58,39 @@ export default function Trippricecard({ tripDetails }) {
       setOpen(true);
       return;
     }
-    if(tripDetails.disabledDays && tripDetails.disabledDays.includes(date.day())) return;
-    startCheckout(addOns, guests, date, totalPrice, trip.price, trip.id);
+    if (
+      tripDetails.disabledDays &&
+      tripDetails.disabledDays.includes(date.day())
+    )
+      return;
+    startCheckout(
+      addOns,
+      guests,
+      date,
+      totalPrice,
+      trip.price,
+      trip.id,
+      accommodations,
+      pickedAccommodation,
+      trip.title,
+      trip.dayDuration
+    );
     history.push("/checkout");
   };
 
   const calcTotal = () => {
     let total = trip.price;
 
+    setPickedAccommodation(false);
+
     for (let i = 0; i < addOns.length; i++)
       if (addOns[i].checked) total += addOns[i].getPrice(guests);
 
+    for (let i = 0; i < accommodations.length; i++)
+      if (accommodations[i].checked){
+        setPickedAccommodation(true);
+        total += accommodations[i].getPrice(guests);
+      } 
     return (total * guests).toFixed(2);
   };
 
@@ -53,7 +98,10 @@ export default function Trippricecard({ tripDetails }) {
     let total = trip.oldPrice || trip.price;
 
     for (let i = 0; i < addOns.length; i++)
-      if (addOns[i].checked) total += addOns[i].getOldPrice(guests);
+      if (addOns[i].checked) total += addOns[i].getOldPrice(guests)
+
+    for (let i = 0; i < accommodations.length; i++)
+      if (accommodations[i].checked) total += accommodations[i].getOldPrice(guests);
 
     return (total * guests).toFixed(2);
   };
@@ -64,6 +112,8 @@ export default function Trippricecard({ tripDetails }) {
     setAddOns(tripDetails.addOns);
     setTrip(tripDetails);
     setTotalPrice(calcTotal());
+    setOldTotalPrice(calcOldTotal());
+    setAccommodations(tripDetails.accommodations);
   }, [tripDetails]);
 
   // For adding addon
@@ -71,7 +121,7 @@ export default function Trippricecard({ tripDetails }) {
     if (!addOns.length) return;
     setTotalPrice(calcTotal());
     setOldTotalPrice(calcOldTotal());
-  }, [addOns, guests]);
+  }, [addOns, guests, accommodations]);
 
   // For responsiveness
   useEffect(() => {
@@ -80,10 +130,11 @@ export default function Trippricecard({ tripDetails }) {
 
   // for loading data from checkout context
   useEffect(() => {
-    if(!tripId || tripId !== trip.id) return;
+    if (!tripId || tripId !== trip.id) return;
     setAddOns(contextAddOns);
     setGuests(contextGuests);
     setDate(contextDate);
+    setAccommodations(contextAccommodations);
   }, [tripId, trip.id]);
 
   return (
@@ -130,13 +181,41 @@ export default function Trippricecard({ tripDetails }) {
                 <p>
                   {addOn.name} (
                   {addOn.getPrice(guests) > 0
-                    ? addOn.getPrice(guests) + " USD"
+                    ? "+" + addOn.getPrice(guests) + " USD"
                     : "Free"}
                   )
                 </p>
               </div>
             ))}
           </div>
+          {accommodations.length > 0 && (
+            <div className="add-ons">
+              <h4>Accommodation</h4>
+              {accommodations.map((accommodation, index) => (
+                <div className="add-on" key={index}>
+                  <Checkbox
+                    checked={accommodation.checked}
+                    onChange={handleAccommodationChange}
+                    inputProps={{ "aria-label": accommodation.name }}
+                    sx={{
+                      [`&, &.${checkboxClasses.checked}`]: {
+                        color: "#CA9841",
+                        maxWidth: 20,
+                        maxHeight: 20,
+                      },
+                    }}
+                  />
+                  <p>
+                    {accommodation.name} Stars Hotel (
+                    {accommodation.getPrice(guests) > 0
+                      ? "+" + accommodation.getPrice(guests) + " USD"
+                      : "Free"}
+                    )
+                  </p>
+                </div>
+              ))}
+            </div>
+          )}
           <div className="booking-details">
             <Datepicker
               setDate={setDate}

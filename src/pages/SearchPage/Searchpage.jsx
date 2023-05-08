@@ -87,7 +87,7 @@ export default function Searchpage({ setCurrPage, allTrips }) {
       setTrips([...trips].sort((a, b) => b.sells - a.sells));
     }
     console.log(sortBy);
-  }, [sortBy]);
+  }, [sortBy, trips]);
 
   useEffect(() => {
     setCurrPage("trips");
