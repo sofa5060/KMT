@@ -1,28 +1,38 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
 import Collapse from "@mui/material/Collapse";
 import Slider from "@mui/material/Slider";
-import { SearchContext } from "../../context/SearchContextProvider";
 
-export default function Pricefilter({ priceRange }) {
+export default function Pricefilter({ priceRange, minPrice, maxPrice, setPriceRange }) {
   const [open, setOpen] = useState(true);
   const [range, setRange] = useState(priceRange);
-
-  const { searchObj, setSearchObj } = useContext(SearchContext);
 
   const handleChange = (event, newValue) => {
     setRange(newValue);
   };
 
   const handleCommit = (event, newValue) => {
-    const localSearchObj = searchObj.generateNewObj();
-    localSearchObj.setPriceRange(newValue);
-    setSearchObj(localSearchObj);
+    setPriceRange(newValue);
   };
 
-  function valuetext(value) {
+  const valueText = (value) => {
     return `$${value}`;
   }
+
+  useEffect(() => {
+    if(range[0] < minPrice){
+      setRange([minPrice, range[1]])
+    }
+
+    if(range[1] > maxPrice){
+      setRange([range[0], maxPrice])
+    }
+  }, [minPrice, maxPrice, range]);
+
+  useEffect(() => {
+    if(priceRange[1] !== range[1])
+      setRange(priceRange)
+  }, [priceRange]);
 
   return (
     <div className="filter">
@@ -38,10 +48,10 @@ export default function Pricefilter({ priceRange }) {
             onChange={handleChange}
             onChangeCommitted={handleCommit}
             valueLabelDisplay="auto"
-            min={priceRange[0]}
-            max={priceRange[1]}
-            getAriaValueText={valuetext}
-            valueLabelFormat={valuetext}
+            min={minPrice}
+            max={maxPrice}
+            getAriaValueText={valueText}
+            valueLabelFormat={valueText}
             disableSwap
             sx={{
               [`&`]: {

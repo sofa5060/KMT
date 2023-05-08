@@ -6,7 +6,7 @@ import FormControl from "@mui/material/FormControl";
 import "./Sortselect.css";
 
 export default function Sortselect({selectSort}) {
-  const [sort, setSort] = useState("A-Z");
+  const [sort, setSort] = useState("Top Destinations");
   const handleChange = (event) => {
     setSort(event.target.value);
   };
@@ -16,7 +16,7 @@ export default function Sortselect({selectSort}) {
   }, [selectSort, sort]);
 
   return (
-    <FormControl sx={{ minWidth: 150 }}>
+    <FormControl sx={{ minWidth: 180 }}>
       <InputLabel id="demo-simple-select-autowidth-label">Sort By</InputLabel>
       <Select
         value={sort}
@@ -24,6 +24,7 @@ export default function Sortselect({selectSort}) {
         label="Sort By"
         labelId="demo-simple-select-autowidth-label"
         id="demo-simple-select-autowidth"
+        autoWidth
         sx={{
           ".MuiOutlinedInput-notchedOutline": {
             borderColor: "#ca9841",

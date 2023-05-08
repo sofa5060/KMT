@@ -2,7 +2,7 @@ import React, { useState, useEffect, createContext, useContext } from "react";
 import dayjs from "dayjs";
 import axios from "axios";
 import { AlertContext } from "./AlertContextProvider";
-import { useHistory } from "react-router-dom";
+import AddOn from "../models/AddOn";
 
 export const SearchContext = createContext();
 
@@ -15,6 +15,10 @@ const SearchContextProvider = (props) => {
   const [isSearchResultsLoading, setIsSearchResultsLoading] = useState(false);
   const [isWaitingForSearch, setIsWaitingForSearch] = useState(false);
   const [contextCities, setCities] = useState([]);
+  const [contextFilteredTrips, setFilteredTrips] = useState([]);
+  const [isFiltered, setIsFiltered] = useState(false);
+  const [clearFilters, setClearFilters] = useState(false);
+  const [contextMaxPrice, setMaxPrice] = useState(1000);
 
   const { showAlert } = useContext(AlertContext);
 
@@ -24,7 +28,8 @@ const SearchContextProvider = (props) => {
     setContextGuests(count);
     setIsSearched(true);
     setIsSearchResultsLoading(true);
-    console.log("searching for term", term, "and date ", date,"and the guests count", count);
+    setClearFilters(true);
+    setIsFiltered(false);
     let res;
     try {
       res = await axios.get(
@@ -39,9 +44,20 @@ const SearchContextProvider = (props) => {
       setIsSearchResultsLoading(false);
       return;
     }
-    setSearchResults(res.data);
+
+    let localeMax = 0;
+    let trips = res.data;
+    trips = trips.map((trip) => {
+      if (trip.price * count > localeMax) localeMax = Math.ceil(trip.price * count);
+      return {
+        ...trip,
+        price: trip.price * count,
+      }
+    });
+    setSearchResults(trips);
+    // setSearchResults(res.data);
     setIsSearchResultsLoading(false);
-    console.log(res);
+    setMaxPrice(localeMax);
   };
 
   useEffect(() => {
@@ -55,10 +71,78 @@ const SearchContextProvider = (props) => {
         return;
       }
       setCities(res.data);
-      console.log(res);
     };
     getCities();
   }, []);
+
+  const filterTrips = (
+    destinations,
+    groupSize,
+    durations,
+    accommodation,
+    priceRange
+  ) => {
+    let filteredTrips = [...searchResults];
+    if (destinations.length > 0) {
+      filteredTrips = filteredTrips.filter((trip) => {
+        for (let i = 0; i < destinations.length; i++) {
+          if (trip.cities.includes(destinations[i])) return true;
+        }
+      });
+    }
+
+    if (groupSize !== 1) {
+      filteredTrips = filteredTrips.filter(
+        (trip) => trip.maxGroupSize >= groupSize
+      );
+    }
+
+    if (durations.length > 0) {
+      filteredTrips = filteredTrips.filter((trip) => {
+        for (let i = 0; i < durations.length; i++) {
+          console.log(durations[i][0], durations[i][1], trip.dayDuration);
+          if (
+            trip.dayDuration >= durations[i][0] &&
+            trip.dayDuration <= durations[i][1]
+          )
+            return true;
+        }
+      });
+    }
+
+    if (accommodation !== 0) {
+      filteredTrips = filteredTrips.filter((trip) => {
+        for (let i = 0; i < trip.accommodations.length; i++) {
+          if (trip.accommodations[i].name === accommodation) {
+            let acc = new AddOn(trip.accommodations[i].name, trip.accommodations[i].prices, false);
+            trip.addedPrice = acc.getPrice(contextGuests);
+            return true;
+          }
+        }
+      });
+
+      let localeMax = 0;
+      filteredTrips = filteredTrips.map((trip) => {
+        let newPrice = (trip.price + trip.addedPrice) * contextGuests;
+        if (newPrice > localeMax) localeMax = Math.ceil(newPrice);
+
+        return {
+          ...trip,
+          price: newPrice
+        }
+      });
+
+      setMaxPrice(localeMax);
+    }
+
+    filteredTrips = filteredTrips.filter((trip) => {
+      if (trip.price >= priceRange[0] && trip.price <= priceRange[1])
+        return true;
+    });
+
+    setFilteredTrips(filteredTrips);
+    setIsFiltered(true);
+  };
 
   return (
     <SearchContext.Provider
@@ -69,13 +153,17 @@ const SearchContextProvider = (props) => {
         contextGuests,
         setContextGuests,
         searchForTrip,
-        searchResults,
+        searchResults: isFiltered ? contextFilteredTrips : searchResults,
         isSearched,
         setIsSearched,
         isSearchResultsLoading,
         contextCities,
         isWaitingForSearch,
         setIsWaitingForSearch,
+        filterTrips,
+        setClearFilters,
+        clearFilters,
+        contextMaxPrice
       }}
     >
       {props.children}

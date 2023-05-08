@@ -33,7 +33,7 @@ export default function Triplistitem({ trip }) {
           <hr />
           <div className="feature">
             <img src={price} alt="" />
-            <h5>${trip.price}</h5>
+            <h5>${trip.price.toFixed(2)}</h5>
           </div>
         </div>
         <Link to={`/trip/${trip.id}`}>

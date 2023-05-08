@@ -9,7 +9,6 @@ import Sortselect from "../../components/SortSelect/Sortselect";
 import Searchbox from "../../components/SearchBox/Searchbox";
 import { useParams } from "react-router-dom";
 import { SearchContext } from "../../context/SearchContextProvider";
-import dayjs from "dayjs";
 import { Collapse, useMediaQuery, CircularProgress } from "@mui/material";
 
 export default function Searchpage({ setCurrPage, allTrips }) {
@@ -28,6 +27,7 @@ export default function Searchpage({ setCurrPage, allTrips }) {
   const [page, setPage] = useState(1);
   const [sortBy, setSortBy] = useState("A-Z");
   const [filtersOpen, setFiltersOpen] = useState(false);
+  const [startSort, setStartSort] = useState(true);
 
   const matches = useMediaQuery("(min-width: 1001px)");
 
@@ -58,10 +58,11 @@ export default function Searchpage({ setCurrPage, allTrips }) {
   const selectSort = (sort) => {
     if (sort === sortBy) return;
     setSortBy(sort);
+    setStartSort(true);
   };
 
   useEffect(() => {
-    if (!trips || !trips.length) return;
+    if (!trips || trips.length === 0 || !startSort) return;
 
     if (sortBy === "A-Z") {
       setTrips([...trips].sort((a, b) => a.title.localeCompare(b.title)));
@@ -87,7 +88,8 @@ export default function Searchpage({ setCurrPage, allTrips }) {
       setTrips([...trips].sort((a, b) => b.sells - a.sells));
     }
     console.log(sortBy);
-  }, [sortBy, trips]);
+    setStartSort(false);
+  }, [sortBy, trips, startSort]);
 
   useEffect(() => {
     setCurrPage("trips");
