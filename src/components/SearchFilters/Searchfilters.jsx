@@ -130,9 +130,6 @@ export default function Searchfilters({ big }) {
 
       return [...temp];
     });
-
-    console.log(filters);
-
     setClearFilters(false);
   }, [clearFilters]);
 

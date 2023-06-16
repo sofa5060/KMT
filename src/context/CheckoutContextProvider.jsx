@@ -15,6 +15,7 @@ export default function CheckoutContextProvider({ children }) {
   const [pickedAccommodation, setPickedAccommodation] = useState(false);
   const [contextTripTitle, setContextTripTitle] = useState("");
   const [contextTripDuration, setContextTripDuration] = useState(0);
+  const [orderID, setOrderID] = useState("")
 
 
 
@@ -31,9 +32,23 @@ export default function CheckoutContextProvider({ children }) {
     setContextTripDuration(tripDuration);
   }
 
+  const clearCheckoutContext = () => {
+    setContextGuestsInfo([]);
+    setAddOns([]);
+    setGuests(1);
+    setDate(dayjs());
+    setTotalPrice(0);
+    setTripPrice(0);
+    setTripId("");
+    setAccommodations([]);
+    setPickedAccommodation(false);
+    setContextTripTitle("");
+    setContextTripDuration(0);
+  }
+
   return (
     <CheckoutContext.Provider
-      value={{ contextGuestsInfo, setContextGuestsInfo, startCheckout, contextAddOns, contextGuests, contextDate, totalPrice, tripPrice, tripId, contextAccommodations, pickedAccommodation, contextTripTitle, contextTripDuration }}
+      value={{ contextGuestsInfo, setContextGuestsInfo, startCheckout, contextAddOns, contextGuests, contextDate, totalPrice, tripPrice, tripId, contextAccommodations, pickedAccommodation, contextTripTitle, contextTripDuration, orderID, setOrderID, clearCheckoutContext }}
     >
       {children}
     </CheckoutContext.Provider>

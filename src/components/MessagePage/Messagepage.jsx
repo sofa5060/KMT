@@ -4,13 +4,13 @@ import wrong from "../../images/wrong.png";
 import { Link } from "react-router-dom";
 import "./Messagepage.css"
 
-export default function Messagepage({ type }) {
+export default function Messagepage({ type, orderID }) {
   if (type === "paymentSuccess") {
     return (
       <div className="message-container">
         <img src={correct} alt="correct operation" />
         <h2>Congratulations! You are All set</h2>
-        <h3>Your Trip ID #123456789</h3>
+        <h3>Your Booking ID #{orderID}</h3>
         <p>
           Congratulations on completing booking your journey with KMT Tours! We hope you
           have an amazing time exploring the wonders of Egypt. Remember, your

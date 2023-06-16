@@ -19,7 +19,6 @@ const SearchContextProvider = (props) => {
   const [isFiltered, setIsFiltered] = useState(false);
   const [clearFilters, setClearFilters] = useState(false);
   const [contextMaxPrice, setMaxPrice] = useState(1000);
-
   const { showAlert } = useContext(AlertContext);
 
   const searchForTrip = async (term, date, count) => {
@@ -44,6 +43,8 @@ const SearchContextProvider = (props) => {
       setIsSearchResultsLoading(false);
       return;
     }
+
+    console.log(res.data);
 
     let localeMax = 0;
     let trips = res.data;

@@ -27,7 +27,6 @@ export default function Searchpage({ setCurrPage, allTrips }) {
   const [page, setPage] = useState(1);
   const [sortBy, setSortBy] = useState("A-Z");
   const [filtersOpen, setFiltersOpen] = useState(false);
-  const [startSort, setStartSort] = useState(true);
 
   const matches = useMediaQuery("(min-width: 1001px)");
 
@@ -58,46 +57,43 @@ export default function Searchpage({ setCurrPage, allTrips }) {
   const selectSort = (sort) => {
     if (sort === sortBy) return;
     setSortBy(sort);
-    setStartSort(true);
   };
 
   useEffect(() => {
-    if (!trips || trips.length === 0 || !startSort) return;
-
     if (sortBy === "A-Z") {
-      setTrips([...trips].sort((a, b) => a.title.localeCompare(b.title)));
+      setTrips([...searchResults.sort((a, b) => a.title.localeCompare(b.title))]);
     } else if (sortBy === "Z-A") {
-      setTrips([...trips].sort((a, b) => b.title.localeCompare(a.title)));
+      setTrips([...searchResults.sort((a, b) => b.title.localeCompare(a.title))]);
     } else if (sortBy === "Lowest Price") {
       setTrips(
-        [...trips].sort((a, b) => {
+        [...searchResults.sort((a, b) => {
           let priceA = a.discountedPrice > 0 ? a.discountedPrice : a.price;
           let priceB = b.discountedPrice > 0 ? b.discountedPrice : b.price;
           return priceA - priceB;
         })
-      );
+      ]);
     } else if (sortBy === "Highest Price") {
       setTrips(
-        [...trips].sort((a, b) => {
+        [...searchResults.sort((a, b) => {
           let priceA = a.discountedPrice > 0 ? a.discountedPrice : a.price;
           let priceB = b.discountedPrice > 0 ? b.discountedPrice : b.price;
           return priceB - priceA;
         })
-      );
+      ]);
     } else if (sortBy === "Top Destinations") {
-      setTrips([...trips].sort((a, b) => b.sells - a.sells));
+      setTrips([...searchResults.sort((a, b) => b.sells - a.sells)]);
     }
-    console.log(sortBy);
-    setStartSort(false);
-  }, [sortBy, trips, startSort]);
+
+    setPage(1);
+  }, [sortBy, searchResults]);
 
   useEffect(() => {
     setCurrPage("trips");
   }, []);
 
   useEffect(() => {
-    setTrips(searchResults);
-  }, [searchResults]);
+    console.log(trips);
+  }, [trips]);
 
   return (
     <div className="search-page">
@@ -137,10 +133,12 @@ export default function Searchpage({ setCurrPage, allTrips }) {
           {trips.length === 0 && !isSearchResultsLoading && (
             <div className="center">
               <h2>No results found</h2>
-              <h3 style={{textAlign: "center"}}>Try searching for another trip or another date</h3>
+              <h3 style={{ textAlign: "center" }}>
+                Try searching for another trip or another date
+              </h3>
             </div>
           )}
-          {searchResults.length !== 0 && !isSearchResultsLoading && (
+          {trips.length !== 0 && !isSearchResultsLoading && (
             <Triplist
               trips={trips.slice(
                 (page - 1) * resultsPerPage,

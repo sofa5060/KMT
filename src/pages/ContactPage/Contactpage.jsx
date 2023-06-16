@@ -4,6 +4,7 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import PhoneIcon from "@mui/icons-material/Phone";
 import EmailIcon from "@mui/icons-material/Email";
 import Contactform from "../../components/ContactForm/Contactform";
+import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 
 export default function Contactpage({ setCurrPage }) {
   useEffect(() => {
@@ -35,11 +36,21 @@ export default function Contactpage({ setCurrPage }) {
         </div>
         <div className="section">
           <h3>Call us</h3>
-          <p>Speak to Our Travel Experts Today</p>
+          <p>Speak To Our Travel Experts Today</p>
           <div className="row">
             <PhoneIcon />
             <a href="tel:+20223918470" className="text">
               (+20) 2 23918470
+            </a>
+          </div>
+        </div>
+        <div className="section">
+          <h3>Reach us</h3>
+          <p>We Even Available On Whatsapp</p>
+          <div className="row">
+            <WhatsAppIcon />
+            <a href="https://api.whatsapp.com/send?phone=201142636629" className="text" target="_blank" rel="noreferrer">
+              (+20) 1142636629
             </a>
           </div>
         </div>
