@@ -17,6 +17,7 @@ import Aboutpage from "./pages/AboutPage/Aboutpage";
 import TripContextProvider from "./context/TripContextProvider";
 import AlertContextProvider from "./context/AlertContextProvider";
 import Alertbar from "./components/Alert/Alertbar";
+import Messagepage from "./components/MessagePage/Messagepage";
 
 const App = () => {
   const [currPage, setCurrPage] = useState("home");
@@ -56,7 +57,7 @@ const App = () => {
                     <Aboutpage setCurrPage={setCurrPage} />
                   </Route>
                   <Route path="*">
-                    <h1>Not Found</h1>
+                    <Messagepage type="page404"/>
                   </Route>
                 </Switch>
               </CheckoutContextProvider>

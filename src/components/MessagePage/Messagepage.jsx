@@ -27,7 +27,7 @@ export default function Messagepage({ type, orderID }) {
     return (
       <div className="message-container" style={{marginTop: 100}}>
         <img src={wrong} alt="wrong operation" />
-        <h2>Trip Not Found</h2>
+        <h2>Page Not Found</h2>
         <p>
           The page you are looking for might have been removed had its name
           changed or is temporarily unavailable.
