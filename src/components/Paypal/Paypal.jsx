@@ -21,7 +21,8 @@ function Paypal({ finishCheckout }) {
     contextTripTitle,
     contextGuestsInfo,
     contextDate,
-    clearCheckoutContext
+    clearCheckoutContext,
+    contextTripDuration
   } = useContext(CheckoutContext);
   const { showAlert } = useContext(AlertContext);
   const FUNDING_SOURCES = [FUNDING.PAYPAL, FUNDING.CARD];
@@ -83,6 +84,7 @@ function Paypal({ finishCheckout }) {
                       tripTitle: contextTripTitle,
                       guestsInfo: contextGuestsInfo,
                       reservationDate: contextDate,
+                      tripDuration: contextTripDuration
                     }
                   );
                   const details = await response.data;
