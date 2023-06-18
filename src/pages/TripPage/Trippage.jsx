@@ -13,6 +13,7 @@ import { TripContext } from "../../context/TripContextProvider";
 import AddOn from "../../models/AddOn";
 import { CircularProgress } from "@mui/material";
 import Messagepage from "../../components/MessagePage/Messagepage";
+import ReactMarkdown from "react-markdown";
 
 export default function Trippage({ setCurrPage }) {
   const { contextTrip } = useContext(TripContext);
@@ -30,7 +31,12 @@ export default function Trippage({ setCurrPage }) {
         (addOn) => new AddOn(addOn.name, addOn.prices, addOn.checked)
       );
       resTrip.accommodations = resTrip.accommodations.map(
-        (accommodation) => new AddOn(accommodation.name, accommodation.prices, accommodation.checked)
+        (accommodation) =>
+          new AddOn(
+            accommodation.name,
+            accommodation.prices,
+            accommodation.checked
+          )
       );
       setTrip(resTrip);
     } catch (e) {
@@ -65,10 +71,7 @@ export default function Trippage({ setCurrPage }) {
     getTrips();
   }, [trip]);
 
-  if (tripNotFound)
-    return (
-      <Messagepage type="page404"/>
-    );
+  if (tripNotFound) return <Messagepage type="page404" />;
 
   if (!trip)
     return (
@@ -82,11 +85,11 @@ export default function Trippage({ setCurrPage }) {
       <div className="trip-page">
         <div className="trip-content">
           <h1>{trip.title}</h1>
-          <Imagesviewer imagesList={trip.images} />
+          <Imagesviewer imagesList={trip.images} mainImage={trip.overViewImage} />
           <Tripsummarydetails trip={trip} />
-          <h3 className="section-header">Overview</h3>
+          <h3 className="section-header">Description</h3>
           <div className="section-content">
-            <p>{trip.overView}</p>
+            <ReactMarkdown>{trip.description}</ReactMarkdown>
           </div>
           <Map locations={trip.locations} />
           <hr className="split-line" />

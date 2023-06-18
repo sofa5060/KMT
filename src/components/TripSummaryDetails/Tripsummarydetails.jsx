@@ -10,11 +10,13 @@ import people from "../../images/people2.svg";
 export default function Tripsummarydetails({ trip }) {
   return (
     <div className="trip-summary-details">
-      <div className="detail">
-        <img src={location} alt="" />
-        <p>Hotel Pickup</p>
-        <h3>Available</h3>
-      </div>
+      {trip.hotelPickup && (
+        <div className="detail">
+          <img src={location} alt="" />
+          <p>Hotel Pickup</p>
+          <h3>Available</h3>
+        </div>
+      )}
       {/*
       <div className="detail">
         <img src={sunrise} alt="" />
@@ -25,7 +27,10 @@ export default function Tripsummarydetails({ trip }) {
       <div className="detail">
         <img src={clock} alt="" />
         <p>Duration</p>
-        <h3>{trip.dayDuration} Days {trip.nightDuration > 0 && `/ ${trip.nightDuration} Nights`}</h3>
+        <h3>
+          {trip.dayDuration} Days{" "}
+          {trip.nightDuration > 0 && `/ ${trip.nightDuration} Nights`}
+        </h3>
       </div>
       <div className="detail">
         <img src={people} alt="" />

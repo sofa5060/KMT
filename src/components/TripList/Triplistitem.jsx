@@ -24,7 +24,7 @@ export default function Triplistitem({ trip }) {
       </div>
       <div className="trip-info">
         <h3>{trip.title}</h3>
-        <p>{trip.description}</p>
+        <p>{trip.overView}</p>
         <div className="features">
           <div className="feature">
             <img src={location} alt="" />

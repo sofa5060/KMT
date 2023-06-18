@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import FsLightbox from "fslightbox-react";
 import "./Imagesviewer.css";
 
-function Imagesviewer({ imagesList }) {
+function Imagesviewer({ imagesList, mainImage }) {
   const [images, setImages] = useState();
   const [noOfImages, setNoOfImages] = useState(0);
 
@@ -30,7 +30,7 @@ function Imagesviewer({ imagesList }) {
         <div className="main-image">
           {images && (
             <img
-              src={images[0]}
+              src={mainImage}
               alt=""
               onClick={() => openLightboxOnSlide(1)}
             />
@@ -39,8 +39,8 @@ function Imagesviewer({ imagesList }) {
         <div className="secondary-images">
           {images &&
             images.map((image, index) => {
-              if (index > 0 && index < 5) {
-                if (noOfImages > 5 && index === 4) {
+              if (index >= 0 && index < 4) {
+                if (noOfImages > 4 && index === 3) {
                   return (
                     <div
                       className="secondary-image"
@@ -48,7 +48,7 @@ function Imagesviewer({ imagesList }) {
                       key={index}
                     >
                       <div className="last-image-cover">
-                        <h4>+{images.length - 5} Photos</h4>
+                        <h4>+{images.length - 4} Photos</h4>
                       </div>
                       <img src={image} alt="" />
                     </div>

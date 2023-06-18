@@ -10,6 +10,7 @@
 }
 .trip-page .trip-content {
   max-width: 850px;
+  width: 100%;
 }
 .trip-page .trip-content h1 {
   font-size: 36px;

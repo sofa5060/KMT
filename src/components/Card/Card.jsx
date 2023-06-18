@@ -23,7 +23,7 @@ export default function Card({ data }) {
         <div className="card-content">
           <img src={data.overViewImage} alt="" className="header-image" />
           <h4>{data.title}</h4>
-          <p>{data.description}</p>
+          <p>{data.overView}</p>
         </div>
         <div className="features">
           <div className="feature">
