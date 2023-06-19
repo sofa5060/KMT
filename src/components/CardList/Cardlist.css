@@ -17,6 +17,8 @@
   width: 100%;
   overflow-x: scroll;
   -webkit-overflow-scrolling: touch;
+  align-items: stretch;
+  display: flex;
   /* width */
   /* Track */
   /* Handle */
@@ -37,8 +39,11 @@
 .card-list-outer .extend::-webkit-scrollbar-thumb:hover {
   background: #ca9841;
 }
-.card-list-outer .extend .card {
+.card-list-outer .extend .card-outer {
   width: 360px;
+  min-height: -moz-max-content;
+  min-height: max-content;
+  height: 100%;
 }
 
 @media screen and (max-width: 700px) {

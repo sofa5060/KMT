@@ -10,7 +10,9 @@ export default function Cardlist({ destinations, extend }) {
       <div className="card-list-outer">
         <div className="card-list extend">
           {destinations.map((destination, index) => (
-            <Card data={destination} key={index} />
+            <div>
+              <Card data={destination} key={destination.id} />
+            </div>
           ))}
         </div>
       </div>
