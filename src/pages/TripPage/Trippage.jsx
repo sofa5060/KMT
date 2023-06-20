@@ -9,14 +9,12 @@ import axios from "axios";
 import Tripsummarydetails from "../../components/TripSummaryDetails/Tripsummarydetails";
 import Newsletter from "../../components/Newsletter/Newsletter";
 import Cardlist from "../../components/CardList/Cardlist";
-import { TripContext } from "../../context/TripContextProvider";
 import AddOn from "../../models/AddOn";
 import { CircularProgress } from "@mui/material";
 import Messagepage from "../../components/MessagePage/Messagepage";
 import ReactMarkdown from "react-markdown";
 
 export default function Trippage({ setCurrPage }) {
-  const { contextTrip } = useContext(TripContext);
   const [trip, setTrip] = useState(null);
   const [tripNotFound, setNotFound] = useState(false);
   const { tripID } = useParams();
@@ -25,7 +23,7 @@ export default function Trippage({ setCurrPage }) {
   const getTripByID = async (id) => {
     if (trip && trip.id === id) return;
     try {
-      const res = await axios.get(`http://localhost:5000/api/trip/${id}`);
+      const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/trip/${id}`);
       let resTrip = res.data;
       resTrip.addOns = resTrip.addOns.map(
         (addOn) => new AddOn(addOn.name, addOn.prices, addOn.checked)
@@ -60,7 +58,7 @@ export default function Trippage({ setCurrPage }) {
     const getTrips = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/api/related?cities=${trip.cities}&id=${trip.id}`
+          `${process.env.REACT_APP_BACKEND_URL}/api/related?cities=${trip.cities}&id=${trip.id}`
         );
         console.log(res);
         setTrips(res.data);

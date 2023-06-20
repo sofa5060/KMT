@@ -22,7 +22,7 @@ export default function Contactform() {
 
     let res;
     try{
-      await axios.post("http://localhost:5000/api/contact", {
+      await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/contact`, {
         name: firstName + " " + lastName,
         email: emailAddress,
         message

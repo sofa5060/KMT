@@ -26,16 +26,16 @@ const Wrapper = ({
   contextGuestsInfo,
   contextDate,
   contextTripDuration,
-  clearCheckoutContext
+  clearCheckoutContext,
 }) => {
-
   const [{ isPending }] = usePayPalScriptReducer();
 
-  if (isPending) return (
-    <div className="container">
-      <CircularProgress />
-    </div>
-  )
+  if (isPending)
+    return (
+      <div className="container">
+        <CircularProgress />
+      </div>
+    );
 
   return (
     <div className="wrapper">
@@ -53,7 +53,7 @@ const Wrapper = ({
             createOrder={async (data, actions) => {
               try {
                 const response = await axios.post(
-                  "http://localhost:5000/api/create-order",
+                  `${process.env.REACT_APP_BACKEND_URL}/api/create-order`,
                   {
                     price: totalPrice,
                     orderDetails: {
@@ -78,7 +78,7 @@ const Wrapper = ({
             onApprove={async (data, actions) => {
               try {
                 const response = await axios.post(
-                  `http://localhost:5000/api/orders/${data.orderID}/capture`,
+                  `${process.env.REACT_APP_BACKEND_URL}/api/orders/${data.orderID}/capture`,
                   {
                     tripID: tripId,
                     tripPrice,
@@ -106,6 +106,7 @@ const Wrapper = ({
                   errorDetail &&
                   errorDetail.issue === "INSTRUMENT_DECLINED"
                 ) {
+                  showAlert("error", "Something went wrong. Please try again.");
                   return actions.restart();
                   // https://developer.paypal.com/docs/checkout/integration-features/funding-failure/
                 }
@@ -127,14 +128,16 @@ const Wrapper = ({
                   clearCheckoutContext();
                 }
               } catch (error) {
-                console.error(error);
-                // Handle the error or display an appropriate error message to the user
+                showAlert(
+                  "error",
+                  "Something went wrong. Please try again"
+                );
               }
             }}
             onError={(err) => {
               showAlert(
                 "error",
-                "Something went wrong. Please try again later."
+                "Something went wrong. Please try again"
               );
             }}
           />
@@ -164,7 +167,7 @@ function Paypal({ finishCheckout }) {
 
   const initialOptions = {
     "client-id":
-      "AWYyO_5o1iHI-u4LSCugL48d-vZkbL3wgDAn5VzgK8saIzdU6ItlrP3T9-BWP6wp1LvxlAgr8wUsyo81",
+      `${process.env.REACT_APP_PAYPAL_CLIENT_ID}`,
   };
 
   return (

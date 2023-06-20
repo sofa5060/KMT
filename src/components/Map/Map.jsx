@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import { Loader } from "@googlemaps/js-api-loader";
 import markerPNG from "../../images/marker.png";
 import "./Map.css";
+import axios from "axios";
 
 export default function Map({ locations }) {
   const mapRef = useRef();
@@ -23,7 +24,7 @@ export default function Map({ locations }) {
     };
 
     const loader = new Loader({
-      apiKey: "AIzaSyAAtSUEuHnz6We11xF9VGbE48HN2fFMHzw",
+      apiKey: `${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`,
       version: "weekly",
       language: "EN",
     });

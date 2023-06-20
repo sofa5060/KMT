@@ -17,7 +17,7 @@ export default function Newsletter() {
 
     let res;
     try {
-      await axios.post("http://localhost:5000/api/newsletter", {
+      await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/newsletter`, {
         name,
         email,
       });

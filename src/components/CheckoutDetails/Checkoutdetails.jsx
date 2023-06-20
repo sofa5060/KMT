@@ -84,12 +84,13 @@ export default function Checkoutdetails({ guests, handleNext }) {
                   ? guestsInfo[i].firstName
                   : ""
               }
-              id="outlined-basic"
+              id="firstName"
               label="First Name"
               variant="outlined"
               required
               onChange={(e) => handleChange(e, i, "firstName")}
               fullWidth
+              type="text"
             />
             <TextField
               value={
@@ -97,12 +98,13 @@ export default function Checkoutdetails({ guests, handleNext }) {
                   ? guestsInfo[i].lastName
                   : ""
               }
-              id="outlined-basic"
+              id="lastName"
               label="Last Name"
               variant="outlined"
               required
               onChange={(e) => handleChange(e, i, "lastName")}
               fullWidth
+              type="text"
             />
           </div>
           <TextField

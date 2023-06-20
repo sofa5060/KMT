@@ -32,7 +32,7 @@ const SearchContextProvider = (props) => {
     let res;
     try {
       res = await axios.get(
-        `http://localhost:5000/api/trips/search?searchTerm=${term}&day=${dayjs(
+        `${process.env.REACT_APP_BACKEND_URL}/api/trips/search?searchTerm=${term}&day=${dayjs(
           date
         ).day()}&guests=${count}`
       );
@@ -65,7 +65,7 @@ const SearchContextProvider = (props) => {
     const getCities = async () => {
       let res;
       try {
-        res = await axios.get("http://localhost:5000/api/cities");
+        res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/cities`);
       } catch (err) {
         console.log(err);
         setCities([]);
@@ -117,6 +117,7 @@ const SearchContextProvider = (props) => {
           if (trip.accommodations[i].name === accommodation) {
             let acc = new AddOn(trip.accommodations[i].name, trip.accommodations[i].prices, false);
             trip.addedPrice = acc.getPrice(contextGuests);
+            console.log(trip.addedPrice);
             return true;
           }
         }
@@ -124,7 +125,7 @@ const SearchContextProvider = (props) => {
 
       let localeMax = 0;
       filteredTrips = filteredTrips.map((trip) => {
-        let newPrice = (trip.price + trip.addedPrice) * contextGuests;
+        let newPrice = ((trip.price / contextGuests) + trip.addedPrice) * contextGuests;
         if (newPrice > localeMax) localeMax = Math.ceil(newPrice);
 
         return {
@@ -132,7 +133,6 @@ const SearchContextProvider = (props) => {
           price: newPrice
         }
       });
-
       setMaxPrice(localeMax);
     }
 

@@ -40,6 +40,7 @@ export default function Searchbox({ minimized }) {
       setSearchQuery(contextSearchTerm);
       setDate(contextDate);
       setGuests(contextGuests);
+      console.log(contextGuests)
     }
   }, [minimized, contextSearchTerm, contextDate, contextGuests]);
 

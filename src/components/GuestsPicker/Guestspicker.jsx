@@ -19,7 +19,7 @@ export default function Guestspicker({ setGuestsCount, value }) {
   };
   
   useEffect(() => {
-    if (value !== undefined) {
+    if (value !== undefined && value !== guests) {
       setGuests(value);
     }
   }, [value]);

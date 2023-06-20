@@ -26,10 +26,6 @@ export default function Searchtextbox({ setSearchQuery, value }) {
     }
   }, [contextCities]);
 
-  useEffect(() => {
-    console.log(cities);
-  }, [cities]);
-
   return (
     <Autocomplete
       freeSolo

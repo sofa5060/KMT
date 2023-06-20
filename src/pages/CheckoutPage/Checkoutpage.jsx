@@ -14,6 +14,7 @@ import { ExpandLess, ExpandMore } from "@mui/icons-material";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { CheckoutContext } from "../../context/CheckoutContextProvider";
 import Paypal from "../../components/Paypal/Paypal";
+const { useHistory } = require("react-router-dom");
 
 const steps = ["Your Details", "Summary", "Payment", "Confirmation"];
 
@@ -21,8 +22,10 @@ export default function Checkoutpage({ setCurrPage }) {
   const [activeStep, setActiveStep] = useState(0);
   const [open, setOpen] = useState(true);
   const [isDisabled, setIsDisabled] = useState(false);
+  const history = useHistory();
 
-  const { contextGuests, totalPrice, tripId, orderID } = useContext(CheckoutContext);
+  const { contextGuests, totalPrice, tripId, orderID } =
+    useContext(CheckoutContext);
 
   const matches = useMediaQuery("(min-width:1000px)");
   const matches2 = useMediaQuery("(max-width:600px)");
@@ -31,7 +34,7 @@ export default function Checkoutpage({ setCurrPage }) {
     setActiveStep(3);
     setIsDisabled(true);
     window.scrollTo(0, 0);
-  }
+  };
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -48,12 +51,14 @@ export default function Checkoutpage({ setCurrPage }) {
   }, [setCurrPage]);
 
   useEffect(() => {
-    console.log(activeStep);
-  }, [activeStep]);
-
-  useEffect(() => {
     setOpen(matches);
   }, [matches]);
+
+  useEffect(() => {
+    if (tripId === "") {
+      history.push("/");
+    }
+  }, []);
 
   return (
     <div className="checkout-page">
@@ -84,13 +89,18 @@ export default function Checkoutpage({ setCurrPage }) {
             {activeStep === 2 && (
               <React.Fragment>
                 <h1>Choose Your Payment Method</h1>
-                <Paypal finishCheckout={finishCheckout}/>
-                <div className="btn" onClick={isDisabled ? ()=>{} :  handleBack}>
+                <Paypal finishCheckout={finishCheckout} />
+                <div
+                  className="btn"
+                  onClick={isDisabled ? () => {} : handleBack}
+                >
                   Back
                 </div>
               </React.Fragment>
             )}
-            {activeStep === 3 && <Messagepage type="paymentSuccess" orderID={orderID} />}
+            {activeStep === 3 && (
+              <Messagepage type="paymentSuccess" orderID={orderID} />
+            )}
           </div>
         </div>
       </div>

@@ -18,7 +18,7 @@ export default function Customersdetails({handleNext, handleBack}) {
   return (
     <div className="customers-details">
       {guestsInfo.map((guest, index) => (
-        <div className="customer-details">
+        <div className="customer-details" key={index}>
           <h2>#{index + 1} Person Information</h2>
           <div className="information">
             <div className="information-col headers">

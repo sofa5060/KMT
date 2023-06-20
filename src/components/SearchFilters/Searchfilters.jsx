@@ -48,6 +48,8 @@ export default function Searchfilters({ big }) {
     {
       name: "Accommodation",
       options: [
+        { name: "1 Star Hotel", checked: false },
+        { name: "2 Stars Hotel", checked: false },
         { name: "3 Stars Hotel", checked: false },
         { name: "4 Stars Hotel", checked: false },
         { name: "5 Stars Hotel", checked: false },

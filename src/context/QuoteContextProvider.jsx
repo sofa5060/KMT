@@ -19,7 +19,7 @@ export default function QuoteContextProvider({ children }) {
 
   const submitQuote = async (name, email, phoneNum, nationality, age, guests, checkInDate, checkOutDate, places, currency, budget, healthConditions, message) => {
     try{
-      await axios.post("http://localhost:5000/api/quote", {
+      await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/quote`, {
         name,
         email,
         phoneNum,

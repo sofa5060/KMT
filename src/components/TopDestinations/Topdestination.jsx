@@ -16,9 +16,8 @@ export default function Topdestination() {
     if (destinations) return;
     try {
       const response = await axios.get(
-        "http://localhost:5000/api/trips/top"
+        `${process.env.REACT_APP_BACKEND_URL}/api/trips/top`
       );
-      console.log(response);
       setDestinations(response.data);
     } catch (e) {
       // setNotFound(true);
