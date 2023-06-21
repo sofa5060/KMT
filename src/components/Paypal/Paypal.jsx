@@ -119,9 +119,7 @@ const Wrapper = ({
                   showAlert("error", msg);
                 }
 
-                const transaction =
-                  details.purchase_units[0].payments.captures[0];
-                if (transaction.status === "COMPLETED") {
+                if (details.status === "COMPLETED") {
                   setOrderID(data.orderID);
                   finishCheckout();
                   showAlert("success", "Payment Successful");

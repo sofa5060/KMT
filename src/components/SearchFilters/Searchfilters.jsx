@@ -10,7 +10,6 @@ export default function Searchfilters({ big }) {
     filterTrips,
     setClearFilters,
     clearFilters,
-    contextMaxPrice,
   } = useContext(SearchContext);
   const [filteredDestinations, setFilteredDestinations] = useState([]);
   const [filteredMaxGroupSize, setFilteredMaxGroupSize] = useState(1);
@@ -56,6 +55,7 @@ export default function Searchfilters({ big }) {
       ],
     },
   ]);
+  const [contextMaxPrice, setContextMaxPrice] = useState(5000);
 
   const addToDestinations = (destination) => {
     setFilteredDestinations((prevDestinations) => [

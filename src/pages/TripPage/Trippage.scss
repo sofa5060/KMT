@@ -1,11 +1,11 @@
-@use '../HomePage/Homepage.scss' as main;
+@use "../HomePage/Homepage.scss" as main;
 $main-color: main.$main-color;
 $secondary-color: main.$secondary-color;
 $text-color: main.$text-color;
 $ibm: main.$ibm;
 $golos: main.$golos;
 
-.trip-page{
+.trip-page {
   max-width: 1300px;
   padding: 50px;
   margin: 0 auto;
@@ -14,44 +14,43 @@ $golos: main.$golos;
   align-items: self-start;
   gap: 20px;
 
-  .trip-content{
+  .trip-content {
     max-width: 850px;
     width: 100%;
-    
-    h1{
+
+    h1 {
       font-size: 36px;
       font-weight: 600;
       margin-bottom: 30px;
     }
-  
-    .section-header{
+
+    .section-header {
       font-size: 24px;
       font-weight: 600;
       padding: 0 0 0 10px;
       border-left: 5px solid $main-color;
       margin: 45px 0 15px 0;
     }
-  
-    .section-content{
+
+    .section-content {
       margin: 0 0 0 15px;
-    }
-  
-    p{
-      margin: 0 0 25px 0;
-      font-family: $ibm;
-    }
-  
-    .bullet-list{
-      margin: 0 0 0 15px;
-      list-style: none;
-  
-      li{
+
+      h1{
+        margin: 0;
+      }
+
+      ul {
+        margin: 0 0 0 15px;
+        list-style: none; 
+      }
+
+      li {
         font-family: $ibm;
         font-size: 15px;
         font-weight: 400;
         line-height: 24px;
       }
-  
+
       li::before {
         content: "\2022";
         color: $main-color;
@@ -61,20 +60,45 @@ $golos: main.$golos;
       }
     }
 
-    .split-line{
+    p {
+      margin: 0 0 25px 0;
+      font-family: $ibm;
+    }
+
+    .bullet-list {
+      margin: 0 0 0 15px;
+      list-style: none;
+
+      li {
+        font-family: $ibm;
+        font-size: 15px;
+        font-weight: 400;
+        line-height: 24px;
+      }
+
+      li::before {
+        content: "\2022";
+        color: $main-color;
+        display: inline-block;
+        width: 1em;
+        margin-left: -1em;
+      }
+    }
+
+    .split-line {
       margin: 50px 0 0 0;
       background: #000;
       border: 1px solid #000;
       opacity: 0.2;
     }
 
-    .contact{
+    .contact {
       margin: 45px 0 0 0;
       font-weight: 400;
       font-family: $ibm;
       font-size: 18px;
 
-      .divider{
+      .divider {
         display: flex;
         gap: 10px;
         max-width: 500px;
@@ -82,21 +106,21 @@ $golos: main.$golos;
         align-items: center;
         margin: 20px 0;
 
-        h4{
+        h4 {
           font-weight: 600;
           font-size: 16px;
           color: $main-color;
           font: $ibm;
         }
 
-        hr{
+        hr {
           width: 100%;
           margin: 0;
           height: 1px;
         }
       }
 
-      a{
+      a {
         text-decoration: none;
         font-size: 18px;
         font-weight: 700;
@@ -104,10 +128,10 @@ $golos: main.$golos;
         color: $main-color;
       }
 
-      .form{
+      .form {
         max-width: 500px;
 
-        h3{
+        h3 {
           font-size: 16px;
           font-weight: 500;
           margin: 0 0 25px 0;
@@ -117,7 +141,7 @@ $golos: main.$golos;
   }
 }
 
-.trips-header{
+.trips-header {
   font-weight: 700;
   font-size: 24px;
   line-height: 29px;
@@ -125,27 +149,26 @@ $golos: main.$golos;
   margin: 200px 0 0 0;
 }
 
-@media screen and (max-width: 1000px){
-  .trip-page{
+@media screen and (max-width: 1000px) {
+  .trip-page {
     padding: 50px 20px;
   }
 }
 
-@media screen and (max-width: 700px){
-  .trip-page{
+@media screen and (max-width: 700px) {
+  .trip-page {
     padding: 30px 15px;
 
-    .trip-content{
-
-      h1{
+    .trip-content {
+      h1 {
         font-size: 20px;
       }
 
-      .section-header{
+      .section-header {
         font-size: 20px;
       }
-    
-      .section-content{
+
+      .section-content {
         margin: 0 0 0 15px;
       }
     }
