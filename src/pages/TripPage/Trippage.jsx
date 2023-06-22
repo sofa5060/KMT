@@ -19,11 +19,14 @@ export default function Trippage({ setCurrPage }) {
   const [tripNotFound, setNotFound] = useState(false);
   const { tripID } = useParams();
   const [trips, setTrips] = useState([]);
+  const [loaded, setLoaded] = useState(false);
 
   const getTripByID = async (id) => {
     if (trip && trip.id === id) return;
     try {
-      const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/trip/${id}`);
+      const res = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/api/trip/${id}`
+      );
       let resTrip = res.data;
       resTrip.addOns = resTrip.addOns.map(
         (addOn) => new AddOn(addOn.name, addOn.prices, addOn.checked)
@@ -67,6 +70,7 @@ export default function Trippage({ setCurrPage }) {
       }
     };
     getTrips();
+    setLoaded(true);
   }, [trip]);
 
   if (tripNotFound) return <Messagepage type="page404" />;
@@ -83,7 +87,10 @@ export default function Trippage({ setCurrPage }) {
       <div className="trip-page">
         <div className="trip-content">
           <h1>{trip.title}</h1>
-          <Imagesviewer imagesList={trip.images} mainImage={trip.overViewImage} />
+          <Imagesviewer
+            imagesList={trip.images}
+            mainImage={trip.overViewImage}
+          />
           <Tripsummarydetails trip={trip} />
           <h3 className="section-header">Description</h3>
           <div className="section-content">
@@ -124,13 +131,16 @@ export default function Trippage({ setCurrPage }) {
         </div>
         <Trippricecard tripDetails={trip} />
       </div>
-      <h4 className="trips-header">Related Trips</h4>
-      {trips.length === 0 ? (
+      {trips.length > 0 && (
+        <React.Fragment>
+          <h4 className="trips-header">Related Trips</h4>
+          <Cardlist destinations={trips} extend />
+        </React.Fragment>
+      )}
+      {!loaded && (
         <div className="center">
           <CircularProgress />
         </div>
-      ) : (
-        <Cardlist destinations={trips} extend />
       )}
       <Newsletter />
     </div>

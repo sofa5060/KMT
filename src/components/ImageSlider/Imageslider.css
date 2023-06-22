@@ -20,9 +20,8 @@
   margin: 0 auto;
 }
 .image-slider .each-slide {
-  height: calc(100dvh - 90px);
-  max-height: 1200px;
   position: relative;
+  min-height: 90vh;
 }
 .image-slider .each-slide img {
   height: 100%;

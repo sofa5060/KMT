@@ -28,9 +28,10 @@ $golos: main.$golos;
   margin: 0 auto;
 
   .each-slide {
-    height: calc(100dvh - 90px);
-    max-height: 1200px;
+    // height: calc(100dvh - 90px);
+    // max-height: 1200px;
     position: relative;
+    min-height: 90vh;
 
     img {
       height: 100%;
