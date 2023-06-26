@@ -12,12 +12,12 @@ export default function Imageslider() {
   const history = useHistory();
   const images = [
     {
-      imageLink: "https://i.ibb.co/1QNKHFd/Egypt-Modified-1.png",
+      imageLink: "https://i.ibb.co/sq6HF7b/Egypt-Modified-1.png",
       cityName: "Pyramids of Giza",
       searchTerm: "Giza",
     },
     {
-      imageLink: "https://i.ibb.co/m0NZH8C/Egypt-Modified-2.png",
+      imageLink: "https://i.ibb.co/n3wfCGb/Egypt-Modified-2.png",
       cityName: "Aswan",
       searchTerm: "Aswan",
     },

@@ -20,12 +20,14 @@
   margin: 0 auto;
 }
 .image-slider .each-slide {
+  height: calc(100dvh - 90px);
+  width: 100%;
   position: relative;
-  min-height: 90vh;
 }
 .image-slider .each-slide img {
-  height: 100%;
   position: absolute;
+  min-width: 100%;
+  height: 100%;
   left: 50%;
   transform: translateX(-50%);
 }
