@@ -3,7 +3,7 @@ import FsLightbox from "fslightbox-react";
 import "./Imagesviewer.css";
 
 function Imagesviewer({ imagesList, mainImage }) {
-  const [images, setImages] = useState();
+  const [images, setImages] = useState([]);
   const [noOfImages, setNoOfImages] = useState(0);
 
   const [lightboxController, setLightboxController] = useState({
@@ -22,7 +22,7 @@ function Imagesviewer({ imagesList, mainImage }) {
   useEffect(() => {
     setImages(imagesList);
     setNoOfImages(imagesList.length);
-  }, [imagesList]);
+  }, [imagesList, mainImage]);
 
   return (
     <div className="images-viewer">
@@ -44,7 +44,7 @@ function Imagesviewer({ imagesList, mainImage }) {
                   return (
                     <div
                       className="secondary-image"
-                      onClick={() => openLightboxOnSlide(index + 1)}
+                      onClick={() => openLightboxOnSlide(index + 2)}
                       key={index}
                     >
                       <div className="last-image-cover">
@@ -58,7 +58,7 @@ function Imagesviewer({ imagesList, mainImage }) {
                     <div
                       className="secondary-image"
                       key={index}
-                      onClick={() => openLightboxOnSlide(index + 1)}
+                      onClick={() => openLightboxOnSlide(index + 2)}
                     >
                       <img src={image} alt="" />
                     </div>
@@ -70,7 +70,7 @@ function Imagesviewer({ imagesList, mainImage }) {
       </div>
       <FsLightbox
         toggler={lightboxController.toggler}
-        sources={images}
+        sources={[mainImage, ...images]}
         slide={lightboxController.slide}
         showThumbsOnMount={true}
       />
