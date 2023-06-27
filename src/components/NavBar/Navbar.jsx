@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../images/logo.svg";
 import logo2 from "../../images/logo2.svg";
@@ -8,10 +8,13 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Drawer from "@mui/material/Drawer";
 import MenuIcon from "@mui/icons-material/Menu";
+import { LanguageContext } from "../../context/LanguageContextProvider";
+
 
 export default function Navbar({ currPage }) {
   const [language, setLanguage] = useState("EN");
   const [open, setOpen] = useState(false);
+  const { changeLanguage, contextLanguage } = useContext(LanguageContext);
 
   const closeHandler = (event) => {
     if (
@@ -23,6 +26,15 @@ export default function Navbar({ currPage }) {
 
     setOpen(false);
   };
+
+  const handleChange = (event) => {
+    setLanguage(event.target.value);
+    changeLanguage(event.target.value);
+  };
+
+  useEffect(() => {
+    setLanguage(contextLanguage);
+  }, [contextLanguage]);
 
   return (
     <div className="navbar-background">
@@ -64,12 +76,13 @@ export default function Navbar({ currPage }) {
               labelId="demo-simple-select-standard-label"
               id="demo-simple-select-standard"
               value={language}
-              onChange={(e) => setLanguage(e.target.value)}
+              onChange={handleChange}
               label="Language"
               disableUnderline={true}
             >
               <MenuItem value="EN">EN</MenuItem>
               <MenuItem value="ES">ES</MenuItem>
+              <MenuItem value="PT">PT</MenuItem>
             </Select>
           </FormControl>
         </div>
@@ -126,12 +139,13 @@ export default function Navbar({ currPage }) {
                 labelId="demo-simple-select-standard-label"
                 id="demo-simple-select-standard"
                 value={language}
-                onChange={(e) => setLanguage(e.target.value)}
+                onChange={handleChange}
                 label="Language"
                 disableUnderline={true}
               >
                 <MenuItem value="EN">EN</MenuItem>
                 <MenuItem value="ES">ES</MenuItem>
+                <MenuItem value="PT">PT</MenuItem>
               </Select>
             </FormControl>
           </div>

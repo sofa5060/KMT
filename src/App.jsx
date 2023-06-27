@@ -18,54 +18,57 @@ import TripContextProvider from "./context/TripContextProvider";
 import AlertContextProvider from "./context/AlertContextProvider";
 import Alertbar from "./components/Alert/Alertbar";
 import Messagepage from "./components/MessagePage/Messagepage";
+import LanguageContextProvider from "./context/LanguageContextProvider";
 
 const App = () => {
   const [currPage, setCurrPage] = useState("home");
   return (
     <Router>
-      <AlertContextProvider>
-        <Alertbar />
-        <TripContextProvider>
-          <SearchContextProvider>
-            <QuoteContextProvider>
-              <CheckoutContextProvider>
-                <Navbar currPage={currPage} />
-                <Scrolltotop />
-                <Switch>
-                  <Route path="/" exact>
-                    <Homepage setCurrPage={setCurrPage} />
-                  </Route>
-                  <Route path="/quote" exact>
-                    <Quotepage setCurrPage={setCurrPage} />
-                  </Route>
-                  <Route path="/trips" exact>
-                    <Searchpage setCurrPage={setCurrPage} allTrips />
-                  </Route>
-                  <Route path="/trip/:tripID" exact>
-                    <Trippage setCurrPage={setCurrPage} />
-                  </Route>
-                  <Route path="/search/:tripName">
-                    <Searchpage setCurrPage={setCurrPage} />
-                  </Route>
-                  <Route path="/contact">
-                    <Contactpage setCurrPage={setCurrPage} />
-                  </Route>
-                  <Route path="/checkout">
-                    <Checkoutpage setCurrPage={setCurrPage} />
-                  </Route>
-                  <Route path="/about">
-                    <Aboutpage setCurrPage={setCurrPage} />
-                  </Route>
-                  <Route path="*">
-                    <Messagepage type="page404"/>
-                  </Route>
-                </Switch>
-              </CheckoutContextProvider>
-            </QuoteContextProvider>
-          </SearchContextProvider>
-          <Footer />
-        </TripContextProvider>
-      </AlertContextProvider>
+      <LanguageContextProvider>
+        <AlertContextProvider>
+          <Alertbar />
+          <TripContextProvider>
+            <SearchContextProvider>
+              <QuoteContextProvider>
+                <CheckoutContextProvider>
+                  <Navbar currPage={currPage} />
+                  <Scrolltotop />
+                  <Switch>
+                    <Route path="/" exact>
+                      <Homepage setCurrPage={setCurrPage} />
+                    </Route>
+                    <Route path="/quote" exact>
+                      <Quotepage setCurrPage={setCurrPage} />
+                    </Route>
+                    <Route path="/trips" exact>
+                      <Searchpage setCurrPage={setCurrPage} allTrips />
+                    </Route>
+                    <Route path="/trip/:tripID" exact>
+                      <Trippage setCurrPage={setCurrPage} />
+                    </Route>
+                    <Route path="/search/:tripName">
+                      <Searchpage setCurrPage={setCurrPage} />
+                    </Route>
+                    <Route path="/contact">
+                      <Contactpage setCurrPage={setCurrPage} />
+                    </Route>
+                    <Route path="/checkout">
+                      <Checkoutpage setCurrPage={setCurrPage} />
+                    </Route>
+                    <Route path="/about">
+                      <Aboutpage setCurrPage={setCurrPage} />
+                    </Route>
+                    <Route path="*">
+                      <Messagepage type="page404" />
+                    </Route>
+                  </Switch>
+                </CheckoutContextProvider>
+              </QuoteContextProvider>
+            </SearchContextProvider>
+            <Footer />
+          </TripContextProvider>
+        </AlertContextProvider>
+      </LanguageContextProvider>
     </Router>
   );
 };

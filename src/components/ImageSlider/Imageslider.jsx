@@ -7,6 +7,7 @@ import "./Imageslider.css";
 import Searchbox from "../SearchBox/Searchbox";
 import dayjs from "dayjs";
 import { SearchContext } from "../../context/SearchContextProvider";
+import { LanguageContext } from "../../context/LanguageContextProvider";
 
 export default function Imageslider() {
   const history = useHistory();
@@ -23,11 +24,10 @@ export default function Imageslider() {
     },
   ];
 
-  const {
-    setContextDate,
-    setContextGuests,
-    setIsWaitingForSearch,
-  } = useContext(SearchContext);
+  const { setContextDate, setContextGuests, setIsWaitingForSearch } =
+    useContext(SearchContext);
+
+  const { renderContent } = useContext(LanguageContext);
 
   const properties = {
     prevArrow: (
@@ -49,8 +49,8 @@ export default function Imageslider() {
     setContextDate(dayjs());
     setContextGuests(1);
     setIsWaitingForSearch(true);
-    history.push(`/search/${searchTerm}`)
-  }
+    history.push(`/search/${searchTerm}`);
+  };
 
   return (
     <div className="image-slider">
@@ -62,18 +62,25 @@ export default function Imageslider() {
               <div className="slider-content">
                 <h4>KMT TOURS</h4>
                 <h1>
-                  Explore New Places of <span>EGYPT!</span>
+                  {renderContent(
+                    "Explore New Places of ",
+                    "Explore New Places on ",
+                    "Explore New Places in "
+                  )}
+                  <span>EGYPT!</span>
                 </h1>
                 <h3>
-                  Get a taste of the past on our trips to Egypt, where you’ll take
-                  a walk through the footsteps of the pharaohs through ancient
-                  temples and monuments.
+                  Get a taste of the past on our trips to Egypt, where you’ll
+                  take a walk through the footsteps of the pharaohs through
+                  ancient temples and monuments.
                 </h3>
                 <div className="slider">
-                  <span onClick={() => handleClick(img.searchTerm)}>{img.cityName}</span>
+                  <span onClick={() => handleClick(img.searchTerm)}>
+                    {img.cityName}
+                  </span>
                 </div>
               </div>
-            </div> 
+            </div>
           );
         })}
       </Fade>

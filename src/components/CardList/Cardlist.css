@@ -13,7 +13,7 @@
 }
 .card-list-outer .extend {
   padding: 0 0 80px 0;
-  justify-content: start;
+  justify-content: flex-start;
   width: 100%;
   overflow-x: scroll;
   -webkit-overflow-scrolling: touch;
