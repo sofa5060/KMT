@@ -1,11 +1,13 @@
-import React from "react";
+import React,{useContext} from "react";
 import { Link } from "react-router-dom";
 import location from "../../images/location.svg";
 import price from "../../images/price.svg";
 import EastIcon from "@mui/icons-material/East";
 import "./Triplistitem.css";
+import { LanguageContext } from "../../context/LanguageContextProvider";
 
 export default function Triplistitem({ trip }) {
+  const { contextLanguage } = useContext(LanguageContext);
   const displayCities = (cities) => {
     let result = "";
     for (let i = 0; i < cities.length && i < 3; i++) {
@@ -23,8 +25,8 @@ export default function Triplistitem({ trip }) {
         <img src={trip.overViewImage} alt="" />
       </div>
       <div className="trip-info">
-        <h3>{trip.title}</h3>
-        <p>{trip.overView}</p>
+        <h3>{trip[contextLanguage].title}</h3>
+        <p>{trip[contextLanguage].overView}</p>
         <div className="features">
           <div className="feature">
             <img src={location} alt="" />

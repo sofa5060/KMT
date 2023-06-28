@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import location from "../../images/location.svg";
 import price from "../../images/price.svg";
 import "./Card.css";
 import { Link } from "react-router-dom";
 import EastIcon from "@mui/icons-material/East";
+import { LanguageContext } from "../../context/LanguageContextProvider";
 
 export default function Card({ data }) {
+  const { contextLanguage } = useContext(LanguageContext);
   const displayCities = (cities) => {
     let result = "";
     for (let i = 0; i < cities.length && i < 3; i++) {
@@ -22,8 +24,8 @@ export default function Card({ data }) {
       <div className="card">
         <div className="card-content">
           <img src={data.overViewImage} alt="" className="header-image" />
-          <h4>{data.title}</h4>
-          <p>{data.overView}</p>
+          <h4>{data[contextLanguage].title}</h4>
+          <p>{data[contextLanguage].overView}</p>
         </div>
         <div className="features">
           <div className="feature">

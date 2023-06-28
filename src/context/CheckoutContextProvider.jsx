@@ -16,10 +16,11 @@ export default function CheckoutContextProvider({ children }) {
   const [contextTripTitle, setContextTripTitle] = useState("");
   const [contextTripDuration, setContextTripDuration] = useState(0);
   const [orderID, setOrderID] = useState("")
+  const [lang, setLang] = useState("")
 
 
 
-  const startCheckout = (addOns, guests, date, total, tripPrice, tripId, accommodations, pickedAccommodation, tripTitle, tripDuration) => {
+  const startCheckout = (addOns, guests, date, total, tripPrice, tripId, accommodations, pickedAccommodation, tripTitle, tripDuration, lang) => {
     setAddOns(addOns);
     setGuests(guests);
     setDate(date);
@@ -30,6 +31,7 @@ export default function CheckoutContextProvider({ children }) {
     setPickedAccommodation(pickedAccommodation);
     setContextTripTitle(tripTitle);
     setContextTripDuration(tripDuration);
+    setLang(lang);
   }
 
   const clearCheckoutContext = () => {
@@ -44,11 +46,12 @@ export default function CheckoutContextProvider({ children }) {
     setPickedAccommodation(false);
     setContextTripTitle("");
     setContextTripDuration(0);
+    setLang("")
   }
 
   return (
     <CheckoutContext.Provider
-      value={{ contextGuestsInfo, setContextGuestsInfo, startCheckout, contextAddOns, contextGuests, contextDate, totalPrice, tripPrice, tripId, contextAccommodations, pickedAccommodation, contextTripTitle, contextTripDuration, orderID, setOrderID, clearCheckoutContext }}
+      value={{ contextGuestsInfo, setContextGuestsInfo, startCheckout, contextAddOns, contextGuests, contextDate, totalPrice, tripPrice, tripId, contextAccommodations, pickedAccommodation, contextTripTitle, contextTripDuration, orderID, setOrderID, clearCheckoutContext, lang }}
     >
       {children}
     </CheckoutContext.Provider>

@@ -9,19 +9,48 @@ import Collapse from "@mui/material/Collapse";
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { CheckoutContext } from "../../context/CheckoutContextProvider";
+import { AlertContext } from "../../context/AlertContextProvider";
+import { LanguageContext } from "../../context/LanguageContextProvider";
 
 export default function Trippricecard({ tripDetails }) {
   const history = useHistory();
-  const [addOns, setAddOns] = useState([]);
-  const [accommodations, setAccommodations] = useState([]);
-  const [trip, setTrip] = useState("");
+  const [addOns, setAddOns] = useState(tripDetails.addOns || []);
+  const [accommodations, setAccommodations] = useState(
+    tripDetails.accommodations || []
+  );
+  const [trip, setTrip] = useState(tripDetails || "");
   const [date, setDate] = useState(dayjs());
   const [guests, setGuests] = useState(1);
   const [open, setOpen] = useState(true);
-  const [totalPrice, setTotalPrice] = useState(0);
-  const [oldTotalPrice, setOldTotalPrice] = useState(0);
   const [pickedAccommodation, setPickedAccommodation] = useState(false);
   const matches = useMediaQuery("(min-width:900px)");
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [oldTotalPrice, setOldTotalPrice] = useState(0);
+
+  const calcTotal = () => {
+    let total = trip.price;
+    setPickedAccommodation(false);
+    for (let i = 0; i < addOns.length; i++)
+      if (addOns[i].checked) total += addOns[i].getPrice(guests);
+
+    for (let i = 0; i < accommodations.length; i++)
+      if (accommodations[i].checked) {
+        setPickedAccommodation(true);
+        total += accommodations[i].getPrice(guests);
+      }
+    return (total * guests).toFixed(2);
+  };
+
+  const calcOldTotal = () => {
+    let total = trip.oldPrice || trip.price;
+    for (let i = 0; i < addOns.length; i++)
+      if (addOns[i].checked) total += addOns[i].getOldPrice(guests);
+
+    for (let i = 0; i < accommodations.length; i++)
+      if (accommodations[i].checked)
+        total += accommodations[i].getOldPrice(guests);
+    return (total * guests).toFixed(2);
+  };
 
   const {
     startCheckout,
@@ -30,7 +59,10 @@ export default function Trippricecard({ tripDetails }) {
     contextGuests,
     contextDate,
     contextAccommodations,
+    lang,
   } = useContext(CheckoutContext);
+  const { showAlert } = useContext(AlertContext);
+  const { contextLanguage } = useContext(LanguageContext);
 
   const handleChange = (event) => {
     let addOn = addOns.find((addOn) => addOn.name === event.target.ariaLabel);
@@ -61,8 +93,10 @@ export default function Trippricecard({ tripDetails }) {
     if (
       tripDetails.disabledDays &&
       tripDetails.disabledDays.includes(date.day())
-    )
+    ) {
+      showAlert("error", "This day is not available");
       return;
+    }
     startCheckout(
       addOns,
       guests,
@@ -72,53 +106,16 @@ export default function Trippricecard({ tripDetails }) {
       trip.id,
       accommodations,
       pickedAccommodation,
-      trip.title,
-      trip.dayDuration
+      trip[contextLanguage].title,
+      trip.dayDuration,
+      contextLanguage
     );
     history.push("/checkout");
   };
 
-  const calcTotal = () => {
-    let total = trip.price;
-
-    setPickedAccommodation(false);
-
-    for (let i = 0; i < addOns.length; i++)
-      if (addOns[i].checked) total += addOns[i].getPrice(guests);
-
-    for (let i = 0; i < accommodations.length; i++)
-      if (accommodations[i].checked){
-        setPickedAccommodation(true);
-        total += accommodations[i].getPrice(guests);
-      } 
-    return (total * guests).toFixed(2);
-  };
-
-  const calcOldTotal = () => {
-    let total = trip.oldPrice || trip.price;
-
-    for (let i = 0; i < addOns.length; i++)
-      if (addOns[i].checked) total += addOns[i].getOldPrice(guests)
-
-    for (let i = 0; i < accommodations.length; i++)
-      if (accommodations[i].checked) total += accommodations[i].getOldPrice(guests);
-
-    return (total * guests).toFixed(2);
-  };
-
-  // For loading
-  useEffect(() => {
-    if (!tripDetails) return;
-    setAddOns(tripDetails.addOns);
-    setTrip(tripDetails);
-    setTotalPrice(calcTotal());
-    setOldTotalPrice(calcOldTotal());
-    setAccommodations(tripDetails.accommodations);
-  }, [tripDetails]);
-
   // For adding addon
   useEffect(() => {
-    if (!addOns.length) return;
+    if (addOns.length === 0) return;
     setTotalPrice(calcTotal());
     setOldTotalPrice(calcOldTotal());
   }, [addOns, guests, accommodations]);
@@ -127,15 +124,17 @@ export default function Trippricecard({ tripDetails }) {
   useEffect(() => {
     setOpen(matches);
   }, [matches]);
-
+  
   // for loading data from checkout context
   useEffect(() => {
-    if (!tripId || tripId !== trip.id) return;
-    setAddOns(contextAddOns);
-    setGuests(contextGuests);
-    setDate(contextDate);
-    setAccommodations(contextAccommodations);
-  }, [tripId, trip.id]);
+    console.log("started");
+    if (tripId && tripId === trip.id && lang === contextLanguage) {
+      setAddOns(contextAddOns);
+      setGuests(contextGuests);
+      setDate(contextDate);
+      setAccommodations(contextAccommodations);
+    }
+  }, []);
 
   return (
     <div className="price-card-container">
