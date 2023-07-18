@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
 import Collapse from "@mui/material/Collapse";
 import Checkbox, { checkboxClasses } from "@mui/material/Checkbox";
+import { LanguageContext } from "../../context/LanguageContextProvider";
 
 export default function Searchfilter({
   filter,
@@ -14,6 +15,7 @@ export default function Searchfilter({
 }) {
   const [open, setOpen] = useState(true);
   const [filterProps, setFilterProps] = useState(filter.options);
+  const { renderContent } = useContext(LanguageContext);
 
   const handleChange = (event) => {
     let selected = filterProps.find(
@@ -21,34 +23,34 @@ export default function Searchfilter({
     );
 
     if (event.target.checked) {
-      if (filter.name === "Group Size") {
+      if (filter.name === renderContent("Group Size", "Tamaño del grupo", "Tamanho do grupo")) {
         filter = filter.options.map((option) => (option.checked = false));
         let value = parseInt(selected.name.split(" ")[2]);
         setFilteredMaxGroupSize(value);
-      } else if (filter.name === "Destinations") {
+      } else if (filter.name === renderContent("Destinations", "Destinos", "Destinos")) {
         addToDestinations(event.target.ariaLabel);
-      } else if (filter.name === "Duration") {
+      } else if (filter.name === renderContent("Duration", "Duración", "Duração")) {
         let min = parseInt(selected.name.split(" ")[0]);
         let max = parseInt(selected.name.split(" ")[2]);
         if (min === 1) max = 1;
         addToDurations(min, max);
-      } else if (filter.name === "Accommodation") {
+      } else if (filter.name === renderContent("Accommodation", "Alojamiento", "Acomodação")) {
         filter = filter.options.map((option) => (option.checked = false));
         let value = parseInt(selected.name.split(" ")[0]);
         setAccommodation(value);
       }
     } else {
-      if (filter.name === "Group Size") {
+      if (filter.name === renderContent("Group Size", "Tamaño del grupo", "Tamanho do grupo")) {
         filter = filter.options.map((option) => (option.checked = false));
         setFilteredMaxGroupSize(1);
-      } else if (filter.name === "Destinations") {
+      } else if (filter.name === renderContent("Destinations", "Destinos", "Destinos")) {
         removeFromDestinations(event.target.ariaLabel);
-      } else if (filter.name === "Duration") {
+      } else if (filter.name === renderContent("Duration", "Duración", "Duração")) {
         let min = parseInt(selected.name.split(" ")[0]);
         let max = parseInt(selected.name.split(" ")[2]);
         if (min === 1) max = 1;
         removeFromDurations(min, max);
-      } else if (filter.name === "Accommodation") {
+      } else if (filter.name === renderContent("Accommodation", "Alojamiento", "Acomodação")) {
         filter = filter.options.map((option) => (option.checked = false));
         setAccommodation(0);
       }

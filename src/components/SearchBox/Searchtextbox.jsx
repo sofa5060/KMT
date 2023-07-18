@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
 import Autocomplete from "@mui/material/Autocomplete";
 import { SearchContext } from "../../context/SearchContextProvider";
+import { LanguageContext } from "../../context/LanguageContextProvider";
 
 
 export default function Searchtextbox({ setSearchQuery, value }) {
   const { contextCities } = useContext(SearchContext);
   const [inputValue, setInputValue] = useState("");
   const [cities, setCities] = useState([]);
+  const { renderContent } = useContext(LanguageContext);
 
   const handleChange = (e, newValue) => {
     setInputValue(newValue);
@@ -52,7 +54,7 @@ export default function Searchtextbox({ setSearchQuery, value }) {
           <input
             required
             type="text"
-            placeholder="Where do you want to go?"
+            placeholder={renderContent("Where do you want to go?", "¿A dónde quieres ir?", "Para onde você quer ir?")}
             {...params.inputProps}
           />
         </div>

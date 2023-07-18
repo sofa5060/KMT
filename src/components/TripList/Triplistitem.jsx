@@ -1,4 +1,4 @@
-import React,{useContext} from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import location from "../../images/location.svg";
 import price from "../../images/price.svg";
@@ -7,7 +7,7 @@ import "./Triplistitem.css";
 import { LanguageContext } from "../../context/LanguageContextProvider";
 
 export default function Triplistitem({ trip }) {
-  const { contextLanguage } = useContext(LanguageContext);
+  const { contextLanguage, renderContent } = useContext(LanguageContext);
   const displayCities = (cities) => {
     let result = "";
     for (let i = 0; i < cities.length && i < 3; i++) {
@@ -39,7 +39,8 @@ export default function Triplistitem({ trip }) {
           </div>
         </div>
         <Link to={`/trip/${trip.id}`}>
-          Explore More <EastIcon />
+          {renderContent("Explore More", "Explora más", "Explore mais")}{" "}
+          <EastIcon />
         </Link>
       </div>
     </div>
