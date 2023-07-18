@@ -115,7 +115,6 @@ export default function Trippricecard({ tripDetails }) {
 
   // For adding addon
   useEffect(() => {
-    if (addOns.length === 0) return;
     setTotalPrice(calcTotal());
     setOldTotalPrice(calcOldTotal());
   }, [addOns, guests, accommodations]);
@@ -127,7 +126,6 @@ export default function Trippricecard({ tripDetails }) {
   
   // for loading data from checkout context
   useEffect(() => {
-    console.log("started");
     if (tripId && tripId === trip.id && lang === contextLanguage) {
       setAddOns(contextAddOns);
       setGuests(contextGuests);

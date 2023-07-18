@@ -5,9 +5,11 @@ import sunrise from "../../images/sunrise.svg";
 import location from "../../images/location2.svg";
 import clock from "../../images/clock2.svg";
 import people from "../../images/people2.svg";
+import dayjs from "dayjs";
 
 // TODO load the data from the trip object
 export default function Tripsummarydetails({ trip }) {
+  console.log(trip)
   return (
     <div className="trip-summary-details">
       {trip.hotelPickup && (
@@ -17,13 +19,11 @@ export default function Tripsummarydetails({ trip }) {
           <h3>Available</h3>
         </div>
       )}
-      {/*
       <div className="detail">
         <img src={sunrise} alt="" />
         <p>Start From</p>
-        <h3>6 AM</h3>
+        <h3>{trip.startTime ? dayjs(trip.startTime, "HH:mm").format("LT") : "9 AM"}</h3>
       </div>
-      */}
       <div className="detail">
         <img src={clock} alt="" />
         <p>Duration</p>
