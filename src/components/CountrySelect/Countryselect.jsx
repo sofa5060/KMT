@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
+import { LanguageContext } from "../../context/LanguageContextProvider";
 
 export default function Countryselect({ setNationality, inputNationality }) {
+  const { renderContent } = useContext(LanguageContext);
   useEffect(() => {
     if(!inputNationality){
       setNationality(countries[0].label);
@@ -43,7 +45,7 @@ export default function Countryselect({ setNationality, inputNationality }) {
       renderInput={(params) => (
         <TextField
           {...params}
-          label="Nationality"
+          label={renderContent("Nationality", "Nacionalidad", "Nacionalidade")}
           inputProps={{
             ...params.inputProps,
             autoComplete: "new-password", // disable autocomplete and autofill

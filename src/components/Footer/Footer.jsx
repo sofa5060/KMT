@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import "./Footer.css";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
@@ -15,23 +15,39 @@ import TikTokIcon from "../../images/tiktok.svg";
 import tripadvisor from "../../images/tripadvisor.svg";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import mc from "../../images/mc.svg";
+import { LanguageContext } from "../../context/LanguageContextProvider";
 
 export default function Footer() {
+  const { renderContent } = useContext(LanguageContext);
   return (
     <div className="footer-outer">
       <div className="footer-clip"></div>
       <div className="footer">
         <div className="footer-content">
           <div className="footer-left">
-            <h2>Ready to get started?</h2>
+            <h2>
+              {renderContent(
+                "Ready to get started?",
+                "¿Listo para empezar?",
+                "Pronto para começar?"
+              )}
+            </h2>
             <div className="m-left">
               <Link to="/trips" className="btn footer-btn">
-                Explore KMT Trips
+                {renderContent(
+                  "Explore KMT Trips",
+                  "Explora los viajes de KMT",
+                  "Explore as viagens da KMT"
+                )}
               </Link>
               <div className="row location">
                 <LocationOnIcon />
                 <p className="text">
-                  8 Gawad Housny st, Abdeen, Cairo Governorate 4280143
+                  {renderContent(
+                    "8 Gawad Housny st, Abdeen, Cairo Governorate 4280143",
+                    "8 Gawad Housny st, Abdeen, Gobernación de El Cairo 4280143",
+                    "8 Gawad Housny st, Abdeen, Governadoria do Cairo 4280143"
+                  )}
                 </p>
               </div>
               <div className="row space-between">
@@ -60,7 +76,7 @@ export default function Footer() {
                 </a>
               </div>
               <div className="social-media">
-                <p>Social Media</p>
+                <p>{renderContent("Social Media", "Redes sociales", "Mídia social")}</p>
                 <div className="social-media-links">
                   <a
                     href="https://www.facebook.com/Kmt.egytours"
@@ -110,8 +126,8 @@ export default function Footer() {
                 </div>
               </div>
               <div className="pages">
-                <Link to="/terms">Terms & Conditions</Link>
-                <Link to="/privacy">Privacy Policy</Link>
+                <Link to="/terms">{renderContent("Terms & Conditions", "Términos y condiciones", "Termos e Condições")}</Link>
+                <Link to="/privacy">{renderContent("Privacy Policy", "Política de privacidad", "Política de privacidade")}</Link>
               </div>
             </div>
           </div>

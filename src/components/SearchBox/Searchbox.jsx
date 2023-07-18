@@ -11,6 +11,7 @@ import { useHistory } from "react-router-dom";
 import Guestspicker from "../GuestsPicker/Guestspicker";
 import SearchQuery from "../../models/SearchQuery";
 import { useMediaQuery } from "@mui/material";
+import { LanguageContext } from "../../context/LanguageContextProvider";
 
 export default function Searchbox({ minimized }) {
   const history = useHistory();
@@ -22,6 +23,8 @@ export default function Searchbox({ minimized }) {
 
   const { searchForTrip, contextSearchTerm, contextDate, contextGuests, setIsWaitingForSearch, setContextDate, setContextGuests } =
     useContext(SearchContext);
+
+  const { renderContent } = useContext(LanguageContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -53,7 +56,7 @@ export default function Searchbox({ minimized }) {
         <div className="search-term">
           <div className="icon-header">
             <img src={location} alt="" />
-            {!minimized && <h4>Location</h4>}
+            {!minimized && <h4>{renderContent("Location", "Ubicación", "Localização")}</h4>}
           </div>
           <div className="term">
             <Searchtextbox
@@ -66,7 +69,7 @@ export default function Searchbox({ minimized }) {
         <div className="search-term">
           <div className="icon-header">
             <img src={clock} alt="" />
-            {!minimized && <h4>Date</h4>}
+            {!minimized && <h4>{renderContent("Date", "Fecha", "Data")}</h4>}
           </div>
           <div className="term">
             <div className="date-picker">
@@ -78,7 +81,7 @@ export default function Searchbox({ minimized }) {
         <div className="search-term">
           <div className="icon-header">
             <img src={people} alt="" />
-            {!minimized && <h4>Guests</h4>}
+            {!minimized && <h4>{renderContent("Guests", "Invitados", "Convidados")}</h4>}
           </div>
           <div className="term">
             <Guestspicker setGuestsCount={setGuests} value={guests} />

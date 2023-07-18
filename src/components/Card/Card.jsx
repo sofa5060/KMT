@@ -7,7 +7,8 @@ import EastIcon from "@mui/icons-material/East";
 import { LanguageContext } from "../../context/LanguageContextProvider";
 
 export default function Card({ data }) {
-  const { contextLanguage } = useContext(LanguageContext);
+  const { contextLanguage, renderContent } = useContext(LanguageContext);
+
   const displayCities = (cities) => {
     let result = "";
     for (let i = 0; i < cities.length && i < 3; i++) {
@@ -40,7 +41,7 @@ export default function Card({ data }) {
         </div>
       </div>
       <Link to={`/trip/${data.id}`} className="btn" id="explore-btn">
-        Explore More <EastIcon />
+        {renderContent("Explore More", "Explora más", "Explore mais")} <EastIcon />
       </Link>
     </div>
   );

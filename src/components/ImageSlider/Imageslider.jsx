@@ -64,15 +64,17 @@ export default function Imageslider() {
                 <h1>
                   {renderContent(
                     "Explore New Places of ",
-                    "Explore New Places on ",
-                    "Explore New Places in "
+                    "¡Explora nuevos lugares de ",
+                    "Explore novos lugares do "
                   )}
-                  <span>EGYPT!</span>
+                  <span>{renderContent("EGYPT", "EGIPTO", "EGIPTO")}!</span>
                 </h1>
                 <h3>
-                  Get a taste of the past on our trips to Egypt, where you’ll
-                  take a walk through the footsteps of the pharaohs through
-                  ancient temples and monuments.
+                  {renderContent(
+                    "Get a taste of the past on our trips to Egypt, where you’ll take a walk through the footsteps of the pharaohs through ancient temples and monuments.",
+                    "Obtenga un sabor del pasado en nuestros viajes a Egipto, donde dará un paseo por los pasos de los faraones a través de antiguos templos y monumentos.",
+                    "Obtenha um gostinho do passado em nossas viagens ao Egito, onde você fará uma caminhada pelos passos dos faraós por meio de templos e monumentos antigos."
+                  )}
                 </h3>
                 <div className="slider">
                   <span onClick={() => handleClick(img.searchTerm)}>

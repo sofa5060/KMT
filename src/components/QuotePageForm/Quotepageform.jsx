@@ -10,6 +10,7 @@ import dayjs from "dayjs";
 import Budget from "../Budget/Budget";
 import { QuoteContext } from "../../context/QuoteContextProvider";
 import { AlertContext } from "../../context/AlertContextProvider";
+import { LanguageContext } from "../../context/LanguageContextProvider";
 
 export default function Quotepageform({ minimized }) {
   const history = useHistory();
@@ -29,6 +30,7 @@ export default function Quotepageform({ minimized }) {
   const [currency, setCurrency] = useState("USD");
   const [healthConditions, setHealthConditions] = useState("");
   const [msg, setMsg] = useState("");
+  const { renderContent } = useContext(LanguageContext);
 
   const { showAlert } = useContext(AlertContext);
 
@@ -127,14 +129,14 @@ export default function Quotepageform({ minimized }) {
   return (
     <form className="quote-page-form" onSubmit={handleSubmit}>
       <TextField
-        label="Full Name"
+        label={renderContent("Full Name", "Nombre completo", "Nome completo")}
         value={fullName}
         onChange={(e) => setFullName(e.target.value)}
         required
         fullWidth
       />
       <TextField
-        label="Email Address"
+        label={renderContent("Email Address", "Dirección de correo electrónico", "Endereço de e-mail")}
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         type="email"
@@ -157,7 +159,7 @@ export default function Quotepageform({ minimized }) {
           <div className="row">
             <CountrySelect setNationality={setNationality} />
             <TextField
-              label="Age"
+              label={renderContent("Age", "Edad", "Idade")}
               type="number"
               value={age}
               onChange={(e) => setAge(e.target.value)}
@@ -172,26 +174,26 @@ export default function Quotepageform({ minimized }) {
             />
           </div>
           <div className="input-field">
-            <h4>How many are you?</h4>
+            <h4>{renderContent("How many are you?", "¿Cuántos son?", "Quantos são vocês?")}</h4>
             <Guestspicker setGuestsCount={setGuests} />
           </div>
           <div className="row">
             <Datepicker
               setDate={setCheckInDate}
-              label="Check In"
+              label={renderContent("Check In", "Registrarse", "Check-in")}
               inputDate={checkInDate}
               min={minDate}
             />
             <Datepicker
               setDate={setCheckOutDate}
-              label="Check Out"
+              label={renderContent("Check Out", "Revisa", "Check-out")}
               inputDate={checkOutDate}
               min={checkInDate}
               errorText={"Check Out Date must be after Check In Date"}
             />
           </div>
           <TextField
-            label="Place you want to visit"
+            label={renderContent("Places you want to visit", "Lugares que quieres visitar", "Lugares que você quer visitar")}
             required
             fullWidth
             value={places}
@@ -199,7 +201,7 @@ export default function Quotepageform({ minimized }) {
           />
           <Budget setOuterBudget={setBudget} setOuterCurrency={setCurrency} />
           <TextField
-            label="Any Health Condition?"
+            label={renderContent("Any Health Condition?", "Algún problema de salud?", "Alguma condição de saúde?")}
             fullWidth
             value={healthConditions}
             onChange={(e) => setHealthConditions(e.target.value)}
@@ -207,7 +209,7 @@ export default function Quotepageform({ minimized }) {
         </div>
       )}
       <TextField
-        label="Trip Plan & Additional Requests"
+        label={renderContent("Trip Plan & Additional Requests", "Plan de viaje y solicitudes adicionales", "Plano de viagem e solicitações adicionais")}
         multiline
         required
         fullWidth
@@ -215,7 +217,7 @@ export default function Quotepageform({ minimized }) {
         value={msg}
         onChange={(e) => setMsg(e.target.value)}
       />
-      <button className="btn">Request</button>
+      <button className="btn">{renderContent("Request", "Solicitud", "Solicitação")}</button>
     </form>
   );
 }

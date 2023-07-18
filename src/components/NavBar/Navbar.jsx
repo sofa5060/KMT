@@ -14,7 +14,7 @@ import { LanguageContext } from "../../context/LanguageContextProvider";
 export default function Navbar({ currPage }) {
   const [language, setLanguage] = useState("EN");
   const [open, setOpen] = useState(false);
-  const { changeLanguage, contextLanguage } = useContext(LanguageContext);
+  const { changeLanguage, contextLanguage, renderContent } = useContext(LanguageContext);
 
   const closeHandler = (event) => {
     if (
@@ -48,17 +48,17 @@ export default function Navbar({ currPage }) {
         <ul className="navbar-list">
           <li>
             <Link to="/" className={currPage === "home" ? "main" : ""}>
-              Home
+              {renderContent("Home", "Inicio", "Início")}
             </Link>
           </li>
           <li>
             <Link to="/trips" className={currPage === "trips" ? "main" : ""}>
-              Trips
+              {renderContent("Trips", "Viajes", "Viagens")}
             </Link>
           </li>
           <li>
             <Link to="/about" className={currPage === "about" ? "main" : ""}>
-              About Us
+              {renderContent("About Us", "Sobre Nosotros", "Sobre Nós")}
             </Link>
           </li>
           <li>
@@ -66,7 +66,7 @@ export default function Navbar({ currPage }) {
               to="/contact"
               className={currPage === "contact" ? "main" : ""}
             >
-              Contact Us
+              {renderContent("Contact Us", "Contáctenos", "Contate-nos")}
             </Link>
           </li>
         </ul>
@@ -102,7 +102,7 @@ export default function Navbar({ currPage }) {
                 className={currPage === "home" ? "main" : ""}
                 onClick={closeHandler}
               >
-                Home
+                {renderContent("Home", "Inicio", "Início")}
               </Link>
             </li>
             <li>
@@ -111,7 +111,7 @@ export default function Navbar({ currPage }) {
                 className={currPage === "trips" ? "main" : ""}
                 onClick={closeHandler}
               >
-                Trips
+                {renderContent("Trips", "Viajes", "Viagens")}
               </Link>
             </li>
             <li>
@@ -120,7 +120,7 @@ export default function Navbar({ currPage }) {
                 className={currPage === "about" ? "main" : ""}
                 onClick={closeHandler}
               >
-                About Us
+                {renderContent("About Us", "Sobre Nosotros", "Sobre Nós")}
               </Link>
             </li>
             <li>
@@ -129,7 +129,7 @@ export default function Navbar({ currPage }) {
                 className={currPage === "contact" ? "main" : ""}
                 onClick={closeHandler}
               >
-                Contact Us
+                {renderContent("Contact Us", "Contáctenos", "Contate-nos")}
               </Link>
             </li>
           </ul>
