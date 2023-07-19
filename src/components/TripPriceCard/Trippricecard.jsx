@@ -62,7 +62,7 @@ export default function Trippricecard({ tripDetails }) {
     lang,
   } = useContext(CheckoutContext);
   const { showAlert } = useContext(AlertContext);
-  const { contextLanguage } = useContext(LanguageContext);
+  const { contextLanguage, renderContent } = useContext(LanguageContext);
 
   const handleChange = (event) => {
     let addOn = addOns.find((addOn) => addOn.name === event.target.ariaLabel);
@@ -123,7 +123,7 @@ export default function Trippricecard({ tripDetails }) {
   useEffect(() => {
     setOpen(matches);
   }, [matches]);
-  
+
   // for loading data from checkout context
   useEffect(() => {
     if (tripId && tripId === trip.id && lang === contextLanguage) {
@@ -139,17 +139,25 @@ export default function Trippricecard({ tripDetails }) {
       <form className="price-card" onSubmit={handleSubmit}>
         {trip.oldPrice > 0 && (
           <div className="sale-banner">
-            <h3>ON SALE</h3>
+            <h3>{renderContent("ON SALE", "EN VENTA", "EM VENDA")}</h3>
           </div>
         )}
         <div className="row">
           <div className="trip-price-header">
             <h2 className={trip.oldPrice > 0 && "shifted"}>
               {trip.dayDuration === 1
-                ? "1 Day Trip"
-                : `${trip.dayDuration} Days Trip`}
+                ? renderContent(
+                    "1 Day Trip",
+                    "Viaje de 1 día",
+                    "Viagem de 1 dia"
+                  )
+                : renderContent(
+                    `${trip.dayDuration} Days Trip`,
+                    `Viaje de ${trip.dayDuration} días`,
+                    `Viagem de ${trip.dayDuration} dias`
+                  )}
             </h2>
-            <p>{trip.title}</p>
+            <p>{trip[contextLanguage].title}</p>
           </div>
           <div className="collapse-arrow" onClick={() => setOpen(!open)}>
             {open ? <ExpandLess /> : <ExpandMore />}
@@ -179,7 +187,7 @@ export default function Trippricecard({ tripDetails }) {
                   {addOn.name} (
                   {addOn.getPrice(guests) > 0
                     ? "+" + addOn.getPrice(guests) + " USD"
-                    : "Free"}
+                    : renderContent("Free", "Gratis", "Grátis")}
                   )
                 </p>
               </div>
@@ -187,7 +195,7 @@ export default function Trippricecard({ tripDetails }) {
           </div>
           {accommodations.length > 0 && (
             <div className="add-ons">
-              <h4>Accommodation</h4>
+              <h4>{renderContent("Accommodation", "Alojamiento", "Acomodação")}</h4>
               {accommodations.map((accommodation, index) => (
                 <div className="add-on" key={index}>
                   <Checkbox
@@ -206,7 +214,7 @@ export default function Trippricecard({ tripDetails }) {
                     {accommodation.name} Stars Hotel (
                     {accommodation.getPrice(guests) > 0
                       ? "+" + accommodation.getPrice(guests) + " USD"
-                      : "Free"}
+                      : renderContent("Free", "Gratis", "Grátis")}
                     )
                   </p>
                 </div>
@@ -217,11 +225,11 @@ export default function Trippricecard({ tripDetails }) {
             <Datepicker
               setDate={setDate}
               inputDate={date}
-              label="Booking Date"
+              label={renderContent("Booking Date", "Fecha de reserva", "Data de reserva")}
               disabledDays={trip.disabledDays}
             />
             <div className="input-field">
-              <h4>How many are you?</h4>
+              <h4>{renderContent("How many are you?", "¿Cuántos son?", "Quantos são vocês?")}</h4>
               <Guestspicker setGuestsCount={setGuests} value={guests} />
             </div>
           </div>
@@ -229,7 +237,7 @@ export default function Trippricecard({ tripDetails }) {
         </Collapse>
 
         <div className="price">
-          <h4>From</h4>
+          <h4>{renderContent("From", "De", "De")}</h4>
           <div className="price-section">
             <h2>
               <span>$</span>
@@ -238,13 +246,13 @@ export default function Trippricecard({ tripDetails }) {
             </h2>
             {trip.oldPrice > 0 && (
               <h3>
-                <span>Was</span>
+                <span>{renderContent("Was", "Era", "Era")}</span>
                 {oldTotalPrice} USD
               </h3>
             )}
           </div>
         </div>
-        <button className="btn">Book Now</button>
+        <button className="btn">{renderContent("Book Now", "Reserva ahora", "Reserve agora")}</button>
       </form>
     </div>
   );

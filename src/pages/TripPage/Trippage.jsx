@@ -21,7 +21,7 @@ export default function Trippage({ setCurrPage }) {
   const { tripID } = useParams();
   const [trips, setTrips] = useState([]);
   const [loaded, setLoaded] = useState(false);
-  const { contextLanguage } = useContext(LanguageContext);
+  const { contextLanguage, renderContent } = useContext(LanguageContext);
 
   const getTripByID = async (id) => {
     if (!id) return;
@@ -95,13 +95,17 @@ export default function Trippage({ setCurrPage }) {
             mainImage={trip.overViewImage}
           />
           <Tripsummarydetails trip={trip} />
-          <h3 className="section-header">Description</h3>
+          <h3 className="section-header">
+            {renderContent("Description", "Descripción", "Descrição")}
+          </h3>
           <div className="section-content">
             <ReactMarkdown>{trip[contextLanguage].description}</ReactMarkdown>
           </div>
           <Map locations={trip.locations} />
           <hr className="split-line" />
-          <h3 className="section-header">Inclusions</h3>
+          <h3 className="section-header">
+            {renderContent("Inclusions", "Inclusiones", "Inclusões")}
+          </h3>
           <div className="section-content">
             <ul className="bullet-list">
               {trip[contextLanguage].inclusion.map((item, index) => (
@@ -110,7 +114,9 @@ export default function Trippage({ setCurrPage }) {
             </ul>
             <hr className="split-line" />
           </div>
-          <h3 className="section-header">Exclusions</h3>
+          <h3 className="section-header">
+            {renderContent("Exclusions", "Exclusiones", "Exclusões")}
+          </h3>
           <div className="section-content">
             <ul className="bullet-list">
               {trip[contextLanguage].exclusion.map((item, index) => (
@@ -120,14 +126,22 @@ export default function Trippage({ setCurrPage }) {
             <hr className="split-line" />
           </div>
           <p className="contact">
-            For more information.... <Link to="/contact">Contact Us</Link>
+            {renderContent(
+              "For more information",
+              "Para más información",
+              "Para mais informações"
+            )}
+            ....{" "}
+            <Link to="/contact">
+              {renderContent("Contact Us", "Contáctenos", "Contate-Nos")}
+            </Link>
             <div className="divider">
               <hr />
-              <h4>OR</h4>
+              <h4>{renderContent("OR", "O", "OU")}</h4>
               <hr />
             </div>
             <div className="form">
-              <h3>Request Personalized Trip</h3>
+              <h3>{renderContent("Request Personalized Trip", "Solicitar viaje personalizado", "Solicitar viagem personalizada")}</h3>
               <Quotepageform minimized />
             </div>
           </p>
