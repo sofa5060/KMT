@@ -14,9 +14,14 @@ import { ExpandLess, ExpandMore } from "@mui/icons-material";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { CheckoutContext } from "../../context/CheckoutContextProvider";
 import Paypal from "../../components/Paypal/Paypal";
+import { LanguageContext } from "../../context/LanguageContextProvider";
 const { useHistory } = require("react-router-dom");
 
-const steps = ["Your Details", "Summary", "Payment", "Confirmation"];
+const steps = {
+  EN: ["Your Details", "Summary", "Payment", "Confirmation"],
+  ES: ["Tus datos", "Resumen", "Pago", "Confirmación"],
+  PT: ["Seus dados", "Resumo", "Pagamento", "Confirmação"],
+}
 
 export default function Checkoutpage({ setCurrPage }) {
   const [activeStep, setActiveStep] = useState(0);
@@ -26,6 +31,7 @@ export default function Checkoutpage({ setCurrPage }) {
 
   const { contextGuests, totalPrice, tripId, orderID } =
     useContext(CheckoutContext);
+  const { renderContent,contextLanguage } = useContext(LanguageContext);
 
   const matches = useMediaQuery("(min-width:1000px)");
   const matches2 = useMediaQuery("(max-width:600px)");
@@ -64,7 +70,7 @@ export default function Checkoutpage({ setCurrPage }) {
     <div className="checkout-page">
       <div className="left">
         <Stepper activeStep={activeStep} alternativeLabel={matches2}>
-          {steps.map((label, index) => {
+          {steps[contextLanguage].map((label, index) => {
             return (
               <Step key={label}>
                 <StepLabel>{label}</StepLabel>
@@ -88,13 +94,19 @@ export default function Checkoutpage({ setCurrPage }) {
             )}
             {activeStep === 2 && (
               <React.Fragment>
-                <h1>Choose Your Payment Method</h1>
+                <h1>
+                  {renderContent(
+                    "Choose Your Payment Method",
+                    "Elige tu método de pago",
+                    "Escolha seu método de pagamento"
+                  )}
+                </h1>
                 <Paypal finishCheckout={finishCheckout} />
                 <div
                   className="btn"
                   onClick={isDisabled ? () => {} : handleBack}
                 >
-                  Back
+                  {renderContent("Back", "Atrás", "Voltar")}
                 </div>
               </React.Fragment>
             )}
@@ -116,11 +128,11 @@ export default function Checkoutpage({ setCurrPage }) {
                 <div className="container-header">
                   {activeStep === 0 ? (
                     <React.Fragment>
-                      <h3>Summary</h3>
-                      <Link to={`/trip/${tripId}`}>EDIT</Link>
+                      <h3>{renderContent("Summary", "Resumen", "Resumo")}</h3>
+                      <Link to={`/trip/${tripId}`}>{renderContent("EDIT", "EDITAR", "EDITAR")}</Link>
                     </React.Fragment>
                   ) : (
-                    <h3>Total to pay</h3>
+                    <h3>{renderContent("Total to pay", "Total a pagar", "Total a pagar")}</h3>
                   )}
                 </div>
                 {activeStep === 0 && (
@@ -139,7 +151,11 @@ export default function Checkoutpage({ setCurrPage }) {
               </div>
               {activeStep === 1 && (
                 <button className="btn" onClick={handleNext}>
-                  Proceed To Payment
+                  {renderContent(
+                    "Proceed To Payment",
+                    "Proceder al pago",
+                    "Proceder ao pagamento"
+                  )}
                 </button>
               )}
             </div>

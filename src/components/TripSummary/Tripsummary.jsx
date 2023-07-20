@@ -7,6 +7,7 @@ import dayjs from "dayjs";
 import clock from "../../images/clock.svg";
 import people from "../../images/people.svg";
 import { CheckoutContext } from "../../context/CheckoutContextProvider";
+import { LanguageContext } from "../../context/LanguageContextProvider";
 
 export default function Tripsummary({ RHR }) {
   const {
@@ -17,14 +18,28 @@ export default function Tripsummary({ RHR }) {
     contextAccommodations,
     pickedAccommodation,
     contextTripTitle,
-    contextTripDuration
+    contextTripDuration,
   } = useContext(CheckoutContext);
+  const { renderContent } = useContext(LanguageContext);
   return (
     <div className="trip-summary">
       <div className="title">
         <div className="title-data">
           <h3>{contextTripTitle}</h3>
-          <p>{contextTripDuration > 1 ? `${contextTripDuration} Days` : "1 Day Trip"} - ({tripPrice} USD)</p>
+          <p>
+            {contextTripDuration > 1
+              ? renderContent(
+                  `${contextTripDuration} Days Trip`,
+                  `Viaje de ${contextTripDuration} días`,
+                  `Viagem de ${contextTripDuration} dias`
+                )
+              : renderContent(
+                  "1 Day Trip",
+                  "Viaje de 1 día",
+                  "Viagem de 1 dia"
+                )}{" "}
+            - ({tripPrice} USD)
+          </p>
         </div>
         <h5>x{contextGuests}</h5>
       </div>
@@ -45,7 +60,7 @@ export default function Tripsummary({ RHR }) {
       {pickedAccommodation && (
         <React.Fragment>
           <hr />
-          <h4>Accommodation</h4>
+          <h4>{renderContent("Accommodation", "Alojamiento", "Acomodação")}</h4>
           <div className="addOns">
             {contextAccommodations.map((accommodation) => {
               if (accommodation.checked) {
@@ -80,7 +95,9 @@ export default function Tripsummary({ RHR }) {
         </div>
         <div className="booking-detail">
           <img src={people} alt="people" />
-          <p>{contextGuests} Guests</p>
+          <p>
+            {contextGuests} {renderContent("Guests", "Invitados", "Convidados")}
+          </p>
         </div>
       </div>
     </div>
