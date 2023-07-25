@@ -145,16 +145,28 @@ export default function Trippricecard({ tripDetails }) {
         <div className="row">
           <div className="trip-price-header">
             <h2 className={trip.oldPrice > 0 && "shifted"}>
-              {trip.dayDuration === 1
+              {trip.dayDuration > 0
+                ? trip.dayDuration === 1
+                  ? renderContent(
+                      "1 Day Trip",
+                      "Viaje de 1 día",
+                      "Viagem de 1 dia"
+                    )
+                  : renderContent(
+                      `${trip.dayDuration} Days Trip`,
+                      `Viaje de ${trip.dayDuration} días`,
+                      `Viagem de ${trip.dayDuration} dias`
+                    )
+                : trip.nightDuration === 1
                 ? renderContent(
-                    "1 Day Trip",
-                    "Viaje de 1 día",
-                    "Viagem de 1 dia"
+                    "1 Night Trip",
+                    "Viaje de 1 noche",
+                    "Viagem de 1 noite"
                   )
                 : renderContent(
-                    `${trip.dayDuration} Days Trip`,
-                    `Viaje de ${trip.dayDuration} días`,
-                    `Viagem de ${trip.dayDuration} dias`
+                    `${trip.nightDuration} Nights Trip`,
+                    `Viaje de ${trip.nightDuration} noches`,
+                    `Viagem de ${trip.nightDuration} noites`
                   )}
             </h2>
             <p>{trip[contextLanguage].title}</p>
@@ -195,7 +207,9 @@ export default function Trippricecard({ tripDetails }) {
           </div>
           {accommodations.length > 0 && (
             <div className="add-ons">
-              <h4>{renderContent("Accommodation", "Alojamiento", "Acomodação")}</h4>
+              <h4>
+                {renderContent("Accommodation", "Alojamiento", "Acomodação")}
+              </h4>
               {accommodations.map((accommodation, index) => (
                 <div className="add-on" key={index}>
                   <Checkbox
@@ -225,11 +239,21 @@ export default function Trippricecard({ tripDetails }) {
             <Datepicker
               setDate={setDate}
               inputDate={date}
-              label={renderContent("Booking Date", "Fecha de reserva", "Data de reserva")}
+              label={renderContent(
+                "Booking Date",
+                "Fecha de reserva",
+                "Data de reserva"
+              )}
               disabledDays={trip.disabledDays}
             />
             <div className="input-field">
-              <h4>{renderContent("How many are you?", "¿Cuántos son?", "Quantos são vocês?")}</h4>
+              <h4>
+                {renderContent(
+                  "How many are you?",
+                  "¿Cuántos son?",
+                  "Quantos são vocês?"
+                )}
+              </h4>
               <Guestspicker setGuestsCount={setGuests} value={guests} />
             </div>
           </div>
@@ -252,7 +276,9 @@ export default function Trippricecard({ tripDetails }) {
             )}
           </div>
         </div>
-        <button className="btn">{renderContent("Book Now", "Reserva ahora", "Reserve agora")}</button>
+        <button className="btn">
+          {renderContent("Book Now", "Reserva ahora", "Reserve agora")}
+        </button>
       </form>
     </div>
   );

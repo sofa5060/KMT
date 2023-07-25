@@ -41,9 +41,10 @@ export default function Tripsummarydetails({ trip }) {
         <img src={clock} alt="" />
         <p>{renderContent("Duration", "Duración", "Duración")}</p>
         <h3>
-          {trip.dayDuration} {renderContent("Day(s) ", "Día(s) ", "Dia(s) ")}
+          {trip.dayDuration > 0 && renderContent(`${trip.dayDuration} Day(s) `, `${trip.dayDuration} Día(s) `, `${trip.dayDuration} Dia(s) `)}
+          {trip.dayDuration > 0 && trip.nightDuration > 0 && " / "}
           {trip.nightDuration > 0 &&
-            `/ ${trip.nightDuration} ${renderContent(
+            `${trip.nightDuration} ${renderContent(
               "Night(s)",
               "Noche(s)",
               "Noite(s)"

@@ -50,8 +50,14 @@ $golos: main.$golos;
     padding: 0 50px;
     margin: 0 auto;
 
-    .logo{
-      .show-sm{
+    .logo {
+      width: 65px;
+
+      img {
+        width: 100%;
+      }
+
+      .show-sm {
         display: none;
       }
     }
@@ -91,7 +97,7 @@ $golos: main.$golos;
   text-align: start;
   min-width: 200px;
 
-  img{
+  img {
     margin: 0 0 0 -20px;
   }
 
@@ -125,12 +131,12 @@ $golos: main.$golos;
     .navbar {
       padding: 5px 50px;
 
-      .logo{
-        .show-sm{
+      .logo {
+        .show-sm {
           display: block;
         }
 
-        .hide-sm{
+        .hide-sm {
           display: none;
         }
       }
