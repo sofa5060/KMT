@@ -27,6 +27,7 @@ export default function Trippricecard({ tripDetails }) {
   const matches = useMediaQuery("(min-width:900px)");
   const [totalPrice, setTotalPrice] = useState(0);
   const [oldTotalPrice, setOldTotalPrice] = useState(0);
+  const [englishAddOns, setEnglishAddOns] = useState(tripDetails.englishAddOns || []);
 
   const calcTotal = () => {
     let total = new Prices(trip.prices).getPrice(guests);
@@ -67,8 +68,11 @@ export default function Trippricecard({ tripDetails }) {
 
   const handleChange = (event) => {
     let addOn = addOns.find((addOn) => addOn.name === event.target.ariaLabel);
+    let index = addOns.findIndex((addOn) => addOn.name === event.target.ariaLabel);
     addOn.checked = event.target.checked;
+    englishAddOns[index].checked = event.target.checked;
     setAddOns([...addOns]);
+    setEnglishAddOns([...englishAddOns]);
   };
 
   const handleAccommodationChange = (event) => {
@@ -109,7 +113,9 @@ export default function Trippricecard({ tripDetails }) {
       pickedAccommodation,
       trip[contextLanguage].title,
       trip.dayDuration,
-      contextLanguage
+      contextLanguage,
+      englishAddOns,
+      trip["EN"].title
     );
     history.push("/checkout");
   };

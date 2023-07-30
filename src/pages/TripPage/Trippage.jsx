@@ -22,6 +22,7 @@ export default function Trippage({ setCurrPage }) {
   const [trips, setTrips] = useState([]);
   const [loaded, setLoaded] = useState(false);
   const { contextLanguage, renderContent } = useContext(LanguageContext);
+  const [englishAddOns, setEnglishAddOns] = useState([]);
 
   const getTripByID = async (id) => {
     if (!id) return;
@@ -41,6 +42,11 @@ export default function Trippage({ setCurrPage }) {
             accommodation.checked
           )
       );
+      // English addOns
+      resTrip.englishAddOns = resTrip['EN'].addOns.map(
+        (addOn) => new AddOn(addOn.name, addOn.prices, addOn.checked)
+      );
+
       setTrip(resTrip);
     } catch (e) {
       setNotFound(true);
@@ -52,7 +58,6 @@ export default function Trippage({ setCurrPage }) {
   useEffect(() => {
     setTrip(null);
     getTripByID(tripID);
-    console.log("requested trip");
   }, [tripID, contextLanguage]);
 
   useEffect(() => {
