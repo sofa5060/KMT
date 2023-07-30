@@ -5,6 +5,7 @@ import "./Card.css";
 import { Link } from "react-router-dom";
 import EastIcon from "@mui/icons-material/East";
 import { LanguageContext } from "../../context/LanguageContextProvider";
+import Prices from "../../models/Prices";
 
 export default function Card({ data }) {
   const { contextLanguage, renderContent } = useContext(LanguageContext);
@@ -36,12 +37,13 @@ export default function Card({ data }) {
           <hr />
           <div className="feature">
             <img src={price} alt="" />
-            <h5>${data.price}</h5>
+            <h5>${new Prices(data.prices).getPrice(1)}</h5>
           </div>
         </div>
       </div>
       <Link to={`/trip/${data.id}`} className="btn" id="explore-btn">
-        {renderContent("Explore More", "Explora más", "Explore mais")} <EastIcon />
+        {renderContent("Explore More", "Explora más", "Explore mais")}{" "}
+        <EastIcon />
       </Link>
     </div>
   );

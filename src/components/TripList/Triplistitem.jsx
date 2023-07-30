@@ -5,9 +5,12 @@ import price from "../../images/price.svg";
 import EastIcon from "@mui/icons-material/East";
 import "./Triplistitem.css";
 import { LanguageContext } from "../../context/LanguageContextProvider";
+import Prices from "../../models/Prices";
+import { SearchContext } from "../../context/SearchContextProvider";
 
 export default function Triplistitem({ trip }) {
   const { contextLanguage, renderContent } = useContext(LanguageContext);
+  const {contextGuests} = useContext(SearchContext);
   const displayCities = (cities) => {
     let result = "";
     for (let i = 0; i < cities.length && i < 3; i++) {
@@ -35,7 +38,7 @@ export default function Triplistitem({ trip }) {
           <hr />
           <div className="feature">
             <img src={price} alt="" />
-            <h5>${trip.price.toFixed(2)}</h5>
+            <h5>${trip.price > 0 ? trip.price : new Prices(trip.prices).getPrice(contextGuests).toFixed(2) * contextGuests}</h5>
           </div>
         </div>
         <Link to={`/trip/${trip.id}`}>

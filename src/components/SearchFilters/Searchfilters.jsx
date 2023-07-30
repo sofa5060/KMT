@@ -7,13 +7,19 @@ import { LanguageContext } from "../../context/LanguageContextProvider";
 
 export default function Searchfilters({ big }) {
   const { renderContent, contextLanguage } = useContext(LanguageContext);
-  const { contextCities, filterTrips, setClearFilters, clearFilters } =
-    useContext(SearchContext);
+  const {
+    contextCities,
+    filterTrips,
+    setClearFilters,
+    clearFilters,
+    contextMaxPrice,
+    contextMaxPriceRange
+  } = useContext(SearchContext);
   const [filteredDestinations, setFilteredDestinations] = useState([]);
   const [filteredMaxGroupSize, setFilteredMaxGroupSize] = useState(1);
   const [filteredDurations, setFilteredDurations] = useState([]); // ["1 Day", "2 - 5 Days", "5 - 10 Days", "10 - 15 Days"]
   const [accommodation, setAccommodation] = useState(0);
-  const [priceRange, setPriceRange] = useState([0, 1000]);
+  const [priceRange, setPriceRange] = useState([0, contextMaxPriceRange]);
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(1000);
   const [filters, setFilters] = useState([
@@ -112,7 +118,6 @@ export default function Searchfilters({ big }) {
       ],
     },
   ]);
-  const [contextMaxPrice, setContextMaxPrice] = useState(5000);
 
   const addToDestinations = (destination) => {
     setFilteredDestinations((prevDestinations) => [
@@ -198,8 +203,12 @@ export default function Searchfilters({ big }) {
   useEffect(() => {
     setMinPrice(0);
     setMaxPrice(contextMaxPrice);
-    setPriceRange([0, contextMaxPrice]);
   }, [contextMaxPrice]);
+
+  useEffect(() => {
+    setPriceRange([0, contextMaxPriceRange]);
+  }, [contextMaxPriceRange])
+
 
   useEffect(() => {
     // Load filters again when language changes
@@ -336,7 +345,11 @@ export default function Searchfilters({ big }) {
         maxPrice={maxPrice}
         setPriceRange={setPriceRange}
       />
-      <input type="submit" value={renderContent("Apply", "Aplicar", "Aplicar")} className="btn" />
+      <input
+        type="submit"
+        value={renderContent("Apply", "Aplicar", "Aplicar")}
+        className="btn"
+      />
     </form>
   );
 }

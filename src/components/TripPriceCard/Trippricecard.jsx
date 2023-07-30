@@ -11,6 +11,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { CheckoutContext } from "../../context/CheckoutContextProvider";
 import { AlertContext } from "../../context/AlertContextProvider";
 import { LanguageContext } from "../../context/LanguageContextProvider";
+import Prices from "../../models/Prices";
 
 export default function Trippricecard({ tripDetails }) {
   const history = useHistory();
@@ -28,7 +29,7 @@ export default function Trippricecard({ tripDetails }) {
   const [oldTotalPrice, setOldTotalPrice] = useState(0);
 
   const calcTotal = () => {
-    let total = trip.price;
+    let total = new Prices(trip.prices).getPrice(guests);
     setPickedAccommodation(false);
     for (let i = 0; i < addOns.length; i++)
       if (addOns[i].checked) total += addOns[i].getPrice(guests);
@@ -42,7 +43,7 @@ export default function Trippricecard({ tripDetails }) {
   };
 
   const calcOldTotal = () => {
-    let total = trip.oldPrice || trip.price;
+    let total = new Prices(trip.prices).getOldPrice(guests);
     for (let i = 0; i < addOns.length; i++)
       if (addOns[i].checked) total += addOns[i].getOldPrice(guests);
 
@@ -102,7 +103,7 @@ export default function Trippricecard({ tripDetails }) {
       guests,
       date,
       totalPrice,
-      trip.price,
+      new Prices(trip.prices).getPrice(guests),
       trip.id,
       accommodations,
       pickedAccommodation,
@@ -268,7 +269,7 @@ export default function Trippricecard({ tripDetails }) {
               {totalPrice}
               <span>USD</span>
             </h2>
-            {trip.oldPrice > 0 && (
+            {new Prices(trip.prices).getOldPrice(guests) > 0 && (
               <h3>
                 <span>{renderContent("Was", "Era", "Era")}</span>
                 {oldTotalPrice} USD
