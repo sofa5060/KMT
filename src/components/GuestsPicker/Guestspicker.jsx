@@ -40,6 +40,7 @@ export default function Guestspicker({ setGuestsCount, value }) {
             setGuests(1);
         }}
         min="1"
+        onWheel={(e) => e.target.blur()}
       />
       <AddIcon onClick={incrementGuests} />
     </div>

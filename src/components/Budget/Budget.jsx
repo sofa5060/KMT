@@ -38,6 +38,7 @@ export default function Budget({ setOuterCurrency, setOuterBudget }) {
       <TextField
         label={renderContent("Budget Per Person", "Presupuesto por persona", "Orçamento por pessoa")}
         type="number"
+        onWheel={(e) => e.target.blur()}
         value={budget}
         onChange={(e) => setBudget(e.target.value)}
         error={(budget < 1 || isNaN(parseInt(budget))) && budget !== ""}

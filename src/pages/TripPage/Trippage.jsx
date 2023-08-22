@@ -22,7 +22,6 @@ export default function Trippage({ setCurrPage }) {
   const [trips, setTrips] = useState([]);
   const [loaded, setLoaded] = useState(false);
   const { contextLanguage, renderContent } = useContext(LanguageContext);
-  const [englishAddOns, setEnglishAddOns] = useState([]);
 
   const getTripByID = async (id) => {
     if (!id) return;

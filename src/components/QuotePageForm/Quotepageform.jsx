@@ -171,6 +171,7 @@ export default function Quotepageform({ minimized }) {
                   ? "Age must be greater than 16"
                   : ""
               }
+              onWheel={(e) => e.target.blur()}
             />
           </div>
           <div className="input-field">

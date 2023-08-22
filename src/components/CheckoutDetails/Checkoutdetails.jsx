@@ -174,6 +174,7 @@ export default function Checkoutdetails({ guests, handleNext }) {
                   ? "Age must be greater than 16"
                   : ""
               }
+              onWheel={(e) => e.target.blur()}
             />
           </div>
           <TextField
