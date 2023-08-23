@@ -144,7 +144,7 @@ export default function Trippricecard({ tripDetails }) {
   return (
     <div className="price-card-container">
       <form className="price-card" onSubmit={handleSubmit}>
-        {trip.oldPrice > 0 && (
+        {new Prices(trip.prices).getOldPrice(guests) > 0 && (
           <div className="sale-banner">
             <h3>{renderContent("ON SALE", "EN VENTA", "EM VENDA")}</h3>
           </div>
