@@ -13,6 +13,7 @@ import AddOn from "../../models/AddOn";
 import { CircularProgress } from "@mui/material";
 import Messagepage from "../../components/MessagePage/Messagepage";
 import ReactMarkdown from "react-markdown";
+import { LanguageContext } from "../../context/LanguageContextProvider";
 
 export default function Trippage({ setCurrPage }) {
   const [trip, setTrip] = useState(null);
@@ -20,15 +21,16 @@ export default function Trippage({ setCurrPage }) {
   const { tripID } = useParams();
   const [trips, setTrips] = useState([]);
   const [loaded, setLoaded] = useState(false);
+  const { contextLanguage, renderContent } = useContext(LanguageContext);
 
   const getTripByID = async (id) => {
-    if (trip && trip.id === id) return;
+    if (!id) return;
     try {
       const res = await axios.get(
         `${process.env.REACT_APP_BACKEND_URL}/api/trip/${id}`
       );
       let resTrip = res.data;
-      resTrip.addOns = resTrip.addOns.map(
+      resTrip.addOns = resTrip[contextLanguage].addOns.map(
         (addOn) => new AddOn(addOn.name, addOn.prices, addOn.checked)
       );
       resTrip.accommodations = resTrip.accommodations.map(
@@ -39,18 +41,23 @@ export default function Trippage({ setCurrPage }) {
             accommodation.checked
           )
       );
+      // English addOns
+      resTrip.englishAddOns = resTrip['EN'].addOns.map(
+        (addOn) => new AddOn(addOn.name, addOn.prices, addOn.checked)
+      );
+
       setTrip(resTrip);
     } catch (e) {
       setNotFound(true);
       console.log(e);
-      // setTrip(contextTrip);
     }
     window.scrollTo(0, 0);
   };
 
   useEffect(() => {
+    setTrip(null);
     getTripByID(tripID);
-  }, [tripID]);
+  }, [tripID, contextLanguage]);
 
   useEffect(() => {
     setCurrPage("trips");
@@ -86,45 +93,59 @@ export default function Trippage({ setCurrPage }) {
     <div className="trip-page-container">
       <div className="trip-page">
         <div className="trip-content">
-          <h1>{trip.title}</h1>
+          <h1>{trip[contextLanguage].title}</h1>
           <Imagesviewer
             imagesList={trip.images}
             mainImage={trip.overViewImage}
           />
           <Tripsummarydetails trip={trip} />
-          <h3 className="section-header">Description</h3>
+          <h3 className="section-header">
+            {renderContent("Description", "Descripción", "Descrição")}
+          </h3>
           <div className="section-content">
-            <ReactMarkdown>{trip.description}</ReactMarkdown>
+            <ReactMarkdown>{trip[contextLanguage].description}</ReactMarkdown>
           </div>
           <Map locations={trip.locations} />
           <hr className="split-line" />
-          <h3 className="section-header">Inclusions</h3>
+          <h3 className="section-header">
+            {renderContent("Inclusions", "Inclusiones", "Inclusões")}
+          </h3>
           <div className="section-content">
             <ul className="bullet-list">
-              {trip.inclusion.map((item, index) => (
+              {trip[contextLanguage].inclusion.map((item, index) => (
                 <li key={index}>{item}</li>
               ))}
             </ul>
             <hr className="split-line" />
           </div>
-          <h3 className="section-header">Exclusions</h3>
+          <h3 className="section-header">
+            {renderContent("Exclusions", "Exclusiones", "Exclusões")}
+          </h3>
           <div className="section-content">
             <ul className="bullet-list">
-              {trip.exclusion.map((item, index) => (
+              {trip[contextLanguage].exclusion.map((item, index) => (
                 <li key={index}>{item}</li>
               ))}
             </ul>
             <hr className="split-line" />
           </div>
           <p className="contact">
-            For more information.... <Link to="/contact">Contact Us</Link>
+            {renderContent(
+              "For more information",
+              "Para más información",
+              "Para mais informações"
+            )}
+            ....{" "}
+            <Link to="/contact">
+              {renderContent("Contact Us", "Contáctenos", "Contate-Nos")}
+            </Link>
             <div className="divider">
               <hr />
-              <h4>OR</h4>
+              <h4>{renderContent("OR", "O", "OU")}</h4>
               <hr />
             </div>
             <div className="form">
-              <h3>Request Personalized Trip</h3>
+              <h3>{renderContent("Request Personalized Trip", "Solicitar viaje personalizado", "Solicitar viagem personalizada")}</h3>
               <Quotepageform minimized />
             </div>
           </p>

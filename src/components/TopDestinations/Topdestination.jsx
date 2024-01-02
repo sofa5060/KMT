@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import Skeleton from "@mui/material/Skeleton";
 import "./Topdestination.css";
@@ -6,9 +6,11 @@ import axios from "axios";
 import "animate.css/animate.min.css";
 import Cardlist from "../CardList/Cardlist";
 import { useMediaQuery } from "@mui/material";
+import { LanguageContext } from "../../context/LanguageContextProvider";
 
 export default function Topdestination() {
   const [destinations, setDestinations] = useState(null);
+  const { renderContent } = useContext(LanguageContext);
 
   const matches = useMediaQuery("(max-width:1000px)");
 
@@ -31,9 +33,19 @@ export default function Topdestination() {
 
   return (
     <div className="top-destination">
-      <h3>Top Destinations</h3>
+      <h3>
+        {renderContent(
+          "Top Destinations",
+          "Destinos principales",
+          "Principais destinos"
+        )}
+      </h3>
       <p>
-        Journey Through Time: Explore Egypt's Most Iconic Sites with KMT Tours!
+        {renderContent(
+          "Journey Through Time: Explore Egypt's Most Iconic Sites with KMT Tours!",
+          "Viaje a través del tiempo: ¡Explore los sitios más emblemáticos de Egipto con KMT Tours!",
+          "Viagem Através do Tempo: Explore os Locais Mais Icônicos do Egito com a KMT Tours!"
+        )}
       </p>
       {destinations ? (
         <Cardlist destinations={destinations} />
@@ -45,7 +57,11 @@ export default function Topdestination() {
         </div>
       )}
       <Link to="/trips" className="btn">
-        Show More Destinations
+        {renderContent(
+          "Show More Destinations",
+          "Muestra más destinos",
+          "Mostre mais destinos"
+        )}
       </Link>
     </div>
   );

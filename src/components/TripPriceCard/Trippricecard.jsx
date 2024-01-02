@@ -9,19 +9,50 @@ import Collapse from "@mui/material/Collapse";
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { CheckoutContext } from "../../context/CheckoutContextProvider";
+import { AlertContext } from "../../context/AlertContextProvider";
+import { LanguageContext } from "../../context/LanguageContextProvider";
+import Prices from "../../models/Prices";
 
 export default function Trippricecard({ tripDetails }) {
   const history = useHistory();
-  const [addOns, setAddOns] = useState([]);
-  const [accommodations, setAccommodations] = useState([]);
-  const [trip, setTrip] = useState("");
+  const [addOns, setAddOns] = useState(tripDetails.addOns || []);
+  const [accommodations, setAccommodations] = useState(
+    tripDetails.accommodations || []
+  );
+  const [trip, setTrip] = useState(tripDetails || "");
   const [date, setDate] = useState(dayjs());
   const [guests, setGuests] = useState(1);
   const [open, setOpen] = useState(true);
-  const [totalPrice, setTotalPrice] = useState(0);
-  const [oldTotalPrice, setOldTotalPrice] = useState(0);
   const [pickedAccommodation, setPickedAccommodation] = useState(false);
   const matches = useMediaQuery("(min-width:900px)");
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [oldTotalPrice, setOldTotalPrice] = useState(0);
+  const [englishAddOns, setEnglishAddOns] = useState(tripDetails.englishAddOns || []);
+
+  const calcTotal = () => {
+    let total = new Prices(trip.prices).getPrice(guests);
+    setPickedAccommodation(false);
+    for (let i = 0; i < addOns.length; i++)
+      if (addOns[i].checked) total += addOns[i].getPrice(guests);
+
+    for (let i = 0; i < accommodations.length; i++)
+      if (accommodations[i].checked) {
+        setPickedAccommodation(true);
+        total += accommodations[i].getPrice(guests);
+      }
+    return (total * guests).toFixed(2);
+  };
+
+  const calcOldTotal = () => {
+    let total = new Prices(trip.prices).getOldPrice(guests);
+    for (let i = 0; i < addOns.length; i++)
+      if (addOns[i].checked) total += addOns[i].getOldPrice(guests);
+
+    for (let i = 0; i < accommodations.length; i++)
+      if (accommodations[i].checked)
+        total += accommodations[i].getOldPrice(guests);
+    return (total * guests).toFixed(2);
+  };
 
   const {
     startCheckout,
@@ -30,12 +61,18 @@ export default function Trippricecard({ tripDetails }) {
     contextGuests,
     contextDate,
     contextAccommodations,
+    lang,
   } = useContext(CheckoutContext);
+  const { showAlert } = useContext(AlertContext);
+  const { contextLanguage, renderContent } = useContext(LanguageContext);
 
   const handleChange = (event) => {
     let addOn = addOns.find((addOn) => addOn.name === event.target.ariaLabel);
+    let index = addOns.findIndex((addOn) => addOn.name === event.target.ariaLabel);
     addOn.checked = event.target.checked;
+    englishAddOns[index].checked = event.target.checked;
     setAddOns([...addOns]);
+    setEnglishAddOns([...englishAddOns]);
   };
 
   const handleAccommodationChange = (event) => {
@@ -61,64 +98,30 @@ export default function Trippricecard({ tripDetails }) {
     if (
       tripDetails.disabledDays &&
       tripDetails.disabledDays.includes(date.day())
-    )
+    ) {
+      showAlert("error", "This day is not available");
       return;
+    }
     startCheckout(
       addOns,
       guests,
       date,
       totalPrice,
-      trip.price,
+      new Prices(trip.prices).getPrice(guests),
       trip.id,
       accommodations,
       pickedAccommodation,
-      trip.title,
-      trip.dayDuration
+      trip[contextLanguage].title,
+      trip.dayDuration,
+      contextLanguage,
+      englishAddOns,
+      trip["EN"].title
     );
     history.push("/checkout");
   };
 
-  const calcTotal = () => {
-    let total = trip.price;
-
-    setPickedAccommodation(false);
-
-    for (let i = 0; i < addOns.length; i++)
-      if (addOns[i].checked) total += addOns[i].getPrice(guests);
-
-    for (let i = 0; i < accommodations.length; i++)
-      if (accommodations[i].checked){
-        setPickedAccommodation(true);
-        total += accommodations[i].getPrice(guests);
-      } 
-    return (total * guests).toFixed(2);
-  };
-
-  const calcOldTotal = () => {
-    let total = trip.oldPrice || trip.price;
-
-    for (let i = 0; i < addOns.length; i++)
-      if (addOns[i].checked) total += addOns[i].getOldPrice(guests)
-
-    for (let i = 0; i < accommodations.length; i++)
-      if (accommodations[i].checked) total += accommodations[i].getOldPrice(guests);
-
-    return (total * guests).toFixed(2);
-  };
-
-  // For loading
-  useEffect(() => {
-    if (!tripDetails) return;
-    setAddOns(tripDetails.addOns);
-    setTrip(tripDetails);
-    setTotalPrice(calcTotal());
-    setOldTotalPrice(calcOldTotal());
-    setAccommodations(tripDetails.accommodations);
-  }, [tripDetails]);
-
   // For adding addon
   useEffect(() => {
-    if (!addOns.length) return;
     setTotalPrice(calcTotal());
     setOldTotalPrice(calcOldTotal());
   }, [addOns, guests, accommodations]);
@@ -130,29 +133,50 @@ export default function Trippricecard({ tripDetails }) {
 
   // for loading data from checkout context
   useEffect(() => {
-    if (!tripId || tripId !== trip.id) return;
-    setAddOns(contextAddOns);
-    setGuests(contextGuests);
-    setDate(contextDate);
-    setAccommodations(contextAccommodations);
-  }, [tripId, trip.id]);
+    if (tripId && tripId === trip.id && lang === contextLanguage) {
+      setAddOns(contextAddOns);
+      setGuests(contextGuests);
+      setDate(contextDate);
+      setAccommodations(contextAccommodations);
+    }
+  }, []);
 
   return (
     <div className="price-card-container">
       <form className="price-card" onSubmit={handleSubmit}>
-        {trip.oldPrice > 0 && (
+        {new Prices(trip.prices).getOldPrice(guests) > 0 && (
           <div className="sale-banner">
-            <h3>ON SALE</h3>
+            <h3>{renderContent("ON SALE", "EN VENTA", "EM VENDA")}</h3>
           </div>
         )}
         <div className="row">
           <div className="trip-price-header">
             <h2 className={trip.oldPrice > 0 && "shifted"}>
-              {trip.dayDuration === 1
-                ? "1 Day Trip"
-                : `${trip.dayDuration} Days Trip`}
+              {trip.dayDuration > 0
+                ? trip.dayDuration === 1
+                  ? renderContent(
+                      "1 Day Trip",
+                      "Viaje de 1 día",
+                      "Viagem de 1 dia"
+                    )
+                  : renderContent(
+                      `${trip.dayDuration} Days Trip`,
+                      `Viaje de ${trip.dayDuration} días`,
+                      `Viagem de ${trip.dayDuration} dias`
+                    )
+                : trip.nightDuration === 1
+                ? renderContent(
+                    "1 Night Trip",
+                    "Viaje de 1 noche",
+                    "Viagem de 1 noite"
+                  )
+                : renderContent(
+                    `${trip.nightDuration} Nights Trip`,
+                    `Viaje de ${trip.nightDuration} noches`,
+                    `Viagem de ${trip.nightDuration} noites`
+                  )}
             </h2>
-            <p>{trip.title}</p>
+            <p>{trip[contextLanguage].title}</p>
           </div>
           <div className="collapse-arrow" onClick={() => setOpen(!open)}>
             {open ? <ExpandLess /> : <ExpandMore />}
@@ -182,7 +206,7 @@ export default function Trippricecard({ tripDetails }) {
                   {addOn.name} (
                   {addOn.getPrice(guests) > 0
                     ? "+" + addOn.getPrice(guests) + " USD"
-                    : "Free"}
+                    : renderContent("Free", "Gratis", "Grátis")}
                   )
                 </p>
               </div>
@@ -190,7 +214,9 @@ export default function Trippricecard({ tripDetails }) {
           </div>
           {accommodations.length > 0 && (
             <div className="add-ons">
-              <h4>Accommodation</h4>
+              <h4>
+                {renderContent("Accommodation", "Alojamiento", "Acomodação")}
+              </h4>
               {accommodations.map((accommodation, index) => (
                 <div className="add-on" key={index}>
                   <Checkbox
@@ -209,7 +235,7 @@ export default function Trippricecard({ tripDetails }) {
                     {accommodation.name} Stars Hotel (
                     {accommodation.getPrice(guests) > 0
                       ? "+" + accommodation.getPrice(guests) + " USD"
-                      : "Free"}
+                      : renderContent("Free", "Gratis", "Grátis")}
                     )
                   </p>
                 </div>
@@ -220,11 +246,21 @@ export default function Trippricecard({ tripDetails }) {
             <Datepicker
               setDate={setDate}
               inputDate={date}
-              label="Booking Date"
+              label={renderContent(
+                "Booking Date",
+                "Fecha de reserva",
+                "Data de reserva"
+              )}
               disabledDays={trip.disabledDays}
             />
             <div className="input-field">
-              <h4>How many are you?</h4>
+              <h4>
+                {renderContent(
+                  "How many are you?",
+                  "¿Cuántos son?",
+                  "Quantos são vocês?"
+                )}
+              </h4>
               <Guestspicker setGuestsCount={setGuests} value={guests} />
             </div>
           </div>
@@ -232,22 +268,24 @@ export default function Trippricecard({ tripDetails }) {
         </Collapse>
 
         <div className="price">
-          <h4>From</h4>
+          <h4>{renderContent("From", "De", "De")}</h4>
           <div className="price-section">
             <h2>
               <span>$</span>
               {totalPrice}
               <span>USD</span>
             </h2>
-            {trip.oldPrice > 0 && (
+            {new Prices(trip.prices).getOldPrice(guests) > 0 && (
               <h3>
-                <span>Was</span>
+                <span>{renderContent("Was", "Era", "Era")}</span>
                 {oldTotalPrice} USD
               </h3>
             )}
           </div>
         </div>
-        <button className="btn">Book Now</button>
+        <button className="btn">
+          {renderContent("Book Now", "Reserva ahora", "Reserve agora")}
+        </button>
       </form>
     </div>
   );

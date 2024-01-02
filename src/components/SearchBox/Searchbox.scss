@@ -119,6 +119,9 @@ $golos: main.$golos;
 }
 
 @media screen and (max-width: 1000px) {
+  .search-box {
+    transform: translate(-50%, -30%);
+  }
   .minimized {
     max-width: 750px;
   }

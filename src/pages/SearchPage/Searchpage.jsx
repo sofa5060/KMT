@@ -10,6 +10,7 @@ import Searchbox from "../../components/SearchBox/Searchbox";
 import { useParams } from "react-router-dom";
 import { SearchContext } from "../../context/SearchContextProvider";
 import { Collapse, useMediaQuery, CircularProgress } from "@mui/material";
+import { LanguageContext } from "../../context/LanguageContextProvider";
 
 export default function Searchpage({ setCurrPage, allTrips }) {
   const {
@@ -22,6 +23,7 @@ export default function Searchpage({ setCurrPage, allTrips }) {
     setIsWaitingForSearch,
     contextSearchTerm,
   } = useContext(SearchContext);
+  const { contextLanguage, renderContent } = useContext(LanguageContext);
   const { tripName } = useParams();
   let resultsPerPage = 3;
   const [page, setPage] = useState(1);
@@ -35,7 +37,6 @@ export default function Searchpage({ setCurrPage, allTrips }) {
       tripName !== undefined &&
       (isWaitingForSearch || (!isWaitingForSearch && contextSearchTerm === ""))
     ) {
-      console.log("Runned");
       searchForTrip(tripName, contextDate, contextGuests);
       setIsWaitingForSearch(false);
     }
@@ -61,24 +62,32 @@ export default function Searchpage({ setCurrPage, allTrips }) {
 
   useEffect(() => {
     if (sortBy === "A-Z") {
-      setTrips([...searchResults.sort((a, b) => a.title.localeCompare(b.title))]);
+      setTrips([
+        ...searchResults.sort((a, b) =>
+          a[contextLanguage].title.localeCompare(b[contextLanguage].title)
+        ),
+      ]);
     } else if (sortBy === "Z-A") {
-      setTrips([...searchResults.sort((a, b) => b.title.localeCompare(a.title))]);
+      setTrips([
+        ...searchResults.sort((a, b) =>
+          b[contextLanguage].title.localeCompare(a[contextLanguage].title)
+        ),
+      ]);
     } else if (sortBy === "Lowest Price") {
-      setTrips(
-        [...searchResults.sort((a, b) => {
-          let priceA = a.discountedPrice > 0 ? a.discountedPrice : a.price;
-          let priceB = b.discountedPrice > 0 ? b.discountedPrice : b.price;
+      setTrips([
+        ...searchResults.sort((a, b) => {
+          let priceA = a.price;
+          let priceB = b.price;
           return priceA - priceB;
-        })
+        }),
       ]);
     } else if (sortBy === "Highest Price") {
-      setTrips(
-        [...searchResults.sort((a, b) => {
+      setTrips([
+        ...searchResults.sort((a, b) => {
           let priceA = a.discountedPrice > 0 ? a.discountedPrice : a.price;
           let priceB = b.discountedPrice > 0 ? b.discountedPrice : b.price;
           return priceB - priceA;
-        })
+        }),
       ]);
     } else if (sortBy === "Top Destinations") {
       setTrips([...searchResults.sort((a, b) => b.sells - a.sells)]);
@@ -109,13 +118,14 @@ export default function Searchpage({ setCurrPage, allTrips }) {
           <div className="search-result-first-row">
             <div className="search-result-group">
               <h3>
-                Found: <span>{trips.length} Premium Tours</span>
+                {renderContent("Found: ", "Encontrados: ", "Encontrados: ")}
+                <span>{trips.length} Premium Tours</span>
               </h3>
               <button
                 className="btn"
                 onClick={() => setFiltersOpen(!filtersOpen)}
               >
-                Filters
+                {renderContent("Filters", "Filtros", "Filtros")}
               </button>
             </div>
             <Sortselect selectSort={selectSort} />
@@ -132,9 +142,19 @@ export default function Searchpage({ setCurrPage, allTrips }) {
           )}
           {trips.length === 0 && !isSearchResultsLoading && (
             <div className="center">
-              <h2>No results found</h2>
+              <h2>
+                {renderContent(
+                  "No results found",
+                  "No se encontraron resultados",
+                  "Nenhum resultado encontrado"
+                )}
+              </h2>
               <h3 style={{ textAlign: "center" }}>
-                Try searching for another trip or another date
+                {renderContent(
+                  "Try searching for another trip or another date",
+                  "Intenta buscar otro viaje o otra fecha",
+                  "Tente procurar outra viagem ou outra data"
+                )}
               </h3>
             </div>
           )}

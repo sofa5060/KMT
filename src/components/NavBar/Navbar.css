@@ -40,6 +40,12 @@
   padding: 0 50px;
   margin: 0 auto;
 }
+.navbar-background .navbar .logo {
+  width: 65px;
+}
+.navbar-background .navbar .logo img {
+  width: 100%;
+}
 .navbar-background .navbar .logo .show-sm {
   display: none;
 }
@@ -97,7 +103,7 @@
     padding: 0 35px;
   }
 }
-@media screen and (max-width: 650px) {
+@media screen and (max-width: 1000px) {
   .navbar-background .navbar {
     padding: 5px 50px;
   }

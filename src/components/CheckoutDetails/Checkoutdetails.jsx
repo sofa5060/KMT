@@ -4,12 +4,14 @@ import { MuiTelInput, matchIsValidTel } from "mui-tel-input";
 import "./Checkoutdetails.css";
 import Countryselect from "../CountrySelect/Countryselect";
 import { CheckoutContext } from "../../context/CheckoutContextProvider";
+import { LanguageContext } from "../../context/LanguageContextProvider";
 
 export default function Checkoutdetails({ guests, handleNext }) {
   const [guestsInfo, setGuestsInfo] = useState([]);
 
   const { contextGuestsInfo, setContextGuestsInfo } =
     useContext(CheckoutContext);
+  const { renderContent } = useContext(LanguageContext);
 
   const handleChange = (e, i, fieldName) => {
     setGuestsInfo((prev) => {
@@ -76,7 +78,7 @@ export default function Checkoutdetails({ guests, handleNext }) {
     <form className="checkout-details" onSubmit={handleSubmit}>
       {Array.from(Array(guests)).map((e, i) => (
         <div className="person-details" key={i}>
-          <h2>#{i + 1} Person Information</h2>
+          <h2>#{i + 1} {renderContent("Person Information", "Información de la persona", "Informações da pessoa")}</h2>
           <div className="row">
             <TextField
               value={
@@ -85,7 +87,11 @@ export default function Checkoutdetails({ guests, handleNext }) {
                   : ""
               }
               id="firstName"
-              label="First Name"
+              label={renderContent(
+                "First Name",
+                "Primer nombre",
+                "Primeiro nome"
+              )}
               variant="outlined"
               required
               onChange={(e) => handleChange(e, i, "firstName")}
@@ -99,7 +105,7 @@ export default function Checkoutdetails({ guests, handleNext }) {
                   : ""
               }
               id="lastName"
-              label="Last Name"
+              label={renderContent("Last Name", "Apellido", "Último nome")}
               variant="outlined"
               required
               onChange={(e) => handleChange(e, i, "lastName")}
@@ -112,7 +118,7 @@ export default function Checkoutdetails({ guests, handleNext }) {
               guestsInfo[i] && guestsInfo[i].email ? guestsInfo[i].email : ""
             }
             id="outlined-basic"
-            label="Email Address"
+            label={renderContent("Email Address", "Dirección de correo electrónico", "Endereço de e-mail")}
             variant="outlined"
             required
             type="email"
@@ -145,10 +151,12 @@ export default function Checkoutdetails({ guests, handleNext }) {
           <div className="row">
             <Countryselect
               setNationality={(e) => setNationality(e, i)}
-              inputNationality={guestsInfo[i] ? guestsInfo[i].nationality : null}
+              inputNationality={
+                guestsInfo[i] ? guestsInfo[i].nationality : null
+              }
             />
             <TextField
-              label="Age"
+              label={renderContent("Age", "Edad", "Idade")}
               type="number"
               value={guestsInfo[i] ? guestsInfo[i].age : ""}
               onChange={(e) => handleChange(e, i, "age")}
@@ -166,10 +174,15 @@ export default function Checkoutdetails({ guests, handleNext }) {
                   ? "Age must be greater than 16"
                   : ""
               }
+              onWheel={(e) => e.target.blur()}
             />
           </div>
           <TextField
-            label="Anything Special you would like us to consider (optional)"
+            label={renderContent(
+              "Anything Special you would like us to consider (optional)",
+              "¿Algo especial que te gustaría que consideráramos (opcional)?",
+              "Alguma coisa especial que gostaria que considerássemos (opcional)"
+            )}
             multiline
             fullWidth
             rows={3}
@@ -178,7 +191,9 @@ export default function Checkoutdetails({ guests, handleNext }) {
           />
         </div>
       ))}
-      <button className="btn">Next</button>
+      <button className="btn">
+        {renderContent("Next", "Siguiente", "Siguiente")}
+      </button>
     </form>
   );
 }

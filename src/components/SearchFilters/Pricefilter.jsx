@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
 import Collapse from "@mui/material/Collapse";
 import Slider from "@mui/material/Slider";
+import { LanguageContext } from "../../context/LanguageContextProvider";
 
 export default function Pricefilter({ priceRange, minPrice, maxPrice, setPriceRange }) {
   const [open, setOpen] = useState(true);
   const [range, setRange] = useState(priceRange);
+  const { renderContent } = useContext(LanguageContext);
 
   const handleChange = (event, newValue) => {
     setRange(newValue);
@@ -37,7 +39,7 @@ export default function Pricefilter({ priceRange, minPrice, maxPrice, setPriceRa
   return (
     <div className="filter">
       <div className="filter-header" onClick={() => setOpen(!open)}>
-        <h3>Price Range</h3>
+        <h3>{renderContent("Price Range", "Rango de precios", "Faixa de preço")}</h3>
         {open ? <ExpandLess /> : <ExpandMore />}
       </div>
       <div className="filter-body" style={{ marginTop: open && 20 }}>

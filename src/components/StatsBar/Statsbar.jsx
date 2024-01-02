@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "./Statsbar.css";
 import CountUp from "react-countup";
 import ScrollTrigger from "react-scroll-trigger";
+import { LanguageContext } from "../../context/LanguageContextProvider";
 
 export default function Statsbar() {
   const [isTravelersCountEnded, setTravelersCountEnded] = useState(false);
   const [isTripsCountEnded, setTripsCountEnded] = useState(false);
   const [counterStart, setCounterStart] = useState(false);
+  const { renderContent } = useContext(LanguageContext);
+
   return (
     <ScrollTrigger
       onEnter={() => setCounterStart(true)}
@@ -18,7 +21,13 @@ export default function Statsbar() {
     >
       <div className="stats-bar-background">
         <div className="stats-bar">
-          <h2>Join Our Thousands of Satisfied Travelers!</h2>
+          <h2>
+            {renderContent(
+              "Join Our Thousands of Satisfied Travelers!",
+              "¡Únete a nuestros miles de viajeros satisfechos!",
+              "Junte-se a nossos milhares de viajantes satisfeitos!"
+            )}
+          </h2>
           <div className="stats">
             <div className="stat">
               {counterStart && (
@@ -41,7 +50,7 @@ export default function Statsbar() {
                   )}
                 </h1>
               )}
-              <p>Total Travelers</p>
+              <p>{renderContent("Total Travelers", "Viajeros totales", "Total de viajantes")}</p>
             </div>
             <div className="stat">
               {counterStart && (
@@ -66,7 +75,7 @@ export default function Statsbar() {
                   )}
                 </h1>
               )}
-              <p>Total Trips</p>
+              <p>{renderContent("Total Trips", "Viajes totales", "Viagens totais")}</p>
             </div>
             <div className="stat">
               {counterStart && (
@@ -81,7 +90,7 @@ export default function Statsbar() {
                   /5
                 </h1>
               )}
-              <p>Travelers Satisfaction rate</p>
+              <p>{renderContent("Travelers Satisfaction rate", "Tasa de satisfacción de los viajeros", "Taxa de satisfação dos viajantes")}</p>
             </div>
           </div>
         </div>

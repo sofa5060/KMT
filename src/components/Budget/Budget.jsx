@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import "./Budget.css";
 import TextField from "@mui/material/TextField";
+import { LanguageContext } from "../../context/LanguageContextProvider";
 
 const currencies = [
   {
@@ -18,6 +19,7 @@ const currencies = [
 export default function Budget({ setOuterCurrency, setOuterBudget }) {
   const [currency, setCurrency] = useState("USD");
   const [budget, setBudget] = useState("");
+  const { renderContent } = useContext(LanguageContext);
 
   useEffect(() => {
     setOuterCurrency(currency);
@@ -34,8 +36,9 @@ export default function Budget({ setOuterCurrency, setOuterBudget }) {
         ))}
       </Select>
       <TextField
-        label="Budget Per Person"
+        label={renderContent("Budget Per Person", "Presupuesto por persona", "Orçamento por pessoa")}
         type="number"
+        onWheel={(e) => e.target.blur()}
         value={budget}
         onChange={(e) => setBudget(e.target.value)}
         error={(budget < 1 || isNaN(parseInt(budget))) && budget !== ""}

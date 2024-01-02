@@ -3,6 +3,7 @@ import dayjs from "dayjs";
 import axios from "axios";
 import { AlertContext } from "./AlertContextProvider";
 import AddOn from "../models/AddOn";
+import Prices from "../models/Prices";
 
 export const SearchContext = createContext();
 
@@ -20,6 +21,7 @@ const SearchContextProvider = (props) => {
   const [clearFilters, setClearFilters] = useState(false);
   const [contextMaxPrice, setMaxPrice] = useState(1000);
   const { showAlert } = useContext(AlertContext);
+  const [contextMaxPriceRange, setMaxPriceRange] = useState(1000);
 
   const searchForTrip = async (term, date, count) => {
     setSearchTerm(term);
@@ -32,7 +34,9 @@ const SearchContextProvider = (props) => {
     let res;
     try {
       res = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/api/trips/search?searchTerm=${term}&day=${dayjs(
+        `${
+          process.env.REACT_APP_BACKEND_URL
+        }/api/trips/search?searchTerm=${term}&day=${dayjs(
           date
         ).day()}&guests=${count}`
       );
@@ -49,23 +53,26 @@ const SearchContextProvider = (props) => {
     let localeMax = 0;
     let trips = res.data;
     trips = trips.map((trip) => {
-      if (trip.price * count > localeMax) localeMax = Math.ceil(trip.price * count);
+      let price = new Prices(trip.prices).getPrice(count);
+      if (price * count > localeMax) localeMax = Math.ceil(price * count);
       return {
         ...trip,
-        price: trip.price * count,
-      }
+        price: price * count,
+      };
     });
     setSearchResults(trips);
-    // setSearchResults(res.data);
     setIsSearchResultsLoading(false);
     setMaxPrice(localeMax);
+    setMaxPriceRange(localeMax);
   };
 
   useEffect(() => {
     const getCities = async () => {
       let res;
       try {
-        res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/cities`);
+        res = await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}/api/cities`
+        );
       } catch (err) {
         console.log(err);
         setCities([]);
@@ -84,6 +91,15 @@ const SearchContextProvider = (props) => {
     priceRange
   ) => {
     let filteredTrips = [...searchResults];
+
+    // clear trip price
+    filteredTrips = filteredTrips.map((trip) => {
+      return {
+        ...trip,
+        price: 0,
+      };
+    });
+
     if (destinations.length > 0) {
       filteredTrips = filteredTrips.filter((trip) => {
         for (let i = 0; i < destinations.length; i++) {
@@ -111,11 +127,16 @@ const SearchContextProvider = (props) => {
       });
     }
 
+    let localeMax = 0;
     if (accommodation !== 0) {
       filteredTrips = filteredTrips.filter((trip) => {
         for (let i = 0; i < trip.accommodations.length; i++) {
           if (trip.accommodations[i].name === accommodation) {
-            let acc = new AddOn(trip.accommodations[i].name, trip.accommodations[i].prices, false);
+            let acc = new AddOn(
+              trip.accommodations[i].name,
+              trip.accommodations[i].prices,
+              false
+            );
             trip.addedPrice = acc.getPrice(contextGuests);
             console.log(trip.addedPrice);
             return true;
@@ -123,22 +144,43 @@ const SearchContextProvider = (props) => {
         }
       });
 
-      let localeMax = 0;
       filteredTrips = filteredTrips.map((trip) => {
-        let newPrice = ((trip.price / contextGuests) + trip.addedPrice) * contextGuests;
+        let newPrice =
+          (new Prices(trip.prices).getPrice(contextGuests) + trip.addedPrice) *
+          contextGuests;
         if (newPrice > localeMax) localeMax = Math.ceil(newPrice);
 
         return {
           ...trip,
-          price: newPrice
-        }
+          price: newPrice,
+        };
       });
       setMaxPrice(localeMax);
     }
 
+    console.log(filteredTrips);
+
     filteredTrips = filteredTrips.filter((trip) => {
-      if (trip.price >= priceRange[0] && trip.price <= priceRange[1])
-        return true;
+      let price =
+        trip.price ||
+        new Prices(trip.prices).getPrice(contextGuests) * contextGuests;
+      let max;
+      if (priceRange[1] === contextMaxPrice && localeMax > 0) {
+        max = localeMax;
+        setMaxPriceRange(localeMax);
+      } else {
+        max = priceRange[1];
+        if (localeMax === 0) {
+          let localeMax = 0;
+          filteredTrips.map((trip) => {
+            let price = new Prices(trip.prices).getPrice(contextGuests);
+            if (price * contextGuests > localeMax)
+              localeMax = Math.ceil(price * contextGuests);
+          });
+          setMaxPrice(localeMax);
+        }
+      }
+      if (price >= priceRange[0] && price <= max) return true;
     });
 
     setFilteredTrips(filteredTrips);
@@ -164,7 +206,8 @@ const SearchContextProvider = (props) => {
         filterTrips,
         setClearFilters,
         clearFilters,
-        contextMaxPrice
+        contextMaxPrice,
+        contextMaxPriceRange,
       }}
     >
       {props.children}

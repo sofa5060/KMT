@@ -27,8 +27,12 @@ const Wrapper = ({
   contextDate,
   contextTripDuration,
   clearCheckoutContext,
+  englishAddOns,
+  englishTitle,
 }) => {
   const [{ isPending }] = usePayPalScriptReducer();
+
+  console.log(englishAddOns)
 
   if (isPending)
     return (
@@ -58,7 +62,7 @@ const Wrapper = ({
                     price: totalPrice,
                     orderDetails: {
                       tripPrice,
-                      contextAddOns,
+                      contextAddOns: englishAddOns,
                       contextGuests,
                       contextAccommodations,
                     },
@@ -82,10 +86,10 @@ const Wrapper = ({
                   {
                     tripID: tripId,
                     tripPrice,
-                    addOns: contextAddOns,
+                    addOns: englishAddOns,
                     guests: contextGuests,
                     accommodations: contextAccommodations,
-                    tripTitle: contextTripTitle,
+                    tripTitle: englishTitle,
                     guestsInfo: contextGuestsInfo,
                     reservationDate: contextDate,
                     tripDuration: contextTripDuration,
@@ -126,17 +130,11 @@ const Wrapper = ({
                   clearCheckoutContext();
                 }
               } catch (error) {
-                showAlert(
-                  "error",
-                  "Something went wrong. Please try again"
-                );
+                showAlert("error", "Something went wrong. Please try again");
               }
             }}
             onError={(err) => {
-              showAlert(
-                "error",
-                "Something went wrong. Please try again"
-              );
+              showAlert("error", "Something went wrong. Please try again");
             }}
           />
         );
@@ -159,13 +157,14 @@ function Paypal({ finishCheckout }) {
     contextDate,
     clearCheckoutContext,
     contextTripDuration,
+    englishAddOns,
+    englishTitle,
   } = useContext(CheckoutContext);
   const { showAlert } = useContext(AlertContext);
   const FUNDING_SOURCES = [FUNDING.PAYPAL, FUNDING.CARD];
 
   const initialOptions = {
-    "client-id":
-      `${process.env.REACT_APP_PAYPAL_CLIENT_ID}`,
+    "client-id": `${process.env.REACT_APP_PAYPAL_CLIENT_ID}`,
   };
 
   return (
@@ -187,6 +186,8 @@ function Paypal({ finishCheckout }) {
           contextDate={contextDate}
           contextTripDuration={contextTripDuration}
           clearCheckoutContext={clearCheckoutContext}
+          englishAddOns={englishAddOns}
+          englishTitle={englishTitle}
         />
       </PayPalScriptProvider>
     </div>

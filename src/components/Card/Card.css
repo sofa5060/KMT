@@ -23,6 +23,16 @@
 .card-outer .card .header-image {
   width: 100%;
   border-radius: 10px;
+  overflow: hidden;
+  height: 218px;
+  position: relative;
+}
+.card-outer .card .header-image img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  min-width: 100%;
 }
 .card-outer .card h4 {
   font-size: 18px;
