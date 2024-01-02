@@ -25,7 +25,9 @@ export default function Card({ data }) {
     <div className="card-outer">
       <div className="card">
         <div className="card-content">
-          <img src={data.overViewImage} alt="" className="header-image" />
+          <div className="header-image">
+            <img src={data.overViewImage} alt="" />
+          </div>
           <h4>{data[contextLanguage].title}</h4>
           <p>{data[contextLanguage].overView}</p>
         </div>

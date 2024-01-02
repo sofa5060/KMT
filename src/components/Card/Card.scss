@@ -30,6 +30,17 @@ $golos: main.$golos;
     .header-image{
       width: 100%;
       border-radius: 10px;
+      overflow: hidden;
+      height: 218px;
+      position: relative;
+
+      img{
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        min-width: 100%;
+      }
     }
   
     h4{
