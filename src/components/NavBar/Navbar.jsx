@@ -52,10 +52,23 @@ export default function Navbar({ currPage }) {
             </Link>
           </li>
           <li>
-            <Link to="/trips" className={currPage === "trips" ? "main" : ""}>
-              {renderContent("Trips", "Viajes", "Viagens")}
-            </Link>
-          </li>
+              <Link
+                to="/quote"
+                className={currPage === "quote" ? "main" : ""}
+                onClick={closeHandler}
+              >
+                {renderContent("Customize Your Trip", "Personaliza tu viaje", "Personalize sua viagem")}
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/trips"
+                className={currPage === "trips" ? "main" : ""}
+                onClick={closeHandler}
+              >
+                {renderContent("Our Trips", "Nuestros Viajes", "Nossas Viagens")}
+              </Link>
+            </li>
           <li>
             <Link to="/about" className={currPage === "about" ? "main" : ""}>
               {renderContent("About Us", "Sobre Nosotros", "Sobre Nós")}
@@ -107,11 +120,20 @@ export default function Navbar({ currPage }) {
             </li>
             <li>
               <Link
+                to="/quote"
+                className={currPage === "quote" ? "main" : ""}
+                onClick={closeHandler}
+              >
+                {renderContent("Customize Your Trip", "Personaliza tu viaje", "Personalize sua viagem")}
+              </Link>
+            </li>
+            <li>
+              <Link
                 to="/trips"
                 className={currPage === "trips" ? "main" : ""}
                 onClick={closeHandler}
               >
-                {renderContent("Trips", "Viajes", "Viagens")}
+                {renderContent("Our Trips", "Nuestros Viajes", "Nossas Viagens")}
               </Link>
             </li>
             <li>

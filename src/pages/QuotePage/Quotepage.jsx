@@ -5,7 +5,7 @@ import quote_background from "../../images/quote_background.png";
 
 export default function Quotepage({ setCurrPage }) {
   useEffect(() => {
-    setCurrPage("");
+    setCurrPage("quote");
   }, []);
 
   return (
