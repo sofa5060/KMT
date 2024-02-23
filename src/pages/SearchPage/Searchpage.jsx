@@ -25,7 +25,7 @@ export default function Searchpage({ setCurrPage, allTrips }) {
   } = useContext(SearchContext);
   const { contextLanguage, renderContent } = useContext(LanguageContext);
   const { tripName } = useParams();
-  let resultsPerPage = 3;
+  let resultsPerPage = 7;
   const [page, setPage] = useState(1);
   const [sortBy, setSortBy] = useState("A-Z");
   const [filtersOpen, setFiltersOpen] = useState(false);
