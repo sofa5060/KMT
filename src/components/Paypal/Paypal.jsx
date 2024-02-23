@@ -32,7 +32,7 @@ const Wrapper = ({
 }) => {
   const [{ isPending }] = usePayPalScriptReducer();
 
-  console.log(englishAddOns)
+  console.log(englishAddOns);
 
   if (isPending)
     return (
@@ -96,13 +96,6 @@ const Wrapper = ({
                   }
                 );
                 const details = await response.data;
-                // Three cases to handle:
-                //   (1) Recoverable INSTRUMENT_DECLINED -> call actions.restart()
-                //   (2) Other non-recoverable errors -> Show a failure message
-                //   (3) Successful transaction -> Show confirmation or thank you message
-
-                // This example reads a v2/checkout/orders capture response, propagated from the server
-                // You could use a different API or structure for your 'orderData'
                 const errorDetail =
                   Array.isArray(details.details) && details.details[0];
 
@@ -112,7 +105,6 @@ const Wrapper = ({
                 ) {
                   showAlert("error", "Something went wrong. Please try again.");
                   return actions.restart();
-                  // https://developer.paypal.com/docs/checkout/integration-features/funding-failure/
                 }
 
                 if (errorDetail) {

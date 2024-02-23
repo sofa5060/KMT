@@ -14,6 +14,7 @@ import { CircularProgress } from "@mui/material";
 import Messagepage from "../../components/MessagePage/Messagepage";
 import ReactMarkdown from "react-markdown";
 import { LanguageContext } from "../../context/LanguageContextProvider";
+import { getAnalytics, logEvent } from "firebase/analytics";
 
 export default function Trippage({ setCurrPage }) {
   const [trip, setTrip] = useState(null);
@@ -23,6 +24,8 @@ export default function Trippage({ setCurrPage }) {
   const [loaded, setLoaded] = useState(false);
   const { contextLanguage, renderContent } = useContext(LanguageContext);
 
+  const analytics = getAnalytics();
+
   const getTripByID = async (id) => {
     if (!id) return;
     try {
@@ -30,6 +33,7 @@ export default function Trippage({ setCurrPage }) {
         `${process.env.REACT_APP_BACKEND_URL}/api/trip/${id}`
       );
       let resTrip = res.data;
+      console.log(resTrip);
       resTrip.addOns = resTrip[contextLanguage].addOns.map(
         (addOn) => new AddOn(addOn.name, addOn.prices, addOn.checked)
       );
@@ -42,9 +46,22 @@ export default function Trippage({ setCurrPage }) {
           )
       );
       // English addOns
-      resTrip.englishAddOns = resTrip['EN'].addOns.map(
+      resTrip.englishAddOns = resTrip["EN"].addOns.map(
         (addOn) => new AddOn(addOn.name, addOn.prices, addOn.checked)
       );
+
+      const item = {
+        item_id: resTrip._id,
+        item_name: resTrip["EN"].title,
+      };
+
+      const viewItem = {
+        value: resTrip["EN"].title,
+        items: [item],
+      };
+
+      // Log event
+      logEvent(analytics, "view_trip", viewItem);
 
       setTrip(resTrip);
     } catch (e) {
@@ -145,7 +162,13 @@ export default function Trippage({ setCurrPage }) {
               <hr />
             </div>
             <div className="form">
-              <h3>{renderContent("Request Personalized Trip", "Solicitar viaje personalizado", "Solicitar viagem personalizada")}</h3>
+              <h3>
+                {renderContent(
+                  "Request Personalized Trip",
+                  "Solicitar viaje personalizado",
+                  "Solicitar viagem personalizada"
+                )}
+              </h3>
               <Quotepageform minimized />
             </div>
           </p>
