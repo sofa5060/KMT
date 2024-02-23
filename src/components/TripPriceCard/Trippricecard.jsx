@@ -12,6 +12,7 @@ import { CheckoutContext } from "../../context/CheckoutContextProvider";
 import { AlertContext } from "../../context/AlertContextProvider";
 import { LanguageContext } from "../../context/LanguageContextProvider";
 import Prices from "../../models/Prices";
+import { getAnalytics, logEvent } from "firebase/analytics";
 
 export default function Trippricecard({ tripDetails }) {
   const history = useHistory();
@@ -27,7 +28,9 @@ export default function Trippricecard({ tripDetails }) {
   const matches = useMediaQuery("(min-width:900px)");
   const [totalPrice, setTotalPrice] = useState(0);
   const [oldTotalPrice, setOldTotalPrice] = useState(0);
-  const [englishAddOns, setEnglishAddOns] = useState(tripDetails.englishAddOns || []);
+  const [englishAddOns, setEnglishAddOns] = useState(
+    tripDetails.englishAddOns || []
+  );
 
   const calcTotal = () => {
     let total = new Prices(trip.prices).getPrice(guests);
@@ -66,9 +69,13 @@ export default function Trippricecard({ tripDetails }) {
   const { showAlert } = useContext(AlertContext);
   const { contextLanguage, renderContent } = useContext(LanguageContext);
 
+  const analytics = getAnalytics();
+
   const handleChange = (event) => {
     let addOn = addOns.find((addOn) => addOn.name === event.target.ariaLabel);
-    let index = addOns.findIndex((addOn) => addOn.name === event.target.ariaLabel);
+    let index = addOns.findIndex(
+      (addOn) => addOn.name === event.target.ariaLabel
+    );
     addOn.checked = event.target.checked;
     englishAddOns[index].checked = event.target.checked;
     setAddOns([...addOns]);
@@ -117,6 +124,22 @@ export default function Trippricecard({ tripDetails }) {
       englishAddOns,
       trip["EN"].title
     );
+
+    const item = {
+      item_id: trip._id,
+      item_name: trip["EN"].title,
+    };
+
+    const viewItem = {
+      trip_title: trip["EN"].title,
+      value: totalPrice,
+      currency: "USD",
+      items: [item],
+    };
+
+    // Log event
+    logEvent(analytics, "begin_checkout", viewItem);
+
     history.push("/checkout");
   };
 

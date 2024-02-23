@@ -15,13 +15,14 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { CheckoutContext } from "../../context/CheckoutContextProvider";
 import Paypal from "../../components/Paypal/Paypal";
 import { LanguageContext } from "../../context/LanguageContextProvider";
+import { getAnalytics, logEvent } from "firebase/analytics";
 const { useHistory } = require("react-router-dom");
 
 const steps = {
   EN: ["Your Details", "Summary", "Payment", "Confirmation"],
   ES: ["Tus datos", "Resumen", "Pago", "Confirmación"],
   PT: ["Seus dados", "Resumo", "Pagamento", "Confirmação"],
-}
+};
 
 export default function Checkoutpage({ setCurrPage }) {
   const [activeStep, setActiveStep] = useState(0);
@@ -29,14 +30,32 @@ export default function Checkoutpage({ setCurrPage }) {
   const [isDisabled, setIsDisabled] = useState(false);
   const history = useHistory();
 
-  const { contextGuests, totalPrice, tripId, orderID } =
+  const analytics = getAnalytics();
+
+  const { contextGuests, totalPrice, tripId, orderID, englishTitle } =
     useContext(CheckoutContext);
-  const { renderContent,contextLanguage } = useContext(LanguageContext);
+  const { renderContent, contextLanguage } = useContext(LanguageContext);
 
   const matches = useMediaQuery("(min-width:1000px)");
   const matches2 = useMediaQuery("(max-width:600px)");
 
   const finishCheckout = () => {
+    const item = {
+      item_id: tripId,
+      item_name: englishTitle,
+    };
+
+    const orderItem = {
+      trip_title: englishTitle,
+      value: totalPrice,
+      currency: "USD",
+      transaction_id: orderID,
+      items: [item],
+    };
+
+    // Log event
+    logEvent(analytics, "purchase", orderItem);
+
     setActiveStep(3);
     setIsDisabled(true);
     window.scrollTo(0, 0);
@@ -129,10 +148,18 @@ export default function Checkoutpage({ setCurrPage }) {
                   {activeStep === 0 ? (
                     <React.Fragment>
                       <h3>{renderContent("Summary", "Resumen", "Resumo")}</h3>
-                      <Link to={`/trip/${tripId}`}>{renderContent("EDIT", "EDITAR", "EDITAR")}</Link>
+                      <Link to={`/trip/${tripId}`}>
+                        {renderContent("EDIT", "EDITAR", "EDITAR")}
+                      </Link>
                     </React.Fragment>
                   ) : (
-                    <h3>{renderContent("Total to pay", "Total a pagar", "Total a pagar")}</h3>
+                    <h3>
+                      {renderContent(
+                        "Total to pay",
+                        "Total a pagar",
+                        "Total a pagar"
+                      )}
+                    </h3>
                   )}
                 </div>
                 {activeStep === 0 && (

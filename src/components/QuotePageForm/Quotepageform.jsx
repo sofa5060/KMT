@@ -11,6 +11,7 @@ import Budget from "../Budget/Budget";
 import { QuoteContext } from "../../context/QuoteContextProvider";
 import { AlertContext } from "../../context/AlertContextProvider";
 import { LanguageContext } from "../../context/LanguageContextProvider";
+import { getAnalytics, logEvent } from "firebase/analytics";
 
 export default function Quotepageform({ minimized }) {
   const history = useHistory();
@@ -31,6 +32,8 @@ export default function Quotepageform({ minimized }) {
   const [healthConditions, setHealthConditions] = useState("");
   const [msg, setMsg] = useState("");
   const { renderContent } = useContext(LanguageContext);
+
+  const analytics = getAnalytics();
 
   const { showAlert } = useContext(AlertContext);
 
@@ -71,7 +74,6 @@ export default function Quotepageform({ minimized }) {
 
     // In Home Page or in Trip Page
     if (minimized) {
-      // TODO add data to context
       updateData(fullName, email, msg);
       history.push("/quote");
       return;
@@ -98,6 +100,15 @@ export default function Quotepageform({ minimized }) {
       healthConditions,
       msg
     );
+
+    const item = {
+      value: budget,
+      email: email,
+      guests: guests,
+    };
+
+    // Log event
+    logEvent(analytics, "custom_trip_submit", item);
 
     if (success) {
       setFullName("");
@@ -136,7 +147,11 @@ export default function Quotepageform({ minimized }) {
         fullWidth
       />
       <TextField
-        label={renderContent("Email Address", "Dirección de correo electrónico", "Endereço de e-mail")}
+        label={renderContent(
+          "Email Address",
+          "Dirección de correo electrónico",
+          "Endereço de e-mail"
+        )}
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         type="email"
@@ -175,7 +190,13 @@ export default function Quotepageform({ minimized }) {
             />
           </div>
           <div className="input-field">
-            <h4>{renderContent("How many are you?", "¿Cuántos son?", "Quantos são vocês?")}</h4>
+            <h4>
+              {renderContent(
+                "How many are you?",
+                "¿Cuántos son?",
+                "Quantos são vocês?"
+              )}
+            </h4>
             <Guestspicker setGuestsCount={setGuests} />
           </div>
           <div className="row">
@@ -194,7 +215,11 @@ export default function Quotepageform({ minimized }) {
             />
           </div>
           <TextField
-            label={renderContent("Places you want to visit", "Lugares que quieres visitar", "Lugares que você quer visitar")}
+            label={renderContent(
+              "Places you want to visit",
+              "Lugares que quieres visitar",
+              "Lugares que você quer visitar"
+            )}
             required
             fullWidth
             value={places}
@@ -202,7 +227,11 @@ export default function Quotepageform({ minimized }) {
           />
           <Budget setOuterBudget={setBudget} setOuterCurrency={setCurrency} />
           <TextField
-            label={renderContent("Any Health Condition?", "Algún problema de salud?", "Alguma condição de saúde?")}
+            label={renderContent(
+              "Any Health Condition?",
+              "Algún problema de salud?",
+              "Alguma condição de saúde?"
+            )}
             fullWidth
             value={healthConditions}
             onChange={(e) => setHealthConditions(e.target.value)}
@@ -210,7 +239,11 @@ export default function Quotepageform({ minimized }) {
         </div>
       )}
       <TextField
-        label={renderContent("Trip Plan & Additional Requests", "Plan de viaje y solicitudes adicionales", "Plano de viagem e solicitações adicionais")}
+        label={renderContent(
+          "Trip Plan & Additional Requests",
+          "Plan de viaje y solicitudes adicionales",
+          "Plano de viagem e solicitações adicionais"
+        )}
         multiline
         required
         fullWidth
@@ -218,7 +251,9 @@ export default function Quotepageform({ minimized }) {
         value={msg}
         onChange={(e) => setMsg(e.target.value)}
       />
-      <button className="btn">{renderContent("Request", "Solicitud", "Solicitação")}</button>
+      <button className="btn">
+        {renderContent("Request", "Solicitud", "Solicitação")}
+      </button>
     </form>
   );
 }
