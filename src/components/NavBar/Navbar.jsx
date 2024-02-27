@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../images/logo.svg";
+import logoEllipse from "../../images/logo.png";
 import logo2 from "../../images/logo2.svg";
 import "./Navbar.css";
 import Select from "@mui/material/Select";
@@ -41,10 +42,11 @@ export default function Navbar({ currPage }) {
       <div className="navbar">
         <div className="logo">
           <Link to="/">
-            <img src={logo} alt="logo" className="hide-sm"/>
+            <img src={logoEllipse} alt="logo" className="hide-sm"/>
             <img src={logo2} alt="logo" className="show-sm"/>
           </Link>
         </div>
+        <div className="w-[110px]"></div>
         <ul className="navbar-list">
           <li>
             <Link to="/" className={currPage === "home" ? "main" : ""}>

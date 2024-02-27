@@ -37,11 +37,15 @@
   justify-content: space-between;
   align-items: center;
   max-width: 1300px;
-  padding: 0 50px;
+  padding: 20px 50px;
   margin: 0 auto;
+  position: relative;
 }
 .navbar-background .navbar .logo {
-  width: 65px;
+  width: 120px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-20%);
 }
 .navbar-background .navbar .logo img {
   width: 100%;
@@ -106,6 +110,10 @@
 @media screen and (max-width: 1000px) {
   .navbar-background .navbar {
     padding: 5px 50px;
+  }
+  .navbar-background .navbar .logo {
+    position: static;
+    transform: translateY(0);
   }
   .navbar-background .navbar .logo .show-sm {
     display: block;

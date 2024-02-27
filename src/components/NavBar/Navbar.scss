@@ -47,11 +47,15 @@ $golos: main.$golos;
     justify-content: space-between;
     align-items: center;
     max-width: 1300px;
-    padding: 0 50px;
+    padding: 20px 50px;
     margin: 0 auto;
+    position: relative;
 
     .logo {
-      width: 65px;
+      width: 120px;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-20%);
 
       img {
         width: 100%;
@@ -132,6 +136,9 @@ $golos: main.$golos;
       padding: 5px 50px;
 
       .logo {
+        position: static;
+        transform: translateY(0);
+        
         .show-sm {
           display: block;
         }
