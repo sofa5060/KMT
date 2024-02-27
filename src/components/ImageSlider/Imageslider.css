@@ -1,6 +1,6 @@
 .arrow {
   position: absolute;
-  top: 250px;
+  top: 270px;
 }
 
 .left-arrow {
@@ -89,7 +89,7 @@
 }
 @media screen and (max-width: 1000px) {
   .arrow {
-    top: 200px;
+    top: 220px;
   }
   .image-slider .each-slide .slider-content {
     padding: 0 20px;
@@ -103,11 +103,11 @@
 }
 @media screen and (max-width: 518px) {
   .arrow {
-    top: 220px;
+    top: 240px;
   }
 }
 @media screen and (max-width: 360px) {
   .arrow {
-    top: 240px;
+    top: 260px;
   }
 }/*# sourceMappingURL=Imageslider.css.map */
