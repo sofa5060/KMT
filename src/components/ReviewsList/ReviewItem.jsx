@@ -18,7 +18,7 @@ const ReviewItem = ({ review }) => {
   }
 
   return (
-    <div className="shadow-md py-8 px-12">
+    <div className="shadow-md py-8 px-12 w-full">
       <div className="flex items-center justify-between">
         <div className="flex flex-col">
           <h4 className="font-semibold opacity-70">{review.name}</h4>
@@ -30,14 +30,14 @@ const ReviewItem = ({ review }) => {
           )}
         </div>
         <div className="flex gap-1 items-center">
-          {Array.from({ length: review.rating }).map((_, index) => (
+          {Array.from({ length: review.rate }).map((_, index) => (
             <Star key={index} className="w-6 fill-[#F1BE00] text-[#F1BE00]" />
           ))}
-          {Array.from({ length: 5 - review.rating }).map((_, index) => (
+          {Array.from({ length: 5 - review.rate }).map((_, index) => (
             <Star key={index} className="w-6 text-[#F1BE00]" />
           ))}
           <span className="text-[#A9E094] font-semibold text-sm ml-2">
-            {review.rating} / 5
+            {review.rate} / 5
           </span>
         </div>
       </div>

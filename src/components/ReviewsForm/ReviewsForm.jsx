@@ -4,10 +4,12 @@ import TextField from "@mui/material/TextField";
 import { useDropzone } from "react-dropzone";
 import uploadIcon from "../../images/upload.png";
 import { X } from "lucide-react";
+import { AlertContext } from "../../context/AlertContextProvider";
+import axios from "axios";
 
 const ReviewsForm = () => {
   const { renderContent } = useContext(LanguageContext);
-
+  const { showAlert } = useContext(AlertContext);
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [title, setTitle] = useState("");
@@ -36,8 +38,60 @@ const ReviewsForm = () => {
   useEffect(() => {
     console.log(media);
   }, [media]);
-  const handleSubmit = (e) => {
+
+  const validate = () => {
+    let isValid = true;
+    if (
+      fullName === "" ||
+      email === "" ||
+      title === "" ||
+      rate === "" ||
+      details === ""
+    ) {
+      isValid = false;
+    }
+
+    if (rate === "" || rate < 1 || rate > 5) {
+      isValid = false;
+    }
+
+    return isValid;
+  };
+
+  const addReview = useCallback(
+    async (name, email, title, details, rate) => {
+      try {
+        await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/review`, {
+          name,
+          email,
+          title,
+          details,
+          rate,
+        });
+      } catch (e) {
+        return showAlert("error", "Something went wrong, please try again later");
+      }
+
+      showAlert("success", "Your review has been submitted successfully");
+      setFullName("");
+      setEmail("");
+      setTitle("");
+      setDetails("");
+      setRate("");
+    },
+    [showAlert]
+  );
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!validate()) {
+      // If not valid return
+      showAlert("error", "Please fill all required fields correctly");
+      return;
+    }
+
+    await addReview(fullName, email, title, details, rate);
   };
 
   return (
