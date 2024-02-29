@@ -21,6 +21,38 @@ const ReviewsForm = () => {
     setMedia((prev) => prev.filter((_, i) => i !== index));
   };
 
+  const uploadImage = useCallback((img) => {
+    let body = new FormData();
+    body.set("key", `${process.env.REACT_APP_IMGBB_API_KEY}`);
+    body.append("image", img);
+
+    return axios({
+      method: "post",
+      url: "https://api.imgbb.com/1/upload",
+      data: body,
+    });
+  }, []);
+
+  const uploadImages = useCallback(async () => {
+    let urls = [];
+    for (let i = 0; i < media.length; i++) {
+      let res;
+      try {
+        res = await uploadImage(media[i].file);
+      } catch (error) {
+        console.log(error);
+        showAlert("error", "Something went wrong while uploading the images");
+      }
+      console.log(res.data);
+      urls.push({
+        type: media[i].type,
+        url: res.data.data.url,
+      });
+    }
+
+    return urls;
+  }, [uploadImage, media, showAlert]);
+
   const onDrop = useCallback((acceptedFiles) => {
     console.log(acceptedFiles);
     acceptedFiles.forEach((file) => {
@@ -34,10 +66,6 @@ const ReviewsForm = () => {
   }, []);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
-
-  useEffect(() => {
-    console.log(media);
-  }, [media]);
 
   const validate = () => {
     let isValid = true;
@@ -61,25 +89,38 @@ const ReviewsForm = () => {
   const addReview = useCallback(
     async (name, email, title, details, rate) => {
       try {
+        showAlert("info", "Submitting Your Reviews...");
+
+        let uploadedMedia = [];
+        if (media.length > 0) {
+          uploadedMedia = await uploadImages();
+        }
+        console.log(uploadedMedia);
+
         await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/review`, {
           name,
           email,
           title,
           details,
+          media: uploadedMedia,
           rate,
         });
-      } catch (e) {
-        return showAlert("error", "Something went wrong, please try again later");
-      }
 
-      showAlert("success", "Your review has been submitted successfully");
-      setFullName("");
-      setEmail("");
-      setTitle("");
-      setDetails("");
-      setRate("");
+        showAlert("success", "Your review has been submitted successfully");
+        setFullName("");
+        setEmail("");
+        setTitle("");
+        setDetails("");
+        setRate("");
+        setMedia([]);
+      } catch (e) {
+        return showAlert(
+          "error",
+          "Something went wrong, please try again later"
+        );
+      }
     },
-    [showAlert]
+    [showAlert, uploadImages, media]
   );
 
   const handleSubmit = async (e) => {
