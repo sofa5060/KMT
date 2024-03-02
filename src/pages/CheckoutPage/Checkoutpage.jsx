@@ -138,13 +138,13 @@ export default function Checkoutpage({ setCurrPage }) {
       {(activeStep === 0 || activeStep === 1) && (
         <div className="right">
           <div className="container-padding">
-            <div className="container">
+            <div className="container-custom">
               <div className="expand" onClick={() => setOpen(!open)}>
                 <h3>The Pyramids of Giza & Sphinx </h3>
                 {open ? <ExpandLess /> : <ExpandMore />}
               </div>
-              <Collapse in={open} timeout="auto" className="collapse">
-                <div className="container-header">
+              <Collapse in={open} timeout="auto" className="collapse-custom">
+                <div className="container-header !text-black">
                   {activeStep === 0 ? (
                     <React.Fragment>
                       <h3>{renderContent("Summary", "Resumen", "Resumo")}</h3>

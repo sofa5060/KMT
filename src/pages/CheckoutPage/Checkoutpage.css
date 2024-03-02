@@ -4,7 +4,7 @@
   justify-content: space-between;
   max-width: 1300px;
   padding: 50px;
-  margin: 0 auto;
+  margin: 40px auto 0 auto;
 }
 .checkout-page .left {
   width: 100%;
@@ -27,38 +27,38 @@
   position: sticky;
   top: 130px;
 }
-.checkout-page .right .container {
+.checkout-page .right .container-custom {
   padding: 20px;
   background: #fff;
   border-radius: 5px;
   box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.1607843137);
 }
-.checkout-page .right .container .expand {
+.checkout-page .right .container-custom .expand {
   gap: 10px;
   align-items: center;
   margin: 0 0 20px 0;
   justify-content: space-between;
   display: none;
 }
-.checkout-page .right .container .expand svg {
+.checkout-page .right .container-custom .expand svg {
   cursor: pointer;
   width: 32px;
   height: 32px;
 }
-.checkout-page .right .container .container-header {
+.checkout-page .right .container-custom .container-header {
   display: flex;
   justify-content: space-between;
   text-align: left;
   margin: 0 0 25px 0;
   align-items: center;
 }
-.checkout-page .right .container .container-header h3 {
+.checkout-page .right .container-custom .container-header h3 {
   font-family: "Golos Text", sans-serif;
   font-size: 18px;
   font-weight: 600;
   line-height: 22px;
 }
-.checkout-page .right .container .container-header a {
+.checkout-page .right .container-custom .container-header a {
   font-family: "Golos Text", sans-serif;
   font-size: 14px;
   font-weight: 600;
@@ -66,12 +66,12 @@
   color: #ca9841;
   text-decoration: underline;
 }
-.checkout-page .right .container .price-section {
+.checkout-page .right .container-custom .price-section {
   display: flex;
   justify-content: space-between;
   margin: 15px 0 0 0;
 }
-.checkout-page .right .container .price-section h2 {
+.checkout-page .right .container-custom .price-section h2 {
   margin: 0;
   color: #ca9841;
   font-size: 24px;
@@ -80,11 +80,11 @@
   display: flex;
   align-items: self-start;
 }
-.checkout-page .right .container .price-section h2 span {
+.checkout-page .right .container-custom .price-section h2 span {
   margin: 0 4px;
   font-size: 14px;
 }
-.checkout-page .right .container .btn {
+.checkout-page .right .container-custom .btn {
   width: 100%;
   margin: 15px 0 0 0;
 }
@@ -109,11 +109,11 @@
   .checkout-page .right .container-padding {
     padding: 10px;
   }
-  .checkout-page .right .container-padding .container .collapse {
+  .checkout-page .right .container-padding .container-custom .collapse-custom {
     max-height: 400px;
     overflow-y: scroll;
   }
-  .checkout-page .right .container-padding .container .expand {
+  .checkout-page .right .container-padding .container-custom .expand {
     display: flex;
   }
 }

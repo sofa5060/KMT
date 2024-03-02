@@ -17,7 +17,7 @@ const ReviewsPage = ({ setCurrPage }) => {
         "Viajeros totales",
         "Viajantes totais"
       ),
-      className: "top-20 left-[15%]",
+      className: "top-24 left-[15%]",
     },
     {
       number: "4.9/5",
@@ -26,7 +26,7 @@ const ReviewsPage = ({ setCurrPage }) => {
         "Satisfacción de los viajeros",
         "Satisfação dos viajantes"
       ),
-      className: "top-20 right-[10%] max-xl:right-[5%]",
+      className: "top-24 right-[10%] max-xl:right-[5%]",
     },
     {
       number: "1.1k",
@@ -75,9 +75,12 @@ const ReviewsPage = ({ setCurrPage }) => {
         {STATS.map((stat, index) => (
           <div
             key={index}
-            className={cn("text-start absolute max-md:hidden", stat.className)}
+            className={cn(
+              "text-start absolute max-md:hidden flex flex-col gap-4",
+              stat.className
+            )}
           >
-            <h3 className="text-[#72451B] font-bold font-golos text-[54px]">
+            <h3 className="text-[#72451B] font-bold font-golos text-5xl">
               {stat.number}
             </h3>
             <h4>{stat.text}</h4>

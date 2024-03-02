@@ -11,7 +11,7 @@ $golos: main.$golos;
   justify-content: space-between;
   max-width: 1300px;
   padding: 50px;
-  margin: 0 auto;
+  margin: 40px auto 0 auto;
 
   .left {
     width: 100%;
@@ -31,14 +31,14 @@ $golos: main.$golos;
     max-width: 360px;
     width: 100%;
     z-index: 1000;
-    
+
     .container-padding {
       position: -webkit-sticky;
       position: sticky;
       top: 130px;
     }
 
-    .container {
+    .container-custom {
       padding: 20px;
       background: #fff;
       border-radius: 5px;
@@ -133,8 +133,8 @@ $golos: main.$golos;
 
       .container-padding {
         padding: 10px;
-        .container {
-          .collapse {
+        .container-custom {
+          .collapse-custom {
             max-height: 400px;
             overflow-y: scroll;
           }
