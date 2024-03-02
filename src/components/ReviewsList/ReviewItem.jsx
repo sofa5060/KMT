@@ -18,8 +18,8 @@ const ReviewItem = ({ review }) => {
   }
 
   return (
-    <div className="shadow-md py-8 px-12 w-full">
-      <div className="flex items-center justify-between">
+    <div className="shadow-md py-8 px-12 w-full max-sm:py-4 max-sm:px-8">
+      <div className="flex items-center justify-between max-sm:flex-col max-sm:items-start max-sm:gap-4">
         <div className="flex flex-col">
           <h4 className="font-semibold opacity-70">{review.name}</h4>
           {review.verified && (
@@ -29,7 +29,7 @@ const ReviewItem = ({ review }) => {
             </div>
           )}
         </div>
-        <div className="flex gap-1 items-center">
+        <div className="flex gap-1 items-center max-sm:self-end">
           {Array.from({ length: review.rate }).map((_, index) => (
             <Star key={index} className="w-6 fill-[#F1BE00] text-[#F1BE00]" />
           ))}
@@ -45,7 +45,7 @@ const ReviewItem = ({ review }) => {
       <p className="mt-2">{review.details}</p>
       {review.media.length > 0 && (
         <div className="flex flex-wrap gap-4 mt-4">
-          {review.media.map((file, index) => (
+          {review.media.slice(0, 4).map((file, index) => (
             <div
               key={index}
               className="relative min-w-72 cursor-pointer w-full flex-1"
@@ -72,7 +72,22 @@ const ReviewItem = ({ review }) => {
       )}
       <FsLightbox
         toggler={lightboxController.toggler}
-        sources={[...review.media.map((file) => file.url)]}
+        sources={[
+          ...review.media.map((file) => {
+            if (file.type === "image") {
+              return file.url;
+            }
+            return (
+              <div className="w-[1200px] h-[600px]">
+                <video
+                  controls
+                  src={file.url}
+                  className="w-full h-full"
+                ></video>
+              </div>
+            );
+          }),
+        ]}
         slide={lightboxController.slide}
         showThumbsOnMount={true}
       />

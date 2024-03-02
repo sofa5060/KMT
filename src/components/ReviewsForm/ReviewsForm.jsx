@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useState } from "react";
 import { LanguageContext } from "../../context/LanguageContextProvider";
 import TextField from "@mui/material/TextField";
 import { useDropzone } from "react-dropzone";
@@ -6,6 +6,8 @@ import uploadIcon from "../../images/upload.png";
 import { X } from "lucide-react";
 import { AlertContext } from "../../context/AlertContextProvider";
 import axios from "axios";
+import { getStorage, ref, uploadBytesResumable } from "firebase/storage";
+import { v4 as uuidv4 } from "uuid";
 
 const ReviewsForm = () => {
   const { renderContent } = useContext(LanguageContext);
@@ -16,6 +18,8 @@ const ReviewsForm = () => {
   const [rate, setRate] = useState("");
   const [details, setDetails] = useState("");
   const [media, setMedia] = useState([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const storage = getStorage();
 
   const removeMedia = (index) => {
     setMedia((prev) => prev.filter((_, i) => i !== index));
@@ -33,33 +37,59 @@ const ReviewsForm = () => {
     });
   }, []);
 
-  const uploadImages = useCallback(async () => {
+  const uploadVideo = useCallback(async (video) => {
+    const storageRef = ref(storage, uuidv4() + ".mp4");
+
+    // 'file' comes from the Blob or File API
+    const uploadTask = await uploadBytesResumable(storageRef, video);
+    let url = `https://firebasestorage.googleapis.com/v0/b/${uploadTask.metadata.bucket}/o/${uploadTask.metadata.fullPath}?alt=media&token=${uploadTask.metadata.name}`;
+    return url;
+  }, []);
+
+  const uploadMedia = useCallback(async () => {
     let urls = [];
     for (let i = 0; i < media.length; i++) {
       let res;
       try {
-        res = await uploadImage(media[i].file);
+        if (media[i].type === "image") {
+          res = await uploadImage(media[i].file);
+          urls.push({
+            type: media[i].type,
+            url: res.data.data.url,
+          });
+        } else {
+          res = await uploadVideo(media[i].file);
+          console.log(res);
+          urls.push({
+            type: media[i].type,
+            url: res,
+          });
+        }
       } catch (error) {
         console.log(error);
-        showAlert("error", "Something went wrong while uploading the images");
+        showAlert("error", "Something went wrong while uploading the media");
       }
       console.log(res.data);
-      urls.push({
-        type: media[i].type,
-        url: res.data.data.url,
-      });
     }
 
     return urls;
-  }, [uploadImage, media, showAlert]);
+  }, [uploadImage, media, showAlert, uploadVideo]);
 
   const onDrop = useCallback((acceptedFiles) => {
     console.log(acceptedFiles);
     acceptedFiles.forEach((file) => {
       // check if the file is an image or a video
       if (file.type.startsWith("image")) {
+        // max file size is 5MB
+        if (file.size > 5 * 1024 * 1024) {
+          return showAlert("error", "Image size must be less than 5MB");
+        }
         setMedia((prev) => [...prev, { type: "image", file }]);
       } else if (file.type.startsWith("video")) {
+        // max file size is 20MB
+        if (file.size > 20 * 1024 * 1024) {
+          return showAlert("error", "Video size must be less than 20MB");
+        }
         setMedia((prev) => [...prev, { type: "video", file }]);
       }
     });
@@ -89,11 +119,12 @@ const ReviewsForm = () => {
   const addReview = useCallback(
     async (name, email, title, details, rate) => {
       try {
-        showAlert("info", "Submitting Your Reviews...");
+        showAlert("info", "Submitting Your Review...");
+        setIsSubmitting(true);
 
         let uploadedMedia = [];
         if (media.length > 0) {
-          uploadedMedia = await uploadImages();
+          uploadedMedia = await uploadMedia();
         }
         console.log(uploadedMedia);
 
@@ -113,14 +144,16 @@ const ReviewsForm = () => {
         setDetails("");
         setRate("");
         setMedia([]);
+        setIsSubmitting(false);
       } catch (e) {
+        setIsSubmitting(false);
         return showAlert(
           "error",
           "Something went wrong, please try again later"
         );
       }
     },
-    [showAlert, uploadImages, media]
+    [showAlert, uploadMedia, media]
   );
 
   const handleSubmit = async (e) => {
@@ -137,15 +170,22 @@ const ReviewsForm = () => {
 
   return (
     <div className="max-w-screen-lg px-10 mx-auto pt-32" id="form">
-      <h3 className="font-bold text-4xl">Write A Review ★</h3>
+      <h3 className="font-bold text-4xl">
+        {renderContent(
+          "Write A Review ★",
+          "Escribe una reseña ★",
+          "Escreva uma avaliação ★"
+        )}
+      </h3>
       <p className="mt-5 mb-12">
-        We sincerely thank you for sharing your detailed and heartfelt review of
-        your Egypt journey with KMT Tours. Your thoughtful words about our
-        meticulous planning, knowledgeable guides, and exclusive experiences
-        bring immense joy to our team.
+        {renderContent(
+          "We sincerely thank you for sharing your detailed and heartfelt review of your Egypt journey with KMT Tours. Your thoughtful words about our meticulous planning, knowledgeable guides, and exclusive experiences bring immense joy to our team.",
+          "Le agradecemos sinceramente por compartir su reseña detallada y sincera de su viaje a Egipto con KMT Tours. Sus palabras reflexivas sobre nuestra planificación meticulosa, guías expertos y experiencias exclusivas traen una inmensa alegría a nuestro equipo.",
+          "Agradecemos sinceramente por compartilhar sua avaliação detalhada e sincera de sua viagem ao Egito com a KMT Tours. Suas palavras reflexivas sobre nosso planejamento meticuloso, guias experientes e experiências exclusivas trazem imensa alegria à nossa equipe."
+        )}
       </p>
-      <form onSubmit={handleSubmit} className="space-y-8">
-        <div className="flex gap-8 items-center">
+      <form onSubmit={handleSubmit} className="space-y-8 max-sm:space-y-4">
+        <div className="flex gap-8 items-center max-sm:flex-col max-sm:gap-4">
           <TextField
             label={renderContent(
               "Full Name",
@@ -170,7 +210,7 @@ const ReviewsForm = () => {
             fullWidth
           />
         </div>
-        <div className="flex gap-8 items-center">
+        <div className="flex gap-8 items-center max-sm:flex-col max-sm:gap-4">
           <TextField
             label={renderContent(
               "Title of Your Review",
@@ -239,15 +279,24 @@ const ReviewsForm = () => {
           </div>
         )}
         <div
-          className="border-dashed border-2 border-primary grid place-items-center max-w-max py-16 px-40 cursor-pointer"
+          className="border-dashed border-2 border-primary grid place-items-center max-w-max py-16 px-40 cursor-pointer max-sm:px-0 max-sm:max-w-full max-sm:py-8"
           {...getRootProps()}
         >
           {/* accept only images and videos */}
           <input {...getInputProps()} accept="image/*" />
-          <img src={uploadIcon} alt="" className="w-full" />
+          <img src={uploadIcon} alt="" className="w-full max-w-max" />
         </div>
-        <button type="submit" className="bg-primary text-white py-4 px-8">
-          Submit Your Review
+        <div></div>
+        <button
+          type="submit"
+          className="bg-primary text-white py-4 px-8 disabled:bg-gray-300 disabled:cursor-not-allowed disabled:hover:bg-gray-300 disabled:text-gray-600 transition-all ease-in-out"
+          disabled={isSubmitting}
+        >
+          {renderContent(
+            "Submit Your Review",
+            "Enviar tu reseña",
+            "Enviar avaliação"
+          )}
         </button>
       </form>
     </div>

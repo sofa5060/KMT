@@ -33,7 +33,7 @@ const ReviewsList = () => {
 
   return (
     <div className="flex flex-col gap-8 items-center">
-      <div className="max-w-screen-md px-10 flex flex-col gap-10 mx-auto w-full">
+      <div className="max-w-screen-md px-10 flex flex-col gap-10 mx-auto w-full max-sm:px-4">
         {reviews
           .slice((page - 1) * resultsPerPage, page * resultsPerPage)
           .map((review, index) => (
