@@ -8,6 +8,8 @@ import Benefits from "../../components/Benefits/Benefits";
 import Newsletter from "../../components/Newsletter/Newsletter";
 import Personalized from "../../components/Personalized/Personalized";
 import { SearchContext } from "../../context/SearchContextProvider";
+import { HowItWorks } from "../../components/HowItWorks/HowItWorks";
+import { HeroSection } from "../../components/HeroSection/HeroSection";
 
 export default function Homepage({ setCurrPage }) {
   const { setIsSearched } = useContext(SearchContext);
@@ -18,9 +20,11 @@ export default function Homepage({ setCurrPage }) {
 
   return (
     <div className="homepage">
-      <Imageslider />
-      <Statsbar />
-      <Topdestination />
+      {/* <Imageslider /> */}
+      {/* <Statsbar />
+      <Topdestination /> */}
+      <HeroSection />
+      <HowItWorks />
       <Benefits />
       <Personalized />
       <Newsletter />
