@@ -28,7 +28,7 @@ $golos: main.$golos;
 
     .left {
       .main-image {
-        width: 500px;
+        max-width: 550px;
       }
     }
 
@@ -46,12 +46,13 @@ $golos: main.$golos;
         justify-content: space-between;
 
         .benefit {
-          width: 100%;
           text-align: center;
           background: #fff;
-          padding: 15px 65px;
+          padding: 15px 0px;
           border-radius: 20px;
           min-width: 300px;
+          max-width: 330px;
+          width: 100%;
 
           img {
             margin: 0 0 10px 0;
@@ -68,6 +69,7 @@ $golos: main.$golos;
           font-size: 14px;
           font-weight: 400;
           font-family: $ibm;
+          max-width: 60%;
         }
       }
     }
@@ -124,7 +126,7 @@ $golos: main.$golos;
       line-height: 29px;
     }
 
-    section{
+    section {
       padding: 20px;
     }
   }
