@@ -10,6 +10,7 @@ import Personalized from "../../components/Personalized/Personalized";
 import { SearchContext } from "../../context/SearchContextProvider";
 import { HowItWorks } from "../../components/HowItWorks/HowItWorks";
 import { HeroSection } from "../../components/HeroSection/HeroSection";
+import PopularPlaces from "../../components/PopularPlaces/PopularPlaces";
 
 export default function Homepage({ setCurrPage }) {
   const { setIsSearched } = useContext(SearchContext);
@@ -24,6 +25,7 @@ export default function Homepage({ setCurrPage }) {
       {/* <Statsbar />
       <Topdestination /> */}
       <HeroSection />
+      <PopularPlaces />
       <HowItWorks />
       <Benefits />
       <Personalized />
