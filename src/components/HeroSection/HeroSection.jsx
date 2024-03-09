@@ -5,9 +5,9 @@ import { Link } from "react-router-dom";
 
 export const HeroSection = () => {
   return (
-    <div className="w-full relative py-20">
+    <div className="w-full relative">
       <img src={background} alt="" className="w-full h-full absolute" />
-      <div className="flex max-w-[1300px] px-12 items-center mx-auto gap-20">
+      <div className="flex max-w-[1300px] px-12 items-center mx-auto gap-20 py-20">
         <div className="flex-1 space-y-5">
           <div className="bg-[#BF904921] bg-opacity-15 flex items-center gap-3 px-6 py-3 rounded-full max-w-max">
             <img src={tailor} alt="" className="w-4 h-4" />
