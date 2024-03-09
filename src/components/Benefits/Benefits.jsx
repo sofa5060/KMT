@@ -31,7 +31,7 @@ export default function Benefits() {
               duration={0.7}
               animateOnce
             >
-              <div className="benefit">
+              <div className="benefit grid place-items-center">
                 <img src={experts} alt="" />
                 <h4>
                   {renderContent(
@@ -56,7 +56,7 @@ export default function Benefits() {
               duration={0.7}
               animateOnce
             >
-              <div className="benefit">
+              <div className="benefit grid place-items-center">
                 <img src={guide} alt="" />
                 <h4>
                   {renderContent(
@@ -81,7 +81,7 @@ export default function Benefits() {
               duration={0.7}
               animateOnce
             >
-              <div className="benefit">
+              <div className="benefit grid place-items-center">
                 <img src={convenient} alt="" />
                 <h4>
                   {renderContent(
