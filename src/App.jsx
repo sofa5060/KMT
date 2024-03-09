@@ -12,6 +12,8 @@ import AlertContextProvider from "./context/AlertContextProvider";
 import Alertbar from "./components/Alert/Alertbar";
 import LanguageContextProvider from "./context/LanguageContextProvider";
 import ReviewsPage from "./pages/ReviewsPage/ReviewsPage";
+import PrivacyPolicy from "./pages/PrivacyPolicyPage/PrivacyPolicy";
+import TermsAndConditions from "./pages/TermsAndConditions/TermsAndConditions";
 
 const Homepage = React.lazy(() => import("./pages/HomePage/Homepage"));
 const Trippage = React.lazy(() => import("./pages/TripPage/Trippage"));
@@ -67,6 +69,12 @@ const App = () => {
                       </Route>
                       <Route path="/reviews">
                         <ReviewsPage setCurrPage={setCurrPage} />
+                      </Route>
+                      <Route path="/privacy">
+                        <PrivacyPolicy setCurrPage={setCurrPage} />
+                      </Route>
+                      <Route path="/terms">
+                        <TermsAndConditions setCurrPage={setCurrPage} />
                       </Route>
                       <Route path="*">
                         <Messagepage type="page404" />
