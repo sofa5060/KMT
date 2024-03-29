@@ -13,9 +13,11 @@ import { AlertContext } from "../../context/AlertContextProvider";
 import { LanguageContext } from "../../context/LanguageContextProvider";
 import Prices from "../../models/Prices";
 import { getAnalytics, logEvent } from "firebase/analytics";
+import { CookiesBannerContext } from "../../context/CookiesBannerContextProvider";
 
 export default function Trippricecard({ tripDetails }) {
   const history = useHistory();
+  const {accepted} = useContext(CookiesBannerContext);
   const [addOns, setAddOns] = useState(tripDetails.addOns || []);
   const [accommodations, setAccommodations] = useState(
     tripDetails.accommodations || []
@@ -137,8 +139,10 @@ export default function Trippricecard({ tripDetails }) {
       items: [item],
     };
 
-    // Log event
-    logEvent(analytics, "begin_checkout", viewItem);
+    if(accepted){
+      // Log event
+      logEvent(analytics, "begin_checkout", viewItem);
+    }
 
     history.push("/checkout");
   };

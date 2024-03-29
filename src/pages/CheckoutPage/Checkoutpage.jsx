@@ -16,6 +16,7 @@ import { CheckoutContext } from "../../context/CheckoutContextProvider";
 import Paypal from "../../components/Paypal/Paypal";
 import { LanguageContext } from "../../context/LanguageContextProvider";
 import { getAnalytics, logEvent } from "firebase/analytics";
+import { CookiesBannerContext } from "../../context/CookiesBannerContextProvider";
 const { useHistory } = require("react-router-dom");
 
 const steps = {
@@ -26,6 +27,7 @@ const steps = {
 
 export default function Checkoutpage({ setCurrPage }) {
   const [activeStep, setActiveStep] = useState(0);
+  const {accepted} = useContext(CookiesBannerContext);
   const [open, setOpen] = useState(true);
   const [isDisabled, setIsDisabled] = useState(false);
   const history = useHistory();
@@ -53,8 +55,10 @@ export default function Checkoutpage({ setCurrPage }) {
       items: [item],
     };
 
-    // Log event
-    logEvent(analytics, "purchase", orderItem);
+    if(accepted){
+      // Log event
+      logEvent(analytics, "purchase", orderItem);
+    }
 
     setActiveStep(3);
     setIsDisabled(true);
