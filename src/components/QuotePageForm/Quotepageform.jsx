@@ -12,9 +12,11 @@ import { QuoteContext } from "../../context/QuoteContextProvider";
 import { AlertContext } from "../../context/AlertContextProvider";
 import { LanguageContext } from "../../context/LanguageContextProvider";
 import { getAnalytics, logEvent } from "firebase/analytics";
+import { CookiesBannerContext } from "../../context/CookiesBannerContextProvider";
 
 export default function Quotepageform({ minimized }) {
   const history = useHistory();
+  const {accepted} = useContext(CookiesBannerContext);
   const { contextFullName, contextEmail, contextMsg, updateData, submitQuote } =
     useContext(QuoteContext);
   const [fullName, setFullName] = useState("");
@@ -107,8 +109,11 @@ export default function Quotepageform({ minimized }) {
       guests: guests,
     };
 
-    // Log event
-    logEvent(analytics, "custom_trip_submit", item);
+
+    if(accepted){
+      // Log event
+      logEvent(analytics, "custom_trip_submit", item);
+    }
 
     if (success) {
       setFullName("");

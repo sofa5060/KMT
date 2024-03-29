@@ -15,8 +15,10 @@ import Messagepage from "../../components/MessagePage/Messagepage";
 import ReactMarkdown from "react-markdown";
 import { LanguageContext } from "../../context/LanguageContextProvider";
 import { getAnalytics, logEvent } from "firebase/analytics";
+import { CookiesBannerContext } from "../../context/CookiesBannerContextProvider";
 
 export default function Trippage({ setCurrPage }) {
+  const { accepted } = useContext(CookiesBannerContext);
   const [trip, setTrip] = useState(null);
   const [tripNotFound, setNotFound] = useState(false);
   const { tripID } = useParams();
@@ -60,8 +62,10 @@ export default function Trippage({ setCurrPage }) {
         items: [item],
       };
 
-      // Log event
-      logEvent(analytics, "view_trip", viewItem);
+      if (accepted) {
+        // Log event
+        logEvent(analytics, "view_trip", viewItem);
+      }
 
       setTrip(resTrip);
     } catch (e) {

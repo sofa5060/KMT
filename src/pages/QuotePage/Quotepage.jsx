@@ -4,9 +4,12 @@ import "./Quotepage.css";
 import quote_background from "../../images/quote_background.png";
 import { LanguageContext } from "../../context/LanguageContextProvider";
 import { getAnalytics, logEvent } from "firebase/analytics";
+import { CookiesBannerContext } from "../../context/CookiesBannerContextProvider";
 
 export default function Quotepage({ setCurrPage }) {
   const { renderContent } = useContext(LanguageContext);
+  const {accepted} = useContext(CookiesBannerContext);
+
   const analytics = getAnalytics();
 
   useEffect(() => {
@@ -16,8 +19,10 @@ export default function Quotepage({ setCurrPage }) {
       value: 1,
     };
 
-    // Log event
-    logEvent(analytics, "custom_trip_start", item);
+    if(accepted){
+      // Log event
+      logEvent(analytics, "custom_trip_start", item);
+    }
   }, []);
 
   return (
