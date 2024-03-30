@@ -160,6 +160,15 @@ export default function Navbar({ currPage }) {
             </li>
             <li>
               <Link
+                to="/reviews"
+                className={currPage === "reviews" ? "main" : ""}
+                onClick={closeHandler}
+              >
+                {renderContent("Reviews", "Reseñas", "Avaliações")}
+              </Link>
+            </li>
+            <li>
+              <Link
                 to="/about"
                 className={currPage === "about" ? "main" : ""}
                 onClick={closeHandler}
