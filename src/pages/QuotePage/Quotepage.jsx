@@ -5,10 +5,12 @@ import quote_background from "../../images/quote_background.png";
 import { LanguageContext } from "../../context/LanguageContextProvider";
 import { getAnalytics, logEvent } from "firebase/analytics";
 import { CookiesBannerContext } from "../../context/CookiesBannerContextProvider";
+import { useFeatureFlagEnabled } from "posthog-js/react";
 
 export default function Quotepage({ setCurrPage }) {
+  const flagEnabled = useFeatureFlagEnabled("custom-trips");
   const { renderContent } = useContext(LanguageContext);
-  const {accepted} = useContext(CookiesBannerContext);
+  const { accepted } = useContext(CookiesBannerContext);
 
   const analytics = getAnalytics();
 
@@ -19,9 +21,13 @@ export default function Quotepage({ setCurrPage }) {
       value: 1,
     };
 
-    if(accepted){
+    if (accepted) {
       // Log event
-      logEvent(analytics, "custom_trip_start", item);
+      if (flagEnabled) {
+        logEvent(analytics, "custom_trip_start_v2", item);
+      } else {
+        logEvent(analytics, "custom_trip_start_v1", item);
+      }
     }
   }, []);
 

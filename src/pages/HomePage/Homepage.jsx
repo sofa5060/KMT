@@ -11,6 +11,7 @@ import { SearchContext } from "../../context/SearchContextProvider";
 import { HowItWorks } from "../../components/HowItWorks/HowItWorks";
 import { HeroSection } from "../../components/HeroSection/HeroSection";
 import PopularPlaces from "../../components/PopularPlaces/PopularPlaces";
+import { useFeatureFlagEnabled } from "posthog-js/react";
 
 export default function Homepage({ setCurrPage }) {
   const { setIsSearched } = useContext(SearchContext);
@@ -19,14 +20,25 @@ export default function Homepage({ setCurrPage }) {
     setIsSearched(false);
   }, []);
 
+  const flagEnabled = useFeatureFlagEnabled("custom-trips");
+
+  console.log(flagEnabled);
+
   return (
     <div className="homepage">
-      {/* <Imageslider /> */}
-      {/* <Statsbar />
-      <Topdestination /> */}
-      <HeroSection />
-      <PopularPlaces />
-      <HowItWorks />
+      {flagEnabled ? (
+        <>
+          <HeroSection />
+          <PopularPlaces />
+          <HowItWorks />
+        </>
+      ) : (
+        <>
+          <Imageslider />
+          <Statsbar />
+          <Topdestination />
+        </>
+      )}
       <Benefits />
       <Personalized />
       <Newsletter />

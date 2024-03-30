@@ -17,6 +17,7 @@ import Paypal from "../../components/Paypal/Paypal";
 import { LanguageContext } from "../../context/LanguageContextProvider";
 import { getAnalytics, logEvent } from "firebase/analytics";
 import { CookiesBannerContext } from "../../context/CookiesBannerContextProvider";
+import { useFeatureFlagEnabled } from "posthog-js/react";
 const { useHistory } = require("react-router-dom");
 
 const steps = {
@@ -26,6 +27,7 @@ const steps = {
 };
 
 export default function Checkoutpage({ setCurrPage }) {
+  const flagEnabled = useFeatureFlagEnabled("custom-trips");
   const [activeStep, setActiveStep] = useState(0);
   const {accepted} = useContext(CookiesBannerContext);
   const [open, setOpen] = useState(true);
@@ -57,6 +59,11 @@ export default function Checkoutpage({ setCurrPage }) {
 
     if(accepted){
       // Log event
+      if(flagEnabled){
+        logEvent(analytics, "purchase_v2", orderItem);
+      }else{
+        logEvent(analytics, "purchase_v1", orderItem);
+      }
       logEvent(analytics, "purchase", orderItem);
     }
 

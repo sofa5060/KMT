@@ -14,18 +14,24 @@ import icon1 from "../../images/pyramids1.png";
 import icon2 from "../../images/luxor1.png";
 import icon3 from "../../images/boat1.png";
 import icon4 from "../../images/museum1.png";
-import { Link } from "react-router-dom/cjs/react-router-dom";
+import { useHistory } from "react-router-dom/cjs/react-router-dom";
 import { useContext } from "react";
 import { LanguageContext } from "../../context/LanguageContextProvider";
+import { SearchContext } from "../../context/SearchContextProvider";
+import dayjs from "dayjs";
 
 const PopularPlaces = () => {
   const { renderContent } = useContext(LanguageContext);
+  const { setContextDate, setContextGuests, setIsWaitingForSearch } =
+    useContext(SearchContext);
+  const history = useHistory();
+
   const ITEMS = [
     {
       image: image1,
       icon: icon1,
       title: renderContent("Pyramids", "Pirámides", "Pirâmides"),
-      searchTerm: "pyramids",
+      searchTerm: "Pyramids",
     },
     {
       image: image2,
@@ -50,6 +56,13 @@ const PopularPlaces = () => {
       searchTerm: "Museum",
     },
   ];
+
+  const handleClick = (searchTerm) => {
+    setContextDate(dayjs());
+    setContextGuests(1);
+    setIsWaitingForSearch(true);
+    history.push(`/search/${searchTerm}`);
+  };
 
   return (
     <div className="w-full relative">
@@ -89,9 +102,9 @@ const PopularPlaces = () => {
                 className="md:basis-1/2 lg:basis-1/4 pl-6"
               >
                 <div className="grid place-items-center">
-                  <Link
-                    to={`/search/${item.searchTerm}`}
-                    className="max-w-max grid place-items-center"
+                  <div
+                    onClick={() => handleClick(item.searchTerm)}
+                    className="max-w-max grid place-items-center cursor-pointer"
                   >
                     <div className="z-0 relative max-w-72">
                       <img
@@ -108,7 +121,7 @@ const PopularPlaces = () => {
                         {item.title}
                       </p>
                     </div>
-                  </Link>
+                  </div>
                 </div>
               </CarouselItem>
             ))}

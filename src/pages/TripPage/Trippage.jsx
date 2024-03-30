@@ -16,8 +16,10 @@ import ReactMarkdown from "react-markdown";
 import { LanguageContext } from "../../context/LanguageContextProvider";
 import { getAnalytics, logEvent } from "firebase/analytics";
 import { CookiesBannerContext } from "../../context/CookiesBannerContextProvider";
+import { useFeatureFlagEnabled } from "posthog-js/react";
 
 export default function Trippage({ setCurrPage }) {
+  const flagEnabled = useFeatureFlagEnabled("custom-trips");
   const { accepted } = useContext(CookiesBannerContext);
   const [trip, setTrip] = useState(null);
   const [tripNotFound, setNotFound] = useState(false);
@@ -64,7 +66,11 @@ export default function Trippage({ setCurrPage }) {
 
       if (accepted) {
         // Log event
-        logEvent(analytics, "view_trip", viewItem);
+        if (flagEnabled) {
+          logEvent(analytics, "view_trip_v2", viewItem);
+        } else {
+          logEvent(analytics, "view_trip_v1", viewItem);
+        }
       }
 
       setTrip(resTrip);

@@ -14,8 +14,10 @@ import { LanguageContext } from "../../context/LanguageContextProvider";
 import Prices from "../../models/Prices";
 import { getAnalytics, logEvent } from "firebase/analytics";
 import { CookiesBannerContext } from "../../context/CookiesBannerContextProvider";
+import { useFeatureFlagEnabled } from "posthog-js/react";
 
 export default function Trippricecard({ tripDetails }) {
+  const flagEnabled = useFeatureFlagEnabled("custom-trips");
   const history = useHistory();
   const {accepted} = useContext(CookiesBannerContext);
   const [addOns, setAddOns] = useState(tripDetails.addOns || []);
@@ -141,7 +143,11 @@ export default function Trippricecard({ tripDetails }) {
 
     if(accepted){
       // Log event
-      logEvent(analytics, "begin_checkout", viewItem);
+      if(flagEnabled){
+        logEvent(analytics, "begin_checkout_v2", viewItem);
+      }else{
+        logEvent(analytics, "begin_checkout_v1", viewItem);
+      }
     }
 
     history.push("/checkout");

@@ -13,10 +13,12 @@ import { AlertContext } from "../../context/AlertContextProvider";
 import { LanguageContext } from "../../context/LanguageContextProvider";
 import { getAnalytics, logEvent } from "firebase/analytics";
 import { CookiesBannerContext } from "../../context/CookiesBannerContextProvider";
+import { useFeatureFlagEnabled } from "posthog-js/react";
 
 export default function Quotepageform({ minimized }) {
+  const flagEnabled = useFeatureFlagEnabled("custom-trips");
   const history = useHistory();
-  const {accepted} = useContext(CookiesBannerContext);
+  const { accepted } = useContext(CookiesBannerContext);
   const { contextFullName, contextEmail, contextMsg, updateData, submitQuote } =
     useContext(QuoteContext);
   const [fullName, setFullName] = useState("");
@@ -109,10 +111,13 @@ export default function Quotepageform({ minimized }) {
       guests: guests,
     };
 
-
-    if(accepted){
+    if (accepted) {
       // Log event
-      logEvent(analytics, "custom_trip_submit", item);
+      if (flagEnabled) {
+        logEvent(analytics, "custom_trip_submit_v2", item);
+      } else {
+        logEvent(analytics, "custom_trip_submit_v1", item);
+      }
     }
 
     if (success) {

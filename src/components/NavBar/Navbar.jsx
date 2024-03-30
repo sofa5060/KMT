@@ -11,11 +11,11 @@ import Drawer from "@mui/material/Drawer";
 import MenuIcon from "@mui/icons-material/Menu";
 import { LanguageContext } from "../../context/LanguageContextProvider";
 
-
 export default function Navbar({ currPage }) {
   const [language, setLanguage] = useState("EN");
   const [open, setOpen] = useState(false);
-  const { changeLanguage, contextLanguage, renderContent } = useContext(LanguageContext);
+  const { changeLanguage, contextLanguage, renderContent } =
+    useContext(LanguageContext);
 
   const closeHandler = (event) => {
     if (
@@ -42,8 +42,8 @@ export default function Navbar({ currPage }) {
       <div className="navbar">
         <div className="logo">
           <Link to="/">
-            <img src={logoEllipse} alt="logo" className="hide-sm"/>
-            <img src={logo2} alt="logo" className="show-sm"/>
+            <img src={logoEllipse} alt="logo" className="hide-sm" />
+            <img src={logo2} alt="logo" className="show-sm" />
           </Link>
         </div>
         <div className="w-[110px]"></div>
@@ -54,28 +54,40 @@ export default function Navbar({ currPage }) {
             </Link>
           </li>
           <li>
-              <Link
-                to="/quote"
-                className={currPage === "quote" ? "main" : ""}
-                onClick={closeHandler}
-              >
-                {renderContent("Customize Your Trip", "Personaliza tu viaje", "Personalize sua viagem")}
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/trips"
-                className={currPage === "trips" ? "main" : ""}
-                onClick={closeHandler}
-              >
-                {renderContent("Our Trips", "Nuestros Viajes", "Nossas Viagens")}
-              </Link>
-            </li>
+            <Link
+              to="/quote"
+              className={currPage === "quote" ? "main" : ""}
+              onClick={closeHandler}
+            >
+              {renderContent(
+                "Customize Your Trip",
+                "Personaliza tu viaje",
+                "Personalize sua viagem"
+              )}
+            </Link>
+          </li>
           <li>
+            <Link
+              to="/trips"
+              className={currPage === "trips" ? "main" : ""}
+              onClick={closeHandler}
+            >
+              {renderContent("Our Trips", "Nuestros Viajes", "Nossas Viagens")}
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/reviews"
+              className={currPage === "reviews" ? "main" : ""}
+            >
+              {renderContent("Reviews", "Reseñas", "Avaliações")}
+            </Link>
+          </li>
+          {/* <li>
             <Link to="/about" className={currPage === "about" ? "main" : ""}>
               {renderContent("About Us", "Sobre Nosotros", "Sobre Nós")}
             </Link>
-          </li>
+          </li> */}
           <li>
             <Link
               to="/contact"
@@ -126,7 +138,11 @@ export default function Navbar({ currPage }) {
                 className={currPage === "quote" ? "main" : ""}
                 onClick={closeHandler}
               >
-                {renderContent("Customize Your Trip", "Personaliza tu viaje", "Personalize sua viagem")}
+                {renderContent(
+                  "Customize Your Trip",
+                  "Personaliza tu viaje",
+                  "Personalize sua viagem"
+                )}
               </Link>
             </li>
             <li>
@@ -135,7 +151,11 @@ export default function Navbar({ currPage }) {
                 className={currPage === "trips" ? "main" : ""}
                 onClick={closeHandler}
               >
-                {renderContent("Our Trips", "Nuestros Viajes", "Nossas Viagens")}
+                {renderContent(
+                  "Our Trips",
+                  "Nuestros Viajes",
+                  "Nossas Viagens"
+                )}
               </Link>
             </li>
             <li>
