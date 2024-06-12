@@ -140,9 +140,9 @@ export default function Checkoutpage({ setCurrPage }) {
                 </div>
               </React.Fragment>
             )}
-            {activeStep === 3 && (
+            {/* {activeStep === 3 && (
               <Messagepage type="paymentSuccess" orderID={orderID} />
-            )}
+            )} */}
           </div>
         </div>
       </div>

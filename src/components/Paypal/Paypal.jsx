@@ -10,6 +10,7 @@ import "./Paypal.css";
 import { CheckoutContext } from "../../context/CheckoutContextProvider";
 import { AlertContext } from "../../context/AlertContextProvider";
 import { CircularProgress } from "@mui/material";
+import { useHistory } from "react-router-dom";
 
 const Wrapper = ({
   FUNDING_SOURCES,
@@ -31,6 +32,7 @@ const Wrapper = ({
   englishTitle,
 }) => {
   const [{ isPending }] = usePayPalScriptReducer();
+  const history = useHistory();
 
   console.log(englishAddOns);
 
@@ -120,6 +122,7 @@ const Wrapper = ({
                   finishCheckout();
                   showAlert("success", "Payment Successful");
                   clearCheckoutContext();
+                  history.replace(`/thankyou/${data.orderID}`);
                 }
               } catch (error) {
                 showAlert("error", "Something went wrong. Please try again");

@@ -29,6 +29,7 @@ const Aboutpage = React.lazy(() => import("./pages/AboutPage/Aboutpage"));
 const Messagepage = React.lazy(() =>
   import("./components/MessagePage/Messagepage")
 );
+const BookedPage = React.lazy(() => import("./pages/BookedPage/BookedPage"));
 
 const App = () => {
   const [currPage, setCurrPage] = useState("home");
@@ -78,6 +79,9 @@ const App = () => {
                         </Route>
                         <Route path="/terms">
                           <TermsAndConditions setCurrPage={setCurrPage} />
+                        </Route>
+                        <Route path="/thankyou/:orderID">
+                          <BookedPage />
                         </Route>
                         <Route path="*">
                           <Messagepage type="page404" />
