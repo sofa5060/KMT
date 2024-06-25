@@ -67,7 +67,7 @@ export default function Checkoutpage({ setCurrPage }) {
       logEvent(analytics, "purchase", orderItem);
     }
 
-    setActiveStep(3);
+    // setActiveStep(3);
     setIsDisabled(true);
     window.scrollTo(0, 0);
   };
